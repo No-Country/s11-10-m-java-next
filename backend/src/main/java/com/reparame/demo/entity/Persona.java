@@ -30,7 +30,7 @@ public class Persona {
     private Long id;
     private String nombreCompleto;
     private String apellidoCompleto;
-    private String ussername;
+    private String username;
     private String password;
     private String DNI;
     private String direccion;
@@ -38,6 +38,7 @@ public class Persona {
     private String provincia;
     private String localidad;
     private LocalDate fechaNacimiento;
+    private boolean alta;
     
     @Enumerated(EnumType.STRING)
     private Roles rol;
