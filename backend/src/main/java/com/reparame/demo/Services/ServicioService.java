@@ -27,8 +27,8 @@ public class ServicioService {
         nuevoServicio.setDescripcion(servicio.getDescripcion());
         nuevoServicio.setAñosSector(servicio.getAñosSector());
         nuevoServicio.setPrecio(servicio.getPrecio());
+        nuevoServicio.setRubro(servicio.getRubro());
         nuevoServicio.setAlta(true);
-        nuevoServicio.setFinalizado(false);
         
         return servicioRep.save(nuevoServicio);
     }
@@ -57,14 +57,11 @@ public class ServicioService {
         servicioModificado.setDescripcion(servicio.getDescripcion());
         servicioModificado.setAñosSector(servicio.getAñosSector());
         servicioModificado.setPrecio(servicio.getPrecio());
+        servicioModificado.setRubro(servicio.getRubro());
         
         return servicioRep.save(servicioModificado);
     }
     
-    public Servicio finalizarServicio(Long id){
-        Servicio servicioFinalizado = servicioRep.findById(id).get();
-        servicioFinalizado.setFinalizado(true);
-        return servicioRep.save(servicioFinalizado);
-    }
+    
     
 }

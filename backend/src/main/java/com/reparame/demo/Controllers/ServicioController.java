@@ -64,19 +64,18 @@ public class ServicioController {
         } 
     }
     
-    @PutMapping("/finalizado/{id}")
-    public ResponseEntity<Servicio> finalizado(@PathVariable("id") Long id){
-        try {
-            Servicio servicio = servicioServ.finalizarServicio(id);
-            return new ResponseEntity<>(servicio, HttpStatus.OK);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-    
     @DeleteMapping("/eliminar/{id}")
     public void eliminarPrestador(@PathVariable("id") Long id){
     	servicioServ.eliminarServicio(id);
     } 
 
+    @PutMapping("/modificar/{id}")
+    public ResponseEntity<Servicio> modificar(@PathVariable("id") Long id, @RequestBody Servicio servicio){
+        try {
+            Servicio servicioModificado = servicioServ.modificarServicio(id, servicio);
+            return new ResponseEntity<>(servicioModificado, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        } 
+    }
 }

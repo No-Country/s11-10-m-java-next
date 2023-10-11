@@ -36,7 +36,6 @@ public class Servicio {
     private String descripcion;
     private Integer añosSector;
     private Integer precio;
-    private Boolean finalizado;
     private Boolean alta;
     
     @Enumerated(EnumType.STRING)

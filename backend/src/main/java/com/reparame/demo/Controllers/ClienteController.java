@@ -68,4 +68,14 @@ public class ClienteController {
     public void eliminarCliente(@PathVariable("id") Long id){
     	clienteServ.eliminarCliente(id);
     } 
+    
+    @PutMapping("/modificar/{id}")
+    public ResponseEntity<Cliente> modificar(@PathVariable("id") Long id, @RequestBody Cliente cliente){
+        try {
+            Cliente clienteModificado = clienteServ.modificarCliente(id, cliente);
+            return new ResponseEntity<>(clienteModificado, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
