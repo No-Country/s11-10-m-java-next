@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reparame.demo.Services.PrestadorService;
@@ -19,19 +20,29 @@ import com.reparame.demo.entity.Prestador;
 
 
 @RestController
+@RequestMapping("/prestador")
 public class PrestadorController {
 	
     @Autowired
     private PrestadorService prestadorService;
 	
+    @PostMapping("/crear")
+    public ResponseEntity<Prestador> nuevoPrestador(@RequestBody Prestador prestador){
+    	try {
+        	Prestador nuevoPrestador = prestadorService.nuevoPrestador(prestador);    	
+        	return new ResponseEntity<>(nuevoPrestador, HttpStatus.OK);
+    	} catch (Exception e) {
+    		return ResponseEntity.notFound().build();
+    	}
+    }
 	
-    @GetMapping("/prestadores")
+    @GetMapping("/listar")
     public List<Prestador> listarPrestadores(){
         return prestadorService.listarPrestadores();
     }
     
     
-    @GetMapping("/prestadores/{id}")
+    @GetMapping("/buscarPorID/{id}")
     public ResponseEntity<Prestador> verPrestador(@PathVariable("id") Long id){
         try {
         	Prestador prestador = prestadorService.verPrestador(id);      	
@@ -41,15 +52,7 @@ public class PrestadorController {
         }
     }
     
-    
-    
-    
-    @DeleteMapping("/prestadores/{id}")
-    public void eliminarPrestador(@PathVariable("id") Long id){
-    	prestadorService.eliminarPrestador(id);
-    }    
-    
-    @GetMapping("/baja-prestador/{id}")
+    @PutMapping("/darBaja/{id}")
     public ResponseEntity<Prestador> bajaPrestador(@PathVariable("id") Long id){
         try {
         	Prestador prestador = prestadorService.bajaPrestador(id);      	
@@ -57,20 +60,15 @@ public class PrestadorController {
         } catch (Exception e) {
         	return ResponseEntity.notFound().build();
         }
-    } 
-  
-    @PostMapping("/prestadores")
-    public ResponseEntity<Prestador> nuevoPrestador(@RequestBody Prestador prestador){
-    	try {
-        	Prestador nuevoPrestador = prestadorService.nuevoPrestador(prestador);    	
-        	return new ResponseEntity<>(nuevoPrestador, HttpStatus.OK);
-    	} catch (Exception e) {
-    		return ResponseEntity.notFound().build();
-    	}
-    }
-
+    }    
     
-    @PutMapping("/prestadores/{id}")
+    @DeleteMapping("/eliminar/{id}")
+    public void eliminarPrestador(@PathVariable("id") Long id){
+    	prestadorService.eliminarPrestador(id);
+    }       
+    
+    
+    @PutMapping("/modificar/{id}")
     public ResponseEntity<Prestador> modificarPrestador(@PathVariable("id") Long id, 
     		@RequestBody Prestador prestador){
     	try {
@@ -80,6 +78,16 @@ public class PrestadorController {
     		return ResponseEntity.notFound().build();
     	}
     	
-    }
+    }    
+    
+    
+
+    
+
+  
+
+
+    
+
 
 }
