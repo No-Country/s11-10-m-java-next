@@ -46,10 +46,6 @@ public class Servicio {
     private List<Tiket> tikets;
     
     @ManyToOne
-    @JoinColumn(name="id_cliente")
-    private Cliente cliente;
-    
-    @ManyToOne
     @JoinColumn(name="id_prestador")
     private Prestador prestador;
     

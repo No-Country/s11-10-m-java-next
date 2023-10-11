@@ -25,9 +25,6 @@ public class Cliente extends Persona {
     private String zona;
     
     @OneToMany(mappedBy = "cliente")
-    private List<Servicio> servicios;
-    
-    @OneToMany(mappedBy = "cliente")
     private List<Tiket> tikets;
     
     @OneToMany(mappedBy = "cliente")
