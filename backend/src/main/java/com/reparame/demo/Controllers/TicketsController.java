@@ -1,7 +1,11 @@
 package com.reparame.demo.Controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.reparame.demo.Repositories.TicketsRepository;
 import com.reparame.demo.Services.TicketsService;
 import com.reparame.demo.dtos.DatosActualizarTicket;
 import com.reparame.demo.dtos.DatosRegistroTicket;
 import com.reparame.demo.dtos.DatosRespuestaTicket;
+import com.reparame.demo.entity.Ticket;
 import com.reparame.demo.exception.MiException;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 public class TicketsController {
 
 	private final TicketsService ticketsService;
+	private final TicketsRepository ticketsRepository;
 
 	// crear los tickets
 	@PostMapping("/crear")
@@ -92,5 +99,15 @@ public class TicketsController {
 		}
 
 	}
+	
+	//devolver una paginacio¿ón
+
+    @GetMapping("paginas")
+    public ResponseEntity<Page<DatosRespuestaTicket>> listaPaginaTickets(@PageableDefault(size = 2) Pageable paginacion) {
+    	Page<Ticket> pageTickets = ticketsRepository.findByEstadoTrue(paginacion); // Obtiene la página de Tickets
+        Page<DatosRespuestaTicket> pageDatosRespuestaTicket = pageTickets.map(DatosRespuestaTicket::new); // Mapea la página de Tickets a una página de DatosRespuestaTicket
+        return ResponseEntity.ok(pageDatosRespuestaTicket);
+    }
+
 
 }
