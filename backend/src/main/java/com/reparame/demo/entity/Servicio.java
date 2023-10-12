@@ -42,7 +42,7 @@ public class Servicio {
     private Rubros rubro;
     
     @OneToMany(mappedBy = "servicio")
-    private List<Tiket> tikets;
+    private List<Ticket> tikets;
     
     @ManyToOne
     @JoinColumn(name="id_prestador")
