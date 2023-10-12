@@ -13,6 +13,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+
+import com.reparame.demo.dtos.DatosActualizarTicket;
+import com.reparame.demo.dtos.DatosRegistroTicket;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +30,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="tikets")
-public class Tiket {
+public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_Tiket;
@@ -46,4 +50,43 @@ public class Tiket {
     @ManyToOne
     @JoinColumn(name="id_cliente")
     private Cliente cliente;
+    
+    // para crear un ticket a partir de los datos recibidos 
+    public Ticket( DatosRegistroTicket ticket) {
+    	this.estado = true;
+    	this.descripcion = ticket.descripcion();
+    	this.fechaInicio = ticket.fechaInicio();
+    	this.fechaRequerida = ticket.fechaRequerida();
+    	this.servicio = ticket.servicio();
+    	this.clasificacion = ticket.clasificacion();
+    	this.cliente =ticket.cliente();
+    	
+    }
+    
+    // actualizar tikets
+    public void actualizarDatos(DatosActualizarTicket actualizarTicket) {
+    	
+    	if (actualizarTicket.estado() != null) {
+            this.estado= actualizarTicket.estado();
+        }
+    	
+        if (actualizarTicket.descripcion() != null) {
+            this.descripcion = actualizarTicket.descripcion();
+        }
+        
+        if (actualizarTicket.fechaInicio() != null) {
+            this.fechaInicio = actualizarTicket.fechaInicio();
+        }
+        
+        if (actualizarTicket.fechaRequerida() != null) {
+            this.fechaRequerida = actualizarTicket.fechaRequerida();
+        }
+    }
+
+    
 }
+
+
+
+
+

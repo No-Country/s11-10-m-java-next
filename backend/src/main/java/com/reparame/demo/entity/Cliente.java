@@ -25,7 +25,7 @@ public class Cliente extends Persona {
     private String zona;
     
     @OneToMany(mappedBy = "cliente")
-    private List<Tiket> tikets;
+    private List<Ticket> tikets;
     
     @OneToMany(mappedBy = "cliente")
     private List<Soporte> soportes;
