@@ -36,18 +36,13 @@ public class Servicio {
     private String descripcion;
     private Integer añosSector;
     private Integer precio;
-    private Boolean finalizado;
     private Boolean alta;
     
     @Enumerated(EnumType.STRING)
     private Rubros rubro;
     
     @OneToMany(mappedBy = "servicio")
-    private List<Tiket> tikets;
-    
-    @ManyToOne
-    @JoinColumn(name="id_cliente")
-    private Cliente cliente;
+    private List<Ticket> tikets;
     
     @ManyToOne
     @JoinColumn(name="id_prestador")

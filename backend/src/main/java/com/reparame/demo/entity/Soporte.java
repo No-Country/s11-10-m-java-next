@@ -38,6 +38,6 @@ public class Soporte {
    
     @OneToOne
     @JoinColumn(name="id_tiket")
-    private Tiket tiket;
+    private Ticket tiket;
     
 }
