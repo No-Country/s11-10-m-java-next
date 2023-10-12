@@ -72,7 +72,21 @@ public class TicketsController {
 
 		try {
 			DatosRespuestaTicket respuestaTicket = ticketsService.actualizarTicket(ticket , id);
-			return new ResponseEntity<>(respuestaTicket, HttpStatus.CREATED);
+			return new ResponseEntity<>(respuestaTicket, HttpStatus.OK);
+		} catch (MiException e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+	}
+	
+	//borra un ticket definitivo de la db
+	
+	@GetMapping("/eliminar/{id}")
+	public ResponseEntity<?> eliminarTicket(@PathVariable Long id) {
+
+		try {
+			 ticketsService.eliminarTicket(id);
+			return new ResponseEntity<>("registro eliminado con exito", HttpStatus.OK);
 		} catch (MiException e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}

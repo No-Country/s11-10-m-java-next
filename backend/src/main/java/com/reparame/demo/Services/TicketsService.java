@@ -39,18 +39,13 @@ public class TicketsService {
 	// listar todos los tickets
 	public List<DatosRespuestaTicket> listar() throws MiException {
 		try {
-			List<Ticket> ticketList = ticketRepository.findAll();
+			//List<Ticket> ticketList = ticketRepository.findAll();
+			List<Ticket> ticketList = ticketRepository.findByEstadoTrue();
 
 			// Mapear la lista de Ticket a una lista de DatosRespuestaTicket
-			List<DatosRespuestaTicket> datosRespuestaList = ticketList.stream().map(DatosRespuestaTicket::new) // Usar
-																												// el
-																												// constructor
-																												// que
-																												// acepta
-																												// un
-																												// Ticket
-					.collect(Collectors.toList());
-
+			List<DatosRespuestaTicket> datosRespuestaList = ticketList.stream()
+															.map(DatosRespuestaTicket::new) 
+															.collect(Collectors.toList());
 			return datosRespuestaList;
 
 		} catch (Exception e) {
@@ -58,6 +53,7 @@ public class TicketsService {
 		}
 	}
 
+	//buscar tickets por id
 	public DatosRespuestaTicket buscarPorId(Long id) throws MiException {
 		try {
 			Ticket ticket = ticketRepository.findById(id).get();
@@ -71,7 +67,8 @@ public class TicketsService {
 
 
 	}
-
+	
+	// Actualizar los tickets
 	public DatosRespuestaTicket actualizarTicket(DatosActualizarTicket actualizarTicket, Long id) throws MiException {
 		try {
 			Ticket ticket = ticketRepository.findById(id).get();
@@ -84,6 +81,21 @@ public class TicketsService {
 		} catch (Exception e) {
 			throw new MiException(e.getMessage());
 		}
+	}
+
+	//borrar ticket
+	public void eliminarTicket(Long id) throws MiException {
+		try {
+			Ticket ticket = ticketRepository.findById(id).get();
+			ticket.desactivarTicket();
+			ticketRepository.save(ticket);
+
+
+		} catch (Exception e) {
+			throw new MiException(e.getMessage());
+		}
+
+		
 	}
 
 }

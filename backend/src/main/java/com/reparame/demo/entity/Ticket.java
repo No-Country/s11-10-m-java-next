@@ -83,6 +83,12 @@ public class Ticket {
         }
     }
 
+    // desactivar ticket
+	public void desactivarTicket() {
+		this.estado = false;
+		
+	}
+
     
 }
 
