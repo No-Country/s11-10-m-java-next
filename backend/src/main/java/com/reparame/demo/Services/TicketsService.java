@@ -3,6 +3,8 @@ package com.reparame.demo.Services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.reparame.demo.Repositories.TicketsRepository;
@@ -96,6 +98,21 @@ public class TicketsService {
 		}
 
 		
+	}
+
+	//devuelve una lista de paginas con tickets
+	public Page<DatosRespuestaTicket> ListadoPaginado( Pageable paginacion) throws MiException {
+
+		try {
+			
+		Page<Ticket> pageTickets = ticketRepository.findByEstadoTrue(paginacion); // Obtiene la página de Tickets
+        Page<DatosRespuestaTicket> pageDatosRespuestaTicket = pageTickets.map(DatosRespuestaTicket::new); // Mapea la página de Tickets a una página de DatosRespuestaTicket
+        return pageDatosRespuestaTicket;
+		
+		} catch (Exception e) {
+			throw new MiException(e.getMessage());		
+		}
+        
 	}
 
 }

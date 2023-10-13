@@ -1,7 +1,6 @@
 package com.reparame.demo.Controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.reparame.demo.Repositories.TicketsRepository;
 import com.reparame.demo.Services.TicketsService;
 import com.reparame.demo.dtos.DatosActualizarTicket;
 import com.reparame.demo.dtos.DatosRegistroTicket;
 import com.reparame.demo.dtos.DatosRespuestaTicket;
-import com.reparame.demo.entity.Ticket;
 import com.reparame.demo.exception.MiException;
 
 import lombok.RequiredArgsConstructor;
@@ -31,7 +28,6 @@ import lombok.RequiredArgsConstructor;
 public class TicketsController {
 
 	private final TicketsService ticketsService;
-	private final TicketsRepository ticketsRepository;
 
 	// crear los tickets
 	@PostMapping("/crear")
@@ -41,6 +37,7 @@ public class TicketsController {
 			DatosRespuestaTicket respuestaTicket = ticketsService.crearTicket(nuevoTicket);
 
 			return new ResponseEntity<>(respuestaTicket, HttpStatus.CREATED);
+		
 		} catch (MiException e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
@@ -66,8 +63,8 @@ public class TicketsController {
 
 		try {
 			List<DatosRespuestaTicket> listaTickets = ticketsService.listar();
-
 			return new ResponseEntity<List<DatosRespuestaTicket>>(listaTickets, HttpStatus.OK);
+		
 		} catch (MiException e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
@@ -80,13 +77,14 @@ public class TicketsController {
 		try {
 			DatosRespuestaTicket respuestaTicket = ticketsService.actualizarTicket(ticket , id);
 			return new ResponseEntity<>(respuestaTicket, HttpStatus.OK);
+		
 		} catch (MiException e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 	}
 	
-	//borra un ticket definitivo de la db
+	//borrado logico de un ticket de la db
 	
 	@GetMapping("/eliminar/{id}")
 	public ResponseEntity<?> eliminarTicket(@PathVariable Long id) {
@@ -94,19 +92,28 @@ public class TicketsController {
 		try {
 			 ticketsService.eliminarTicket(id);
 			return new ResponseEntity<>("registro eliminado con exito", HttpStatus.OK);
+		
 		} catch (MiException e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 	}
 	
-	//devolver una paginacio¿ón
+	//devolver una paginación
 
     @GetMapping("paginas")
-    public ResponseEntity<Page<DatosRespuestaTicket>> listaPaginaTickets(@PageableDefault(size = 2) Pageable paginacion) {
-    	Page<Ticket> pageTickets = ticketsRepository.findByEstadoTrue(paginacion); // Obtiene la página de Tickets
-        Page<DatosRespuestaTicket> pageDatosRespuestaTicket = pageTickets.map(DatosRespuestaTicket::new); // Mapea la página de Tickets a una página de DatosRespuestaTicket
-        return ResponseEntity.ok(pageDatosRespuestaTicket);
+    public ResponseEntity<?> listaPaginaTickets(@PageableDefault(size = 2) Pageable paginacion) {
+    	
+    	try {
+    		Page<DatosRespuestaTicket> pageDatosRespuestaTicket = ticketsService.ListadoPaginado(paginacion);
+			 return ResponseEntity.ok(pageDatosRespuestaTicket);	
+			 
+    		} catch (MiException e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+    	
+    
+        
     }
 
 
