@@ -41,6 +41,11 @@ public class PrestadorController {
         return prestadorService.listarPrestadores();
     }
     
+    @GetMapping("/listarActivos")
+    public List<Prestador> listarPrestadoresActivos(){
+        return prestadorService.listarPrestadoresActivos();
+    }
+    
     
     @GetMapping("/buscarPorID/{id}")
     public ResponseEntity<Prestador> verPrestador(@PathVariable("id") Long id){
