@@ -31,7 +31,7 @@ public class ImagenController {
 				.body(uploadImage);
 	}
 
-	@GetMapping("/{fileName}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?> cargarImagen(@PathVariable Long id){
 		byte[] imageData=imagenService.cargarImagen(id);
 		return ResponseEntity.status(HttpStatus.OK)
