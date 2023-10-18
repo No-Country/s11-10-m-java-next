@@ -4,6 +4,7 @@
  */
 package com.reparame.demo.entity;
 
+import com.reparame.demo.dtos.DatosRegistroServicio;
 import com.reparame.demo.enumeradores.Rubros;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -48,4 +49,13 @@ public class Servicio {
     @JoinColumn(name="id_prestador")
     private Prestador prestador;
     
+    public Servicio(DatosRegistroServicio servicio){
+        this.descripcion = servicio.descripcion();
+        this.añosSector = servicio.añosSector();
+        this.precio = servicio.precio();
+        this.alta = true;
+        this.rubro = servicio.rubro();
+        this.tikets = (List<Ticket>) servicio.tiket();
+        this.prestador = servicio.prestador();
+    }
 }

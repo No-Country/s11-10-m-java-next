@@ -43,7 +43,7 @@ public class ClienteService {
     }
     
     public List<Cliente> listarClientes() {
-	return clienteRepo.findAll();
+	return clienteRepo.findByEstadoTrue();
     }
     
     public Optional<Cliente> buscarPorID(Long id){

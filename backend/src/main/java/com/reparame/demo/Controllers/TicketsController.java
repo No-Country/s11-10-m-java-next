@@ -1,7 +1,6 @@
 package com.reparame.demo.Controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reparame.demo.Repositories.TicketsRepository;
+import com.reparame.demo.Services.ClienteService;
 import com.reparame.demo.Services.TicketsService;
 import com.reparame.demo.dtos.DatosActualizarTicket;
 import com.reparame.demo.dtos.DatosRegistroTicket;
@@ -33,13 +33,14 @@ public class TicketsController {
 	private final TicketsService ticketsService;
 	private final TicketsRepository ticketsRepository;
 
+
 	// crear los tickets
 	@PostMapping("/crear")
 	public ResponseEntity<?> nuevoTicket(@RequestBody DatosRegistroTicket nuevoTicket) {
 
 		try {
 			DatosRespuestaTicket respuestaTicket = ticketsService.crearTicket(nuevoTicket);
-
+                        
 			return new ResponseEntity<>(respuestaTicket, HttpStatus.CREATED);
 		} catch (MiException e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

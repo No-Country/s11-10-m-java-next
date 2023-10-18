@@ -5,7 +5,11 @@
 package com.reparame.demo.Services;
 
 import com.reparame.demo.Repositories.ServicioRepository;
+import com.reparame.demo.dtos.DatosRegistroServicio;
+import com.reparame.demo.dtos.DatosRespuestaServicio;
 import com.reparame.demo.entity.Servicio;
+import com.reparame.demo.enumeradores.Rubros;
+import com.reparame.demo.exception.MiException;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +25,20 @@ public class ServicioService {
     
     private final ServicioRepository servicioRep;
     
+    //este metodo todavia no esta en la controladora
+    public DatosRespuestaServicio crearServicio(DatosRegistroServicio nuevoServicio) throws MiException{
+        Servicio servicio = new Servicio(nuevoServicio);
+        
+        try {
+            servicioRep.save(servicio);
+        } catch (Exception e) {
+            throw new MiException(e.getMessage());
+        }
+        
+        DatosRespuestaServicio respuestaServicio = new DatosRespuestaServicio(servicio);
+        return respuestaServicio;
+    }
+    
     public Servicio nuevoServicio(Servicio servicio){
         Servicio nuevoServicio = new Servicio();
         
@@ -34,7 +52,7 @@ public class ServicioService {
     }
     
     public List<Servicio> listarServicios(){
-        return servicioRep.findAll();
+        return servicioRep.findByEstadoTrue();
     }
     
     public Optional<Servicio> buscarPorID(Long id){
@@ -63,5 +81,8 @@ public class ServicioService {
     }
     
     
+    public Servicio buscarPorCategoria(Rubros categoria){
+        return servicioRep.findByCategoria(categoria);
+    }
     
 }
