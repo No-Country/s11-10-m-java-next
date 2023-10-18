@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.reparame.demo.Repositories.PrestadorRepository;
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.enumeradores.Roles;
+import com.reparame.demo.exception.MiException;
 
 
 
@@ -41,6 +42,13 @@ public class PrestadorService {
 	
 	public List<Prestador> listarPrestadores() {
 		return prestadorRepo.findAll();
+	}
+
+	
+	public List<Prestador> listarPrestadoresActivos() {
+		List<Prestador> listaPrestadores = prestadorRepo.buscarActivos();
+		return listaPrestadores;
+
 	}
 
 	
@@ -80,32 +88,6 @@ public class PrestadorService {
 		
 	    return prestadorRepo.save(prestadorModificado);	
 	}
-
-	
-	
-	
-
-
-
-
-//    public ResponseEntity<DataPayment> updateDataPayment(Long id, DataPayment dataPaymentDetails){
-//        Optional<DataPayment> optionalDataPayment = dataPaymentRepository.findById(id);
-//        if(!optionalDataPayment.isPresent()){
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        DataPayment dataPayment = optionalDataPayment.get();
-//        dataPayment.setName(dataPaymentDetails.getName());
-//        dataPayment.setNumber(dataPaymentDetails.getNumber());
-//        dataPayment.setExpDate(dataPaymentDetails.getExpDate());
-//        dataPayment.setSecurityCode(dataPaymentDetails.getSecurityCode());
-//        dataPayment.setUserFullName(dataPaymentDetails.getUserFullName());
-//        DataPayment updateDataPayment = dataPaymentRepository.save(dataPayment);
-//        return new ResponseEntity<>(updateDataPayment, HttpStatus.OK);
-//    }
-//
-//
-//    public void delete(Long id){dataPaymentRepository.deleteById(id);}
-	
 
 
 }
