@@ -51,8 +51,12 @@ public class ServicioService {
         return servicioRep.save(nuevoServicio);
     }
     
-    public List<Servicio> listarServicios(){
+    public List<Servicio> listarServiciosActivos(){
         return servicioRep.findByEstadoTrue();
+    }
+    
+    public List<Servicio> listarServicios(){
+        return servicioRep.findAll();
     }
     
     public Optional<Servicio> buscarPorID(Long id){

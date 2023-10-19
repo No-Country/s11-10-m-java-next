@@ -77,4 +77,9 @@ public class ClienteService {
 		
 	return clienteRepo.save(clienteModificado);	
     }
+    
+    public boolean clienteExiste(String ussername){
+            Optional<Cliente> cliente = clienteRepo.findByUsername(ussername);
+            return cliente.isPresent();
+    }
 }

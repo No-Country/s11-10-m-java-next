@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.reparame.demo.Services.PrestadorService;
 import com.reparame.demo.entity.Prestador;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 
 @RestController
 @RequestMapping("/prestador")
+@CrossOrigin(origins="*")
 public class PrestadorController {
 	
     @Autowired

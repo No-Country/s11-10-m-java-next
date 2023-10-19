@@ -9,6 +9,7 @@ import com.reparame.demo.Repositories.PrestadorRepository;
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.enumeradores.Roles;
 import com.reparame.demo.exception.MiException;
+import java.util.Optional;
 
 
 
@@ -90,4 +91,8 @@ public class PrestadorService {
 	}
 
 
+        public boolean prestadorExiste(String ussername){
+            Optional<Prestador> prestador = prestadorRepo.findByUsername(ussername);
+            return prestador.isPresent();
+        }
 }
