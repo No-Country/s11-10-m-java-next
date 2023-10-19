@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reparame.demo.Services.PrestadorService;
+import com.reparame.demo.dtos.Prestador.DetallePrestadorDTO;
 import com.reparame.demo.entity.Prestador;
+import java.util.ArrayList;
 
 
 
@@ -37,16 +39,30 @@ public class PrestadorController {
     }
 	
     @GetMapping("/listar")
-    public List<Prestador> listarPrestadores(){
-        return prestadorService.listarPrestadores();
+    public ResponseEntity<List<DetallePrestadorDTO>> listarPrestadores(){
+        List<Prestador> prestadores = prestadorService.listarPrestadores();
+        if (!prestadores.isEmpty()) {
+            List<DetallePrestadorDTO> prestadoresDTO = new ArrayList<>();
+            
+            for (Prestador prestador : prestadores) {
+                DetallePrestadorDTO prestadorDTO = new DetallePrestadorDTO(prestador);
+                prestadoresDTO.add(prestadorDTO);
+            }
+            
+            return ResponseEntity.ok(prestadoresDTO);
+        } 
+        
+        return ResponseEntity.notFound().build();
+        
     }
     
     
     @GetMapping("/buscarPorID/{id}")
-    public ResponseEntity<Prestador> verPrestador(@PathVariable("id") Long id){
+    public ResponseEntity<DetallePrestadorDTO> verPrestador(@PathVariable("id") Long id){
         try {
-        	Prestador prestador = prestadorService.verPrestador(id);      	
-            return new ResponseEntity<>(prestador, HttpStatus.OK);
+                Prestador prestador = prestadorService.verPrestador(id);
+                DetallePrestadorDTO detallePrestadorDTO = new DetallePrestadorDTO(prestador);
+            return new ResponseEntity<>(detallePrestadorDTO, HttpStatus.OK);
         } catch (Exception e) {
         	return ResponseEntity.notFound().build();
         }

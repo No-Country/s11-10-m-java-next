@@ -45,7 +45,8 @@ public class PrestadorService {
 
 	
 	public Prestador verPrestador(Long id) {
-		return prestadorRepo.findById(id).get();
+                Prestador prestador = prestadorRepo.findById(id).get();
+		return prestador;
 	}
 
 	

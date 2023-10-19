@@ -27,6 +27,39 @@ public class Prestador extends Persona{
     @OneToMany(mappedBy = "prestador")
     private List<Servicio> servicios;
     
-    @OneToMany(mappedBy = "prestador")
-    private List<Clasificacion> clasificaciones;
+    // Getters y setters específicos de Prestador
+    public String getZona() {
+        return zona;
+    }
+
+    public void setZona(String zona) {
+        this.zona = zona;
+    }
+     
+    public Double calcularCalificacion(){
+        double sum = 0;
+        int count = 0;
+        
+        for (Servicio servicio : servicios){
+            for (Ticket ticket: servicio.getTickets()){
+                if (ticket.getCalificacion() != null){
+                    sum += ticket.getCalificacion().getPuntuacion();
+                    count++;
+                }
+            }
+        }
+//        servicios.forEach(s ->{
+//            s.getTickets().forEach(t->{
+//                if(t.getCalificacion() != null){
+//                sum +=t.getCalificacion().getPuntuacion();
+//                count++;
+//                }
+//            });
+//        });
+        if (count > 0){
+            return sum/count;
+        }else{
+            return 0.0;
+        }
+    }
 }

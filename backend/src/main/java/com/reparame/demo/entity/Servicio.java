@@ -48,4 +48,8 @@ public class Servicio {
     @JoinColumn(name="id_prestador")
     private Prestador prestador;
     
+    public List<Ticket> getTickets(){
+        return tikets;
+    }
+    
 }

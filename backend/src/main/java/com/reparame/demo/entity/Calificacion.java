@@ -24,18 +24,25 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="clasificaciones")
-public class Clasificacion {
+@Table(name="calificaciones")
+public class Calificacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_Clasificacion;
+    private Long id_Calificacion;
     private Integer puntuacion;
     private String descripcion;
     
-    @ManyToOne
-    @JoinColumn(name="id_prestador")
-    private Prestador prestador;
+    @OneToOne
+    @JoinColumn(name="id_Tiket")
+    private Ticket ticket;
     
+    public Integer getPuntuacion(){
+        return puntuacion;
+    }
+    
+    public String getDescripcion(){
+        return descripcion;
+    }
     
     
 }

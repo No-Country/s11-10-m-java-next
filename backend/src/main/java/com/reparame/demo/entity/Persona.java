@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Persona {
+public abstract class Persona {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,5 +42,94 @@ public class Persona {
     
     @Enumerated(EnumType.STRING)
     private Roles rol;
+    
+    // Getters y setters
+    public Long getId() {
+        return id;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public String getApellidoCompleto() {
+        return apellidoCompleto;
+    }
+
+    public void setApellidoCompleto(String apellidoCompleto) {
+        this.apellidoCompleto = apellidoCompleto;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getNumeroTelefonico() {
+        return numeroTelefonico;
+    }
+
+    public void setNumeroTelefonico(String numeroTelefonico) {
+        this.numeroTelefonico = numeroTelefonico;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public boolean isAlta() {
+        return alta;
+    }
+    
+    public void setAlta(boolean alta) {
+        this.alta = alta;
+    }
     
 }
