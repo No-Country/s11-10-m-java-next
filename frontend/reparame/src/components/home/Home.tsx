@@ -1,7 +1,5 @@
-'use client'
-import React, { useEffect } from 'react'
-import { useAppDispatch } from '@/utils/globalStates/hooks'
-import { setLog } from '@/utils/globalStates/features/pathSlice'
+
+import React from 'react'
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import Link from "next/link";
@@ -21,31 +19,13 @@ import tablet from "../../../public/images/tablet.svg";
 import facebook from "../../../public/facebook.svg";
 import twitter from "../../../public/twitter.svg";
 import instagram from "../../../public/instagram.svg";
+import HeaderManager from '../headerManager/HeaderManager';
 
 const HomePage = () => {
-    const dispatch = useAppDispatch()
-    useEffect(() => {
-        dispatch(setLog('home'))
-    }, [dispatch])
+
     return (
         <section className='max-w-max-view w-full'>
-            {/* <header className="w-full flex items-center bg-light-orange justify-between h-20 px-16">
-                <Link href="/">
-                    <Image src={logo} alt="" width={150} height={100} />
-                </Link>
-                <div className="mr-14">
-                    <Link href="" className="text-[#F5F5F5] py-3 px-10">
-                        Iniciar sesión
-                    </Link>
-                    <Link
-                        href=""
-                        className="text-[#FF6600] py-3 px-10 bg-[#F5F5F5] rounded-xl"
-                    >
-                        Registro
-                    </Link>
-                </div>
-            </header> */}
-
+            <HeaderManager page='home' />
             <section
                 style={{
                     backgroundImage:

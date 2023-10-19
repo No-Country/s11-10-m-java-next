@@ -4,9 +4,9 @@ import { CardServicio } from './cardServicio/CardServicio'
 import { useEffect, useState } from 'react'
 import { getServicios } from '@/utils/requestServicios/getServicios'
 import DetalleServicio from './detalleServicio/DetalleServicio'
-import { useAppDispatch, useAppSelector } from '@/utils/globalStates/hooks'
+import { useAppSelector } from '@/utils/globalStates/hooks'
 import Skeleton from '../loadingSpinner/Skeleton'
-import { setLog } from '@/utils/globalStates/features/pathSlice'
+import HeaderManager from '../headerManager/HeaderManager'
 
 const Servicios = () => {
     const [servicios, setServicios] = useState([{}])
@@ -14,12 +14,9 @@ const Servicios = () => {
     useEffect(() => {
         getServicios(setServicios, id)
     }, [id])
-    const dispatch = useAppDispatch()
-    useEffect(() => {
-        dispatch(setLog('servicios'))
-    }, [dispatch])
     return (
         <section className='flex flex-col max-w-max-view w-full gap-12'>
+            <HeaderManager page='servicios' />
             {servicios[0] || servicios.length === undefined
                 ? servicios.length > 0 ?
                     <article className='flex flex-col gap-12'>

@@ -1,19 +1,12 @@
-'use client'
-import { setLog } from '@/utils/globalStates/features/pathSlice'
-import { useAppDispatch } from '@/utils/globalStates/hooks'
-import React from 'react'
-import { useEffect } from 'react'
+import HeaderManager from "../headerManager/HeaderManager"
 
 const Registro = () => {
-    const dispatch = useAppDispatch()
-    useEffect(() => {
-        dispatch(setLog('login'))
-    }, [dispatch])
     return (
         <section className='max-w-max-view w-full'>
-            <p>
+            <HeaderManager page='login' />
+            <h1 className="text-2xl">
                 Registro
-            </p>
+            </h1>
         </section>
     )
 }
