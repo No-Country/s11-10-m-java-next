@@ -18,12 +18,14 @@ const Header = () => {
                     <Link href={'/routes/login'} className='text-white p-2 rounded-sm'>Iniciar sesión</Link>
                     <Link href={'/routes/registro'} className='text-dark-orange p-2 rounded-md bg-white'>Registro</Link>
                 </div> :
-                    <>
-                        {path === 'servicios' ? <SearchBar /> : <></>}
-                        <Link href={'/routes/perfil'} className='min-w-avatarHeader'>
-                            <Image src={'/images/Ellipse 48.png'} alt="avatar User" width={10} height={10}
-                                className='rounded-full  bg-white text-black text-xs items-center border-2 w-10 h-10' />
-                        </Link>
+                    <>{path === 'servicios' ? <SearchBar /> : <></>}
+                        <span className='flex flex-row items-center gap-5'>
+                            <Link href={'/routes/perfil'} className='min-w-avatarHeader'>
+                                <Image src={'/images/Ellipse 48.png'} alt="avatar User" width={200} height={200}
+                                    className='rounded-full  bg-white text-black text-xs items-center w-10 h-10' />
+                            </Link>
+                            <Link href={'/routes/login'}>Log out</Link>
+                        </span>
                     </>
                 }
             </nav>

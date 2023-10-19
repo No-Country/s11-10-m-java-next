@@ -3,6 +3,7 @@ import Ticket from "@/components/ticket/Ticket";
 import { verServicios } from "@/utils/globalStates/features/serviciosSlice";
 import { BsFillStarFill } from "react-icons/bs";
 import Link from "next/link";
+import Image from "next/image";
 
 export const CardServicio = (servicios: any) => {
     const dispatch = useAppDispatch();
@@ -14,7 +15,11 @@ export const CardServicio = (servicios: any) => {
             }}>ver perfil</button>
             <div className="flex justify-between">
                 <div className="flex gap-4">
-                    <div className="w-20 h-20 rounded-full border-2 p-4 border-black" />
+                    <Image src="/images/Ellipse 48.png"
+                        alt='avatar'
+                        width={100}
+                        height={100}
+                        className="w-20 h-20 rounded-full border-2 border-black" />
                     <div className="flex flex-col justify-center gap-3">
                         <div className="flex gap-3 text-dark-orange">
                             <BsFillStarFill className="text-2xl" />
