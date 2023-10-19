@@ -19,7 +19,7 @@ public class ImagenService {
     @Autowired
     private ImagenRepository imagenRepo;
 	
-    public String guardarImagen(MultipartFile file) throws IOException {
+    public Imagen guardarImagen(MultipartFile file) throws IOException {
 
         		
         		Imagen im =		Imagen.builder()
@@ -30,7 +30,8 @@ public class ImagenService {
         		Imagen imagenData = imagenRepo.save(im);
         		
         if (imagenData != null) {
-            return "file uploaded successfully : " + file.getOriginalFilename();
+//            return "file uploaded successfully : " + file.getOriginalFilename();
+        	return imagenData;
         }
         return null;
     }

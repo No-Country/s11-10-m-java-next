@@ -6,6 +6,7 @@ package com.reparame.demo.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -29,4 +30,7 @@ public class Prestador extends Persona{
     
     @OneToMany(mappedBy = "prestador")
     private List<Clasificacion> clasificaciones;
+ 
+    @OneToOne
+    private Imagen foto;
 }

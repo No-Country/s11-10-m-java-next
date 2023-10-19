@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.reparame.demo.Services.ImagenService;
+import com.reparame.demo.entity.Imagen;
 
 @RestController
 @RequestMapping("/imagen")
@@ -26,7 +27,7 @@ public class ImagenController {
 
 	@PostMapping
 	public ResponseEntity<?> guardarImagen(@RequestParam("imagen")MultipartFile file) throws IOException {
-		String uploadImage = imagenService.guardarImagen(file);
+		Imagen uploadImage = imagenService.guardarImagen(file);
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(uploadImage);
 	}
@@ -39,5 +40,6 @@ public class ImagenController {
 				.body(imageData);
 
 	}
+	
 	
 }

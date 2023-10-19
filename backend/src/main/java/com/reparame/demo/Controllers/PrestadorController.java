@@ -1,5 +1,6 @@
 package com.reparame.demo.Controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.reparame.demo.Services.PrestadorService;
 import com.reparame.demo.entity.Prestador;
@@ -85,7 +88,18 @@ public class PrestadorController {
     	
     }    
     
+    @PutMapping("/cambiarfoto/{id}")
+    public ResponseEntity<?> cambiarfoto(@PathVariable("id") Long id, @RequestParam("imagen")MultipartFile file){
+    	try {
+        	Prestador prestadorModificado = prestadorService.cambiarFoto(id, file);
+    		return new ResponseEntity<>(prestadorModificado, HttpStatus.OK);
+    	} catch (Exception e) {
+    		return ResponseEntity.notFound().build();
+    	}
+    	
+    }      
     
+
 
     
 
