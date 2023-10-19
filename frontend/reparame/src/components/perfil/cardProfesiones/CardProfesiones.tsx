@@ -1,7 +1,5 @@
 'use client'
-
 import { profesiones } from "@/utils/profesiones"
-
 export function CardProfesiones() {
   return (
     profesiones.map((res: any) => (

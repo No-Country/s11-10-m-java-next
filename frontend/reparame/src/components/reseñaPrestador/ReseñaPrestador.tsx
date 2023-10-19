@@ -65,8 +65,9 @@ const ReseñaPrestador = () => {
           </li>
         </ul>
       </div>
-      <div className="inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-dark-orange pt-32 pb-8 pointer-events-none dark:from-slate-900 absolute">
-        <button className="relative cursor-pointer bg-slate-50 hover:bg-slate-100 text-sm text-dark-orange font-medium px-6 py-2 rounded-md flex items-center">
+      <div className="inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-dark-orange pt-32 pb-8  dark:from-slate-900 absolute">
+        <button
+          className="relative bg-slate-50 hover:bg-slate-100 text-sm text-dark-orange font-medium px-6 py-2 rounded-md flex items-center">
           Ver todas
         </button>
       </div>

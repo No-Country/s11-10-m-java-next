@@ -25,9 +25,7 @@ const Servicios = () => {
                     <article className='flex flex-col gap-12'>
                         <h1 className='text-2xl'>Aca va la lista de proveedores</h1>
                         {servicios.map((res: any) => (
-                            <>
-                                <CardServicio key={res.id} servicio={res} />
-                            </>
+                            <CardServicio key={res.id} servicio={res} />
                         ))}
                     </article>
                     : <DetalleServicio servicio={servicios} />
