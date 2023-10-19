@@ -1,17 +1,11 @@
-'use client'
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Input from "./input/Input";
-import { useAppDispatch } from "@/utils/globalStates/hooks";
-import { setLog } from "@/utils/globalStates/features/pathSlice";
-
+import HeaderManager from "../headerManager/HeaderManager";
 const Login = () => {
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(setLog('login'))
-  }, [dispatch])
   return (
     <section className="w-full flex items-center h-screen justify-center ">
+      <HeaderManager page='login' />
       <div className=" max-w-4xl w-full">
         <form className="flex flex-col gap-7 items-center w-full">
           <h1 className="text-dark-orange font-semibold mb-2 text-5xl">
