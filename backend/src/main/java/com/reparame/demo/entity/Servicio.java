@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.reparame.demo.entity;
 
 import com.reparame.demo.dtos.DatosRegistroServicio;
@@ -49,6 +45,10 @@ public class Servicio {
     @JoinColumn(name="id_prestador")
     private Prestador prestador;
     
+    public List<Ticket> getTickets(){
+        return tikets;
+    }
+
     public Servicio(DatosRegistroServicio servicio){
         this.descripcion = servicio.descripcion();
         this.añosSector = servicio.añosSector();

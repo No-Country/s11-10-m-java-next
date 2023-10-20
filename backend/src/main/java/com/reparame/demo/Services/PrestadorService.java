@@ -36,6 +36,7 @@ public class PrestadorService {
 		nuevoPrestador.setLocalidad(prestador.getLocalidad());	
 		nuevoPrestador.setFechaNacimiento(prestador.getFechaNacimiento());
 		nuevoPrestador.setZona(prestador.getZona());
+                
 
 	    return prestadorRepo.save(nuevoPrestador);			
 	}
@@ -54,7 +55,8 @@ public class PrestadorService {
 
 	
 	public Prestador verPrestador(Long id) {
-		return prestadorRepo.findById(id).get();
+                Prestador prestador = prestadorRepo.findById(id).get();
+		return prestador;
 	}
 
 	

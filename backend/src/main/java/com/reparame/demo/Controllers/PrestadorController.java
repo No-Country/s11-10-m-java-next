@@ -15,20 +15,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reparame.demo.Services.PrestadorService;
+import com.reparame.demo.dtos.Prestador.DetallePrestadorDTO;
 import com.reparame.demo.entity.Prestador;
+import java.util.ArrayList;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 
+
 @RestController
-@RequestMapping("/prestador")
+@RequestMapping("/prestadores")
 @CrossOrigin(origins="*")
 public class PrestadorController {
 	
     @Autowired
     private PrestadorService prestadorService;
 	
-    @PostMapping("/crear")
+    @PostMapping("")
     public ResponseEntity<Prestador> nuevoPrestador(@RequestBody Prestador prestador){
     	try {
         	Prestador nuevoPrestador = prestadorService.nuevoPrestador(prestador);    	
@@ -38,22 +41,38 @@ public class PrestadorController {
     	}
     }
 	
-    @GetMapping("/listar")
-    public List<Prestador> listarPrestadores(){
-        return prestadorService.listarPrestadores();
+    @GetMapping("")
+    public ResponseEntity<List<DetallePrestadorDTO>> listarPrestadores(){
+        List<Prestador> prestadores = prestadorService.listarPrestadoresActivos();
+        if (!prestadores.isEmpty()) {
+            List<DetallePrestadorDTO> prestadoresDTO = new ArrayList<>();
+            
+            for (Prestador prestador : prestadores) {
+                DetallePrestadorDTO prestadorDTO = new DetallePrestadorDTO(prestador);
+                prestadoresDTO.add(prestadorDTO);
+            }
+            
+            return ResponseEntity.ok(prestadoresDTO);
+        } 
+        
+        return ResponseEntity.notFound().build();
+        
     }
     
+    
+    /*
     @GetMapping("/listarActivos")
     public List<Prestador> listarPrestadoresActivos(){
         return prestadorService.listarPrestadoresActivos();
-    }
+    }*/
     
     
-    @GetMapping("/buscarPorID/{id}")
-    public ResponseEntity<Prestador> verPrestador(@PathVariable("id") Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<DetallePrestadorDTO> verPrestador(@PathVariable("id") Long id){
         try {
-        	Prestador prestador = prestadorService.verPrestador(id);      	
-            return new ResponseEntity<>(prestador, HttpStatus.OK);
+                Prestador prestador = prestadorService.verPrestador(id);
+                DetallePrestadorDTO detallePrestadorDTO = new DetallePrestadorDTO(prestador);
+            return new ResponseEntity<>(detallePrestadorDTO, HttpStatus.OK);
         } catch (Exception e) {
         	return ResponseEntity.notFound().build();
         }
@@ -69,13 +88,13 @@ public class PrestadorController {
         }
     }    
     
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public void eliminarPrestador(@PathVariable("id") Long id){
     	prestadorService.eliminarPrestador(id);
     }       
     
     
-    @PutMapping("/modificar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Prestador> modificarPrestador(@PathVariable("id") Long id, 
     		@RequestBody Prestador prestador){
     	try {

@@ -9,6 +9,7 @@ import com.reparame.demo.Repositories.TicketsRepository;
 import com.reparame.demo.dtos.DatosActualizarTicket;
 import com.reparame.demo.dtos.DatosRegistroTicket;
 import com.reparame.demo.dtos.DatosRespuestaTicket;
+import com.reparame.demo.entity.Calificacion;
 import com.reparame.demo.entity.Ticket;
 import com.reparame.demo.exception.MiException;
 
@@ -97,5 +98,9 @@ public class TicketsService {
 
 		
 	}
-
+        
+        
+       
+        
+        
 }

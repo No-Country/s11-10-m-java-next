@@ -29,13 +29,14 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/servicio")
+@RequestMapping("/servicios")
 @CrossOrigin(origins="*")
 public class ServicioController {
     private final ServicioService servicioServ;
     private final PrestadorService prestadorService;
     
-    @PostMapping("/crear/{id}")
+    //Por ahora para crear un servicio se le pasa el id del prestador
+    @PostMapping("/{id}")
     public ResponseEntity<Servicio> nuevoServicio(@RequestBody Servicio servicio, @PathVariable("id") Long id){
         try {
             Prestador prestador = prestadorService.verPrestador(id);
@@ -48,17 +49,17 @@ public class ServicioController {
         } 
     }
     
-    @GetMapping("/listarActivos")
+    @GetMapping("")
     public List<Servicio> listarServiciosActivos(){
         return servicioServ.listarServiciosActivos();
     }
     
-    @GetMapping("/listar")
+    @GetMapping("/listarTodos")
     public List<Servicio> listarServicios(){
         return servicioServ.listarServicios();
     }
     
-    @GetMapping("/buscarPorID/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Servicio> buscarPorID(@PathVariable("id") Long id){
         try {
             Servicio servicio = servicioServ.buscarPorID(id).get();
@@ -78,12 +79,12 @@ public class ServicioController {
         } 
     }
     
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public void eliminarPrestador(@PathVariable("id") Long id){
     	servicioServ.eliminarServicio(id);
     } 
 
-    @PutMapping("/modificar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Servicio> modificar(@PathVariable("id") Long id, @RequestBody Servicio servicio){
         try {
             Servicio servicioModificado = servicioServ.modificarServicio(id, servicio);
@@ -103,3 +104,5 @@ public class ServicioController {
         } 
     }
 }
+
+// servicios/buscarPorCategoria/electricidad

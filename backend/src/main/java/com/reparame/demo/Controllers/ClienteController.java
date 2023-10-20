@@ -26,12 +26,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 @CrossOrigin(origins="*")
 public class ClienteController {
     private final ClienteService clienteServ;
     
-    @PostMapping("/crear")
+    @PostMapping("")
     public ResponseEntity<Cliente> nuevoCliente(@RequestBody Cliente cliente){
         try {
             Cliente clienteNuevo = clienteServ.nuevoCliente(cliente);
@@ -41,12 +41,13 @@ public class ClienteController {
         } 
     }
     
-    @GetMapping("/listar")
+    @GetMapping("")
     public List<Cliente> listarClientes(){
         return clienteServ.listarClientes();
     }
     
-    @GetMapping("/buscarPorID/{id}")
+    
+    @GetMapping("/{id}")
     public ResponseEntity<Cliente> buscarPorID(@PathVariable("id") Long id){
         try {
             Cliente cliente = clienteServ.buscarPorID(id).get();
@@ -66,12 +67,12 @@ public class ClienteController {
         } 
     }
     
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public void eliminarCliente(@PathVariable("id") Long id){
     	clienteServ.eliminarCliente(id);
     } 
     
-    @PutMapping("/modificar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Cliente> modificar(@PathVariable("id") Long id, @RequestBody Cliente cliente){
         try {
             Cliente clienteModificado = clienteServ.modificarCliente(id, cliente);
