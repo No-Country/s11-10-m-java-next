@@ -43,7 +43,7 @@ public class ClienteService {
     }
     
     public List<Cliente> listarClientes() {
-	return clienteRepo.findAll();
+	return clienteRepo.findByEstadoTrue();
     }
     
     public Optional<Cliente> buscarPorID(Long id){
@@ -76,5 +76,10 @@ public class ClienteService {
 	clienteModificado.setZona(cliente.getZona());
 		
 	return clienteRepo.save(clienteModificado);	
+    }
+    
+    public boolean clienteExiste(String ussername){
+            Optional<Cliente> cliente = clienteRepo.findByUsername(ussername);
+            return cliente.isPresent();
     }
 }

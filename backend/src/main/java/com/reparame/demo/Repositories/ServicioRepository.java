@@ -5,7 +5,11 @@
 package com.reparame.demo.Repositories;
 
 import com.reparame.demo.entity.Servicio;
+import com.reparame.demo.enumeradores.Rubros;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,5 +18,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ServicioRepository extends JpaRepository<Servicio, Long>{
+    @Query("SELECT s FROM Servicio s WHERE s.alta = true")
+    List<Servicio> findByEstadoTrue();
     
+    @Query("SELECT s FROM Servicio s WHERE s.rubro = :categoria")
+    Servicio findByCategoria(@Param("categoria") Rubros categoria);
 }

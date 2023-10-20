@@ -18,17 +18,20 @@ import com.reparame.demo.Services.PrestadorService;
 import com.reparame.demo.dtos.Prestador.DetallePrestadorDTO;
 import com.reparame.demo.entity.Prestador;
 import java.util.ArrayList;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 
 
 
 @RestController
-@RequestMapping("/prestador")
+@RequestMapping("/prestadores")
+@CrossOrigin(origins="*")
 public class PrestadorController {
 	
     @Autowired
     private PrestadorService prestadorService;
 	
-    @PostMapping("/crear")
+    @PostMapping("")
     public ResponseEntity<Prestador> nuevoPrestador(@RequestBody Prestador prestador){
     	try {
         	Prestador nuevoPrestador = prestadorService.nuevoPrestador(prestador);    	
@@ -38,9 +41,9 @@ public class PrestadorController {
     	}
     }
 	
-    @GetMapping("/listar")
+    @GetMapping("")
     public ResponseEntity<List<DetallePrestadorDTO>> listarPrestadores(){
-        List<Prestador> prestadores = prestadorService.listarPrestadores();
+        List<Prestador> prestadores = prestadorService.listarPrestadoresActivos();
         if (!prestadores.isEmpty()) {
             List<DetallePrestadorDTO> prestadoresDTO = new ArrayList<>();
             
@@ -57,7 +60,14 @@ public class PrestadorController {
     }
     
     
-    @GetMapping("/buscarPorID/{id}")
+    /*
+    @GetMapping("/listarActivos")
+    public List<Prestador> listarPrestadoresActivos(){
+        return prestadorService.listarPrestadoresActivos();
+    }*/
+    
+    
+    @GetMapping("/{id}")
     public ResponseEntity<DetallePrestadorDTO> verPrestador(@PathVariable("id") Long id){
         try {
                 Prestador prestador = prestadorService.verPrestador(id);
@@ -78,13 +88,13 @@ public class PrestadorController {
         }
     }    
     
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public void eliminarPrestador(@PathVariable("id") Long id){
     	prestadorService.eliminarPrestador(id);
     }       
     
     
-    @PutMapping("/modificar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Prestador> modificarPrestador(@PathVariable("id") Long id, 
     		@RequestBody Prestador prestador){
     	try {

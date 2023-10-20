@@ -23,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Table(name="prestadores")
 public class Prestador extends Persona{
     private String zona;
+    private Double calificacion;
     
     @OneToMany(mappedBy = "prestador")
     private List<Servicio> servicios;
@@ -48,18 +49,10 @@ public class Prestador extends Persona{
                 }
             }
         }
-//        servicios.forEach(s ->{
-//            s.getTickets().forEach(t->{
-//                if(t.getCalificacion() != null){
-//                sum +=t.getCalificacion().getPuntuacion();
-//                count++;
-//                }
-//            });
-//        });
         if (count > 0){
             return sum/count;
-        }else{
-            return 0.0;
         }
+        return 0.0;
+
     }
 }

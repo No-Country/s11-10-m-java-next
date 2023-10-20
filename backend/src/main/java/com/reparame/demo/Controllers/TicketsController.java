@@ -1,7 +1,6 @@
 package com.reparame.demo.Controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,17 +26,19 @@ import com.reparame.demo.exception.MiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping("/tickets")
 @RequiredArgsConstructor
+@CrossOrigin(origins="*")
 public class TicketsController {
 
     private final TicketsService ticketsService;
     private final TicketsRepository ticketsRepository;
 
     // Crear un nuevo ticket
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<?> nuevoTicket(@RequestBody DatosRegistroTicket nuevoTicket) {
 
             try {
@@ -48,6 +49,8 @@ public class TicketsController {
                     return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
             }
     }
+
+
 
     // Listar todos los tickets
     @GetMapping("")
@@ -75,6 +78,9 @@ public class TicketsController {
             }
 
     }
+       
+    @PostMapping("/{id}/calificar")
+    
 
     // Actualizar un ticket existente
     @PutMapping("/{id}")
@@ -98,7 +104,7 @@ public class TicketsController {
                      ticketsService.eliminarTicket(id);
                     return new ResponseEntity<>("registro eliminado con exito", HttpStatus.OK);
             } catch (MiException e) {
-                    return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
             }
 
     }

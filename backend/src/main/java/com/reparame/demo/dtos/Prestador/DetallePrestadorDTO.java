@@ -26,7 +26,7 @@ public class DetallePrestadorDTO {
     private String provincia;
     private String localidad;
     private LocalDate fechaNacimiento;
-    private Double calificacionPromedio;
+    private Double calificacion;
     private String zona;
 
     public DetallePrestadorDTO(Prestador prestador) {
@@ -40,7 +40,7 @@ public class DetallePrestadorDTO {
         this.provincia = prestador.getProvincia();
         this.localidad = prestador.getLocalidad();
         this.fechaNacimiento = prestador.getFechaNacimiento();
-        this.calificacionPromedio= prestador.calcularCalificacion();
+        this.calificacion= prestador.getCalificacion();
         this.zona = prestador.getZona();
     }
 
