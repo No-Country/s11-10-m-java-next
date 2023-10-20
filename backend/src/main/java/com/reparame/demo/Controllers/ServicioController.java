@@ -41,6 +41,7 @@ public class ServicioController {
             Prestador prestador = prestadorService.verPrestador(id);
             Servicio servicioNuevo = servicioServ.nuevoServicio(servicio);
             servicioNuevo.setPrestador(prestador);
+            
             return new ResponseEntity<>(servicioNuevo, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
