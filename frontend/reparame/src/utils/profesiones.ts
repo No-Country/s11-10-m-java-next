@@ -5,18 +5,18 @@ import { FaFireBurner, FaPlugCircleBolt } from 'react-icons/fa6'
 import { LuAirVent } from 'react-icons/lu'
 export const profesiones = [
     {
-        label: 'Electricista',
+        label: 'ELECTRICISTA',
         icon: FaPlugCircleBolt
     },
     {
-        label: 'Cerrajero',
+        label: 'CERRAJERO',
         icon: FaKey
     }, {
-        label: 'Gasista',
+        label: 'GASISTA',
         icon: FaFireBurner
     },
     {
-        label: 'Plomero',
+        label: 'PLOMERIA',
         icon: GiTap
     },
     {

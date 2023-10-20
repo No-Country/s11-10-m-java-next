@@ -5,9 +5,12 @@ import { BsStarFill } from "react-icons/bs";
 import { BsStar } from "react-icons/bs";
 import ReseñaPrestador from "../../reseñaPrestador/ReseñaPrestador";
 import { verServicios } from '@/utils/globalStates/features/serviciosSlice'
+import { profesiones } from '@/utils/profesiones';
 
 const DetalleServicio = (servicio: any) => {
     const dispatch = useAppDispatch()
+    const icon = profesiones.find(profesion => profesion.label == servicio.servicio.rubro);
+
     return (
         <section className="max-w-max-view w-full gap-2">
             <button onClick={() => { dispatch(verServicios('')) }}>{`<- volver`}</button>
@@ -31,20 +34,12 @@ const DetalleServicio = (servicio: any) => {
                 <div className="flex flex-col w-fit items-left mt-6 ml-20 gap-3 p-1">
                     <span className="flex gap-2 text-light-orange text-xl">
                         <BsStarFill />
-                        <BsStarFill />
-                        <BsStarFill />
-                        <BsStarFill />
                         <BsStar />
                     </span>
                     <h1 className="font-bold text-3xl">Carlos Andres Parra Torre</h1>
                     <p className="flex gap-3 p-1 text-light-orange text-lg font-semibold">
-                        Electricista
-                        <Image
-                            alt="icono_electricista"
-                            src={"/images/iconamoon_lightning-2-fill.png"}
-                            width={26}
-                            height={18}
-                        />
+                        {servicio.servicio.rubro}
+                        {icon ? <icon.icon className='h-8 w-8' /> : <></>}
                     </p>
                 </div>
 
