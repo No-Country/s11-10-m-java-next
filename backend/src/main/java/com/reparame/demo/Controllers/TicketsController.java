@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reparame.demo.Services.TicketsService;
-import com.reparame.demo.dtos.DatosActualizarTicket;
-import com.reparame.demo.dtos.DatosRegistroTicket;
-import com.reparame.demo.dtos.DatosRespuestaTicket;
+import com.reparame.demo.dtos.requets.DatosActualizarTicketDto;
+import com.reparame.demo.dtos.requets.DatosRegistroTicketDto;
+import com.reparame.demo.dtos.response.DatosRespuestaTicketDto;
 import com.reparame.demo.exception.MiException;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -31,10 +32,10 @@ public class TicketsController {
 
 	// crear los tickets
 	@PostMapping("/crear")
-	public ResponseEntity<?> nuevoTicket(@RequestBody DatosRegistroTicket nuevoTicket) {
+	public ResponseEntity<?> nuevoTicket(@RequestBody @Valid DatosRegistroTicketDto nuevoTicket) {
 
 		try {
-			DatosRespuestaTicket respuestaTicket = ticketsService.crearTicket(nuevoTicket);
+			DatosRespuestaTicketDto respuestaTicket = ticketsService.crearTicket(nuevoTicket);
 
 			return new ResponseEntity<>(respuestaTicket, HttpStatus.CREATED);
 		
@@ -43,12 +44,14 @@ public class TicketsController {
 		}
 	}
 
+	
+	
 	// ver un tiket por id
 	@GetMapping("listarPoId/{id}")
 	public ResponseEntity<?> listarTicketsPorId(@PathVariable Long id) {
 
 		try {
-			DatosRespuestaTicket respuestaTicket = ticketsService.buscarPorId(id);
+			DatosRespuestaTicketDto respuestaTicket = ticketsService.buscarPorId(id);
 			return new ResponseEntity<>(respuestaTicket, HttpStatus.OK);
 
 		} catch (MiException e) {
@@ -62,20 +65,20 @@ public class TicketsController {
 	public ResponseEntity<?> listarTickets() {
 
 		try {
-			List<DatosRespuestaTicket> listaTickets = ticketsService.listar();
-			return new ResponseEntity<List<DatosRespuestaTicket>>(listaTickets, HttpStatus.OK);
+			List<DatosRespuestaTicketDto> listaTickets = ticketsService.listar();
+			return new ResponseEntity<List<DatosRespuestaTicketDto>>(listaTickets, HttpStatus.OK);
 		
 		} catch (MiException e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	//modicicar tickers
+	//modicicar tickets
 	@PostMapping("/actualizar/{id}")
-	public ResponseEntity<?> actualizarTicket(@RequestBody DatosActualizarTicket ticket ,@PathVariable Long id) {
+	public ResponseEntity<?> actualizarTicket(@RequestBody DatosActualizarTicketDto ticket ,@PathVariable Long id) {
 
 		try {
-			DatosRespuestaTicket respuestaTicket = ticketsService.actualizarTicket(ticket , id);
+			DatosRespuestaTicketDto respuestaTicket = ticketsService.actualizarTicket(ticket , id);
 			return new ResponseEntity<>(respuestaTicket, HttpStatus.OK);
 		
 		} catch (MiException e) {
@@ -105,7 +108,7 @@ public class TicketsController {
     public ResponseEntity<?> listaPaginaTickets(@PageableDefault(size = 2) Pageable paginacion) {
     	
     	try {
-    		Page<DatosRespuestaTicket> pageDatosRespuestaTicket = ticketsService.ListadoPaginado(paginacion);
+    		Page<DatosRespuestaTicketDto> pageDatosRespuestaTicket = ticketsService.ListadoPaginado(paginacion);
 			 return ResponseEntity.ok(pageDatosRespuestaTicket);	
 			 
     		} catch (MiException e) {
