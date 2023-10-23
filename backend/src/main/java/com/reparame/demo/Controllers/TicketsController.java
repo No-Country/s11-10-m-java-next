@@ -122,15 +122,11 @@ public class TicketsController {
     @PostMapping("/{id}/calificar")
     public ResponseEntity<?> calificarTicket(@PathVariable Long id, @RequestBody Calificacion calificacion){
         try {
-            DatosRespuestaTicket ticket = ticketsService.buscarPorId(id);
+            ticketsService.calificar(id, calificacion);
+            return new ResponseEntity<>("ticket calificado exitosamente", HttpStatus.OK);
         } catch (MiException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        
-        
-        
-        return null;
-    
     }
 
 }

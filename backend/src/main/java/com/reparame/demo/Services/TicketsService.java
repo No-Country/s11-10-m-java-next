@@ -99,15 +99,17 @@ public class TicketsService {
 		
 	}
         
-        public String calificarTicket(Long id, Calificacion calificacion) throws MiException{
+        public String calificar(Long id, Calificacion calificacion) throws MiException{
             try {
                 Ticket ticket = ticketRepository.findById(id).get();
                 ticket.setCalificacion(calificacion);
+                ticketRepository.save(ticket);
+                return "";
             } catch (Exception e) {
                 throw new MiException(e.getMessage());
             }
             
-            return "";
+            
         } 
         
         
