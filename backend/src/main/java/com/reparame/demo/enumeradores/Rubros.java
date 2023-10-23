@@ -9,7 +9,10 @@ package com.reparame.demo.enumeradores;
  * @author Admin
  */
 public enum Rubros {
+    ELECTRICISTA,
     GASISTA,
-    PLOMERIA,
-    AIRES
+    PLOMERO,
+    CERRAJERO,
+    AIRES,
+    VARIOS
 }

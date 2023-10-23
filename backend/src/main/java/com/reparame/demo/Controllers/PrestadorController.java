@@ -2,8 +2,8 @@ package com.reparame.demo.Controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,14 +20,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.reparame.demo.Services.PrestadorService;
 import com.reparame.demo.entity.Prestador;
 
+import lombok.RequiredArgsConstructor;
+
 
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/prestador")
 public class PrestadorController {
 	
-    @Autowired
-    private PrestadorService prestadorService;
+    private final PrestadorService prestadorService;
 	
     @PostMapping("/crear")
     public ResponseEntity<Prestador> nuevoPrestador(@RequestBody Prestador prestador){
@@ -88,13 +90,15 @@ public class PrestadorController {
     	
     }    
     
-    @PutMapping("/cambiarfoto/{id}")
-    public ResponseEntity<?> cambiarfoto(@PathVariable("id") Long id, @RequestParam("imagen")MultipartFile file){
+    @PutMapping("/cambiarfoto")
+    public ResponseEntity<?> cambiarfoto (@RequestBody Map<String, Long> datos){
     	try {
-        	Prestador prestadorModificado = prestadorService.cambiarFoto(id, file);
+			Long idImagen = datos.get("idImagen");
+			Long idPrestador = datos.get("idPrestador");
+        	Prestador prestadorModificado = prestadorService.cambiarFoto(idPrestador, idImagen);
     		return new ResponseEntity<>(prestadorModificado, HttpStatus.OK);
     	} catch (Exception e) {
-    		return ResponseEntity.notFound().build();
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
     	}
     	
     }      

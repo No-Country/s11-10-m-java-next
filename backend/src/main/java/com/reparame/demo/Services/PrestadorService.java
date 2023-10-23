@@ -1,11 +1,11 @@
 package com.reparame.demo.Services;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import com.reparame.demo.Repositories.PrestadorRepository;
 import com.reparame.demo.entity.Imagen;
@@ -13,13 +13,15 @@ import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.enumeradores.Roles;
 import com.reparame.demo.exception.MiException;
 
+import lombok.RequiredArgsConstructor;
+
 
 
 @Service
+@RequiredArgsConstructor
 public class PrestadorService {
 	
-    @Autowired
-    PrestadorRepository prestadorRepo;
+    private final PrestadorRepository prestadorRepo;
     
 	@Autowired
 	private ImagenService imagenService;
@@ -97,13 +99,15 @@ public class PrestadorService {
 
 
 
-	public Prestador cambiarFoto(Long id, MultipartFile file)  throws IOException{
-		
-		Prestador prestadorModificado = prestadorRepo.findById(id).get();
-		Imagen foto = imagenService.guardarImagen(file);
-		prestadorModificado.setFoto(foto);
-		
-		return prestadorModificado;
+	public Prestador cambiarFoto(Long id, Long idImagen)  throws Exception{
+		try {
+			Prestador prestadorModificado = prestadorRepo.findById(id).get();
+			Imagen foto = imagenService.getOne(idImagen).get();
+			prestadorModificado.setFoto(foto);	
+			return prestadorRepo.save(prestadorModificado);
+		} catch (Exception e) {
+			throw new Exception("no existe prestador o imagen con ese id");
+		}
 	}
 
 }
