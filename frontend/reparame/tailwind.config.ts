@@ -16,6 +16,7 @@ const config: Config = {
         'red': '#fca5a5',
         'red2': '#ef4444',
         'orange': '#fdba74',
+        'gray': '#F5F5F5',
       },
       maxWidth: {
         'max-view': '1500px',

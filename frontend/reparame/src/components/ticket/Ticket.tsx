@@ -47,10 +47,10 @@ const Ticket: React.FC = () => {
                     onSubmit={openAlert}>
                     <section className='flex gap-5 w-full'>
                         <div className='flex gap-2'>
-                            <Image src={'/oficina1.jpg'} width={50} height={200} alt='oficina1' className='w-40 h-full rounded-md' />
+                            <Image src={'/oficina1.webp'} sizes='100vh'  width={50} height={200} alt='oficina1' className='w-40 h-full rounded-md' />
                             <div className='flex flex-col gap-2'>
-                                <Image src={'/oficina2.jpg'} width={50} height={100} alt='oficina1' className='w-40 h-48 rounded-md' />
-                                <Image src={'/oficina3.jpg'} width={50} height={100} alt='oficina1' className='w-40 h-48 rounded-md' />
+                                <Image src={'/oficina2.webp'} sizes='100vh' width={50} height={100} alt='oficina1' className='w-40 h-48 rounded-md' />
+                                <Image src={'/oficina3.webp'} sizes='100vh' width={50} height={100} alt='oficina1' className='w-40 h-48 rounded-md' />
 
                             </div>
                         </div>
@@ -75,8 +75,8 @@ const Ticket: React.FC = () => {
                             <p className='py-6'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta culpa nam quia explicabo iure, asperiores minima dolore consequuntur saepe maiores est et modi? Magnam, beatae hic dolore nesciunt dolorem quasi?
                                 Itaque rerum distinctio, suscipit temporibus, facere tempora omnis delectus ipsa.</p>
                             <menu className='flex flex-row gap-10 self-center'>
-                                <Button className='w-36 text-white hover:bg-red2 bg-red'   id="cancel" type="reset" onClick={closeTicket}>Cancel</Button>
-                                <Button className='w-36 text-white hover:bg-light-orange bg-orange' type="submit">Confirm</Button>
+                                <Button className='w-36 text-light-orange hover:bg-light-orange hover:text-gray bg-gray'   id="cancel" type="reset" onClick={closeTicket}>Cancel</Button>
+                                <Button className='w-36 text-light-orange hover:bg-light-orange hover:text-gray bg-gray' type="submit">Confirm</Button>
                             </menu>
                         </div>
 
