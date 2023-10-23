@@ -1,5 +1,6 @@
 package com.reparame.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.reparame.demo.dtos.DatosRegistroServicio;
 import com.reparame.demo.enumeradores.Rubros;
 import jakarta.persistence.Entity;
@@ -40,7 +41,7 @@ public class Servicio {
     
     @OneToMany(mappedBy = "servicio")
     private List<Ticket> tikets;
-    
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="id_prestador")
     private Prestador prestador;
