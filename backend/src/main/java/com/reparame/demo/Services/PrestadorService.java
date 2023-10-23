@@ -12,6 +12,7 @@ import com.reparame.demo.entity.Imagen;
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.enumeradores.Roles;
 import com.reparame.demo.exception.MiException;
+import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,6 +44,7 @@ public class PrestadorService {
 		nuevoPrestador.setLocalidad(prestador.getLocalidad());	
 		nuevoPrestador.setFechaNacimiento(prestador.getFechaNacimiento());
 		nuevoPrestador.setZona(prestador.getZona());
+                
 
 	    return prestadorRepo.save(nuevoPrestador);			
 	}
@@ -61,7 +63,8 @@ public class PrestadorService {
 
 	
 	public Prestador verPrestador(Long id) {
-		return prestadorRepo.findById(id).get();
+                Prestador prestador = prestadorRepo.findById(id).get();
+		return prestador;
 	}
 
 	
@@ -97,8 +100,6 @@ public class PrestadorService {
 	    return prestadorRepo.save(prestadorModificado);	
 	}
 
-
-
 	public Prestador cambiarFoto(Long id, Long idImagen)  throws Exception{
 		try {
 			Prestador prestadorModificado = prestadorRepo.findById(id).get();
@@ -110,4 +111,9 @@ public class PrestadorService {
 		}
 	}
 
+        public boolean prestadorExiste(String ussername){
+            Optional<Prestador> prestador = prestadorRepo.findByUsername(ussername);
+            return prestador.isPresent();
+        }
+        
 }

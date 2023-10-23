@@ -9,6 +9,7 @@ import com.reparame.demo.Repositories.TicketsRepository;
 import com.reparame.demo.dtos.DatosActualizarTicket;
 import com.reparame.demo.dtos.DatosRegistroTicket;
 import com.reparame.demo.dtos.DatosRespuestaTicket;
+import com.reparame.demo.entity.Calificacion;
 import com.reparame.demo.entity.Ticket;
 import com.reparame.demo.exception.MiException;
 
@@ -43,10 +44,10 @@ public class TicketsService {
 			List<Ticket> ticketList = ticketRepository.findByEstadoTrue();
 
 			// Mapear la lista de Ticket a una lista de DatosRespuestaTicket
-			List<DatosRespuestaTicket> datosRespuestaList = ticketList.stream()
-															.map(DatosRespuestaTicket::new) 
-															.collect(Collectors.toList());
-			return datosRespuestaList;
+			List<DatosRespuestaTicket> datosRespuestaList = ticketList.stream().map(DatosRespuestaTicket::new) 
+			.collect(Collectors.toList());
+			
+                        return datosRespuestaList;
 
 		} catch (Exception e) {
 			throw new MiException(e.getMessage());
@@ -97,5 +98,22 @@ public class TicketsService {
 
 		
 	}
-
+        
+        public String calificar(Long id, Calificacion calificacion) throws MiException{
+            try {
+                Ticket ticket = ticketRepository.findById(id).get();
+                ticket.setCalificacion(calificacion);
+                ticketRepository.save(ticket);
+                return "";
+            } catch (Exception e) {
+                throw new MiException(e.getMessage());
+            }
+            
+            
+        } 
+        
+        
+       
+        
+        
 }

@@ -4,12 +4,16 @@
  */
 package com.reparame.demo.Controllers;
 
+import com.reparame.demo.Services.PrestadorService;
 import com.reparame.demo.Services.ServicioService;
+import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.entity.Servicio;
+import com.reparame.demo.enumeradores.Rubros;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,26 +29,37 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/servicio")
+@RequestMapping("/servicios")
+@CrossOrigin(origins="*")
 public class ServicioController {
     private final ServicioService servicioServ;
+    private final PrestadorService prestadorService;
     
-    @PostMapping("/crear")
-    public ResponseEntity<Servicio> nuevoServicio(@RequestBody Servicio servicio){
+    //Por ahora para crear un servicio se le pasa el id del prestador
+    @PostMapping("/{id}")
+    public ResponseEntity<Servicio> nuevoServicio(@RequestBody Servicio servicio, @PathVariable("id") Long id){
         try {
+            Prestador prestador = prestadorService.verPrestador(id);
             Servicio servicioNuevo = servicioServ.nuevoServicio(servicio);
+            servicioNuevo.setPrestador(prestador);
+            
             return new ResponseEntity<>(servicioNuevo, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         } 
     }
     
-    @GetMapping("/listar")
+    @GetMapping("")
+    public List<Servicio> listarServiciosActivos(){
+        return servicioServ.listarServiciosActivos();
+    }
+    
+    @GetMapping("/listarTodos")
     public List<Servicio> listarServicios(){
         return servicioServ.listarServicios();
     }
     
-    @GetMapping("/buscarPorID/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Servicio> buscarPorID(@PathVariable("id") Long id){
         try {
             Servicio servicio = servicioServ.buscarPorID(id).get();
@@ -64,12 +79,12 @@ public class ServicioController {
         } 
     }
     
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public void eliminarPrestador(@PathVariable("id") Long id){
     	servicioServ.eliminarServicio(id);
     } 
 
-    @PutMapping("/modificar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Servicio> modificar(@PathVariable("id") Long id, @RequestBody Servicio servicio){
         try {
             Servicio servicioModificado = servicioServ.modificarServicio(id, servicio);
@@ -78,4 +93,16 @@ public class ServicioController {
             return ResponseEntity.notFound().build();
         } 
     }
+    
+    @GetMapping("/buscarPorCategoria/{categoria}")
+    public ResponseEntity<Servicio> buscarPorCategoria(@PathVariable("categoria") Rubros categoria){
+        try {
+            Servicio servicio = servicioServ.buscarPorCategoria(categoria);
+            return new ResponseEntity<>(servicio, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        } 
+    }
 }
+
+// servicios/buscarPorCategoria/electricidad

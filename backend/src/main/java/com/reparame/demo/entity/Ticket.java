@@ -21,10 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- *
- * @author Admin
- */
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -43,9 +40,9 @@ public class Ticket {
     @JoinColumn(name="id_servicio")
     private Servicio servicio;
     
-    @OneToOne
-    @JoinColumn(name="id_clasificacion")
-    private Clasificacion clasificacion;
+    @OneToOne(mappedBy="ticket")
+    @JoinColumn(name="id_calificacion")
+    private Calificacion calificacion;
     
     @ManyToOne
     @JoinColumn(name="id_cliente")
@@ -58,7 +55,7 @@ public class Ticket {
     	this.fechaInicio = ticket.fechaInicio();
     	this.fechaRequerida = ticket.fechaRequerida();
     	this.servicio = ticket.servicio();
-    	this.clasificacion = ticket.clasificacion();
+    	this.calificacion = ticket.calificacion();
     	this.cliente =ticket.cliente();
     	
     }
@@ -84,10 +81,18 @@ public class Ticket {
     }
 
     // desactivar ticket
-	public void desactivarTicket() {
-		this.estado = false;
-		
-	}
+    public void desactivarTicket() {
+            this.estado = false;
+
+    }
+    
+    public Calificacion getCalificacion(){
+        return calificacion;
+    }
+    
+    public void setCalificacion(Calificacion calificacion){
+        this.calificacion = calificacion;
+    }
 
     
 }
