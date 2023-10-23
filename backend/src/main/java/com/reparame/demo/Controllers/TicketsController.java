@@ -49,7 +49,9 @@ public class TicketsController {
                     return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
             }
     }
-
+    
+    //usar un mapeador
+   //entre controlador y servicio siempre se usan dtos
 
 
     // Listar todos los tickets
@@ -78,9 +80,7 @@ public class TicketsController {
             }
 
     }
-       
-    @PostMapping("/{id}/calificar")
-    
+           
 
     // Actualizar un ticket existente
     @PutMapping("/{id}")
@@ -119,6 +119,18 @@ public class TicketsController {
         return ResponseEntity.ok(pageDatosRespuestaTicket);
     }
 
-    //@PostMapping("/{id}/calificar")
-    //Falta hacer
+    @PostMapping("/{id}/calificar")
+    public ResponseEntity<?> calificarTicket(@PathVariable Long id, @RequestBody Calificacion calificacion){
+        try {
+            DatosRespuestaTicket ticket = ticketsService.buscarPorId(id);
+        } catch (MiException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        
+        
+        
+        return null;
+    
+    }
+
 }

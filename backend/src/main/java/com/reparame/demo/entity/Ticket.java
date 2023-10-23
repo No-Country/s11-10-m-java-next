@@ -89,6 +89,10 @@ public class Ticket {
     public Calificacion getCalificacion(){
         return calificacion;
     }
+    
+    public void setCalificacion(Calificacion calificacion){
+        this.calificacion = calificacion;
+    }
 
     
 }

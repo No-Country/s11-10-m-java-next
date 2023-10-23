@@ -44,10 +44,10 @@ public class TicketsService {
 			List<Ticket> ticketList = ticketRepository.findByEstadoTrue();
 
 			// Mapear la lista de Ticket a una lista de DatosRespuestaTicket
-			List<DatosRespuestaTicket> datosRespuestaList = ticketList.stream()
-															.map(DatosRespuestaTicket::new) 
-															.collect(Collectors.toList());
-			return datosRespuestaList;
+			List<DatosRespuestaTicket> datosRespuestaList = ticketList.stream().map(DatosRespuestaTicket::new) 
+			.collect(Collectors.toList());
+			
+                        return datosRespuestaList;
 
 		} catch (Exception e) {
 			throw new MiException(e.getMessage());
@@ -98,6 +98,17 @@ public class TicketsService {
 
 		
 	}
+        
+        public String calificarTicket(Long id, Calificacion calificacion) throws MiException{
+            try {
+                Ticket ticket = ticketRepository.findById(id).get();
+                ticket.setCalificacion(calificacion);
+            } catch (Exception e) {
+                throw new MiException(e.getMessage());
+            }
+            
+            return "";
+        } 
         
         
        
