@@ -118,10 +118,5 @@ public class PrestadorService {
             Optional<Prestador> prestador = prestadorRepo.findByUsername(ussername);
             return prestador.isPresent();
         }
-        
-        public void guardar(Prestador prestador){
-            prestadorRepo.save(prestador);
-        }
-        
-
+             
 }

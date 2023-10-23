@@ -6,9 +6,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.reparame.demo.Services.CloudinaryService;
 import com.reparame.demo.Services.ImagenService;
-import com.reparame.demo.Services.PrestadorService;
 import com.reparame.demo.entity.Imagen;
 
 import lombok.RequiredArgsConstructor;

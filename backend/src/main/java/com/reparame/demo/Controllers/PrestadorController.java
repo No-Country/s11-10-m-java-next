@@ -107,15 +107,10 @@ public class PrestadorController {
     }
     
     @PutMapping("/cambiarfoto")
-//    public ResponseEntity<?> cambiarfoto (@RequestBody Map<String, Long> datos){
-        public ResponseEntity<?> cambiarfoto (){
+    public ResponseEntity<?> cambiarfoto (@RequestBody Map<String, Long> datos){
     	try {
-//			Long idImagen = datos.get("idImagen");
-//			Long idPrestador = datos.get("idPrestador");
-			Long idImagen = (long) 20;
-			Long idPrestador = (long) 1;
-			System.out.println(idImagen);
-			System.out.println(idPrestador);
+			Long idImagen = datos.get("idImagen");
+			Long idPrestador = datos.get("idPrestador");
         	Prestador prestadorModificado = prestadorService.cambiarFoto(idPrestador, idImagen);
     		return new ResponseEntity<>(prestadorModificado, HttpStatus.OK);
     	} catch (Exception e) {

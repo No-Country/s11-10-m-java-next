@@ -7,6 +7,7 @@ package com.reparame.demo.Services;
 import com.reparame.demo.Repositories.ServicioRepository;
 import com.reparame.demo.dtos.DatosRegistroServicio;
 import com.reparame.demo.dtos.DatosRespuestaServicio;
+import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.entity.Servicio;
 import com.reparame.demo.enumeradores.Rubros;
 import com.reparame.demo.exception.MiException;
@@ -39,7 +40,7 @@ public class ServicioService {
         return respuestaServicio;
     }
     
-    public Servicio nuevoServicio(Servicio servicio){
+    public Servicio nuevoServicio(Servicio servicio, Prestador prestador){
         Servicio nuevoServicio = new Servicio();
         
         nuevoServicio.setDescripcion(servicio.getDescripcion());
@@ -47,6 +48,7 @@ public class ServicioService {
         nuevoServicio.setPrecio(servicio.getPrecio());
         nuevoServicio.setRubro(servicio.getRubro());
         nuevoServicio.setAlta(true);
+        nuevoServicio.setPrestador(prestador);    
         
         return servicioRep.save(nuevoServicio);
     }
