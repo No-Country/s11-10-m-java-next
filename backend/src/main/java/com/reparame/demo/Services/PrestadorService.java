@@ -4,14 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 
 import com.reparame.demo.Repositories.PrestadorRepository;
 import com.reparame.demo.entity.Imagen;
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.enumeradores.Roles;
-import com.reparame.demo.exception.MiException;
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
@@ -116,4 +114,9 @@ public class PrestadorService {
             return prestador.isPresent();
         }
         
+        public void guardar(Prestador prestador){
+            prestadorRepo.save(prestador);
+        }
+        
+
 }
