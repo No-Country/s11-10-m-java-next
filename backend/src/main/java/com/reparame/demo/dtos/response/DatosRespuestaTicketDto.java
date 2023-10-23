@@ -2,7 +2,8 @@ package com.reparame.demo.dtos.response;
 
 import java.time.LocalDate;
 
-import com.reparame.demo.entity.Clasificacion;
+
+import com.reparame.demo.entity.Calificacion;
 import com.reparame.demo.entity.Cliente;
 import com.reparame.demo.entity.Servicio;
 import com.reparame.demo.entity.Ticket;

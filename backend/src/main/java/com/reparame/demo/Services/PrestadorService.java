@@ -5,17 +5,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.reparame.demo.Repositories.PrestadorRepository;
+import com.reparame.demo.entity.Imagen;
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.enumeradores.Roles;
+import java.util.Optional;
+
+import lombok.RequiredArgsConstructor;
 
 
 
 @Service
+@RequiredArgsConstructor
 public class PrestadorService {
 	
-    @Autowired
-    PrestadorRepository prestadorRepo;
+    private final PrestadorRepository prestadorRepo;
+    
+	@Autowired
+	private ImagenService imagenService;
 
 	public Prestador nuevoPrestador(Prestador prestador) {
 		Prestador nuevoPrestador = new Prestador();
@@ -34,6 +42,7 @@ public class PrestadorService {
 		nuevoPrestador.setLocalidad(prestador.getLocalidad());	
 		nuevoPrestador.setFechaNacimiento(prestador.getFechaNacimiento());
 		nuevoPrestador.setZona(prestador.getZona());
+                
 
 	    return prestadorRepo.save(nuevoPrestador);			
 	}
@@ -44,8 +53,16 @@ public class PrestadorService {
 	}
 
 	
+	public List<Prestador> listarPrestadoresActivos() {
+		List<Prestador> listaPrestadores = prestadorRepo.buscarActivos();
+		return listaPrestadores;
+
+	}
+
+	
 	public Prestador verPrestador(Long id) {
-		return prestadorRepo.findById(id).get();
+                Prestador prestador = prestadorRepo.findById(id).get();
+		return prestador;
 	}
 
 	
@@ -81,31 +98,30 @@ public class PrestadorService {
 	    return prestadorRepo.save(prestadorModificado);	
 	}
 
-	
-	
-	
+	public Prestador cambiarFoto(Long id, Long idImagen)  throws Exception{
+		try {
+			Prestador prestadorModificado = prestadorRepo.findById(id).get();
+			Imagen foto = imagenService.getOne(idImagen).get();
+			
+			System.out.println("PRESTADOR: " + prestadorModificado);
+			System.out.println("IMAGEN: " +  foto);
+			
+			
+			prestadorModificado.setFoto(foto);	
+			return prestadorRepo.save(prestadorModificado);
+		} catch (Exception e) {
+			throw new Exception("no existe prestador o imagen con ese id");
+		}
+	}
 
-
-
-
-//    public ResponseEntity<DataPayment> updateDataPayment(Long id, DataPayment dataPaymentDetails){
-//        Optional<DataPayment> optionalDataPayment = dataPaymentRepository.findById(id);
-//        if(!optionalDataPayment.isPresent()){
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        DataPayment dataPayment = optionalDataPayment.get();
-//        dataPayment.setName(dataPaymentDetails.getName());
-//        dataPayment.setNumber(dataPaymentDetails.getNumber());
-//        dataPayment.setExpDate(dataPaymentDetails.getExpDate());
-//        dataPayment.setSecurityCode(dataPaymentDetails.getSecurityCode());
-//        dataPayment.setUserFullName(dataPaymentDetails.getUserFullName());
-//        DataPayment updateDataPayment = dataPaymentRepository.save(dataPayment);
-//        return new ResponseEntity<>(updateDataPayment, HttpStatus.OK);
-//    }
-//
-//
-//    public void delete(Long id){dataPaymentRepository.deleteById(id);}
-	
-
+        public boolean prestadorExiste(String ussername){
+            Optional<Prestador> prestador = prestadorRepo.findByUsername(ussername);
+            return prestador.isPresent();
+        }
+        
+        public void guardar(Prestador prestador){
+            prestadorRepo.save(prestador);
+        }
+        
 
 }

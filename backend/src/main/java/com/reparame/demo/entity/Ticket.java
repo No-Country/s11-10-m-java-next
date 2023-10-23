@@ -25,10 +25,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- *
- * @author Admin
- */
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -47,23 +44,23 @@ public class Ticket {
     @JoinColumn(name="id_servicio")
     private Servicio servicio;
     
-    @OneToOne
-    @JoinColumn(name="id_clasificacion")
-    private Clasificacion clasificacion;
+    @OneToOne(mappedBy="ticket")
+    @JoinColumn(name="id_calificacion")
+    private Calificacion calificacion;
     
     @ManyToOne
     @JoinColumn(name="id_cliente")
     private Cliente cliente;
     
     // para crear un ticket a partir de los datos recibidos 
-    public Ticket( DatosRegistroTicketDto ticket) throws MiException {
+    public Ticket(DatosRegistroTicketDto ticket) throws MiException {
     	this.estado = true;
     	this.descripcion = ticket.descripcion();
     	
     	this.fechaInicio = this.validarFecha(ticket.fechaInicio());
     	this.fechaRequerida = this.validarFecha(ticket.fechaRequerida());
     	this.servicio = ticket.servicio();
-    	this.clasificacion = ticket.clasificacion();
+    	this.calificacion = ticket.calificacion();
     	this.cliente =ticket.cliente();
     	
     }
@@ -90,8 +87,7 @@ public class Ticket {
 
     // desactivar ticket
 	public void desactivarTicket() {
-		this.estado = false;
-		
+		this.estado = false;	
 	}
 	
 
@@ -108,12 +104,11 @@ public class Ticket {
             }
             return fechaNac; 
             
-        } catch (DateTimeParseException  e) {
+        } catch (DateTimeParseException e) {
             throw new MiException("El formato de fecha debe ser yyyy-MM-dd", HttpStatus.BAD_REQUEST);
         }
         
     }
-
     
 }
 

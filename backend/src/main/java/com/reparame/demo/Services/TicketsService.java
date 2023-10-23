@@ -11,6 +11,7 @@ import com.reparame.demo.Repositories.TicketsRepository;
 import com.reparame.demo.dtos.requets.DatosActualizarTicketDto;
 import com.reparame.demo.dtos.requets.DatosRegistroTicketDto;
 import com.reparame.demo.dtos.response.DatosRespuestaTicketDto;
+import com.reparame.demo.entity.Calificacion;
 import com.reparame.demo.entity.Ticket;
 import com.reparame.demo.exception.MiException;
 
@@ -28,8 +29,6 @@ public class TicketsService {
 		Ticket ticket = new Ticket(nuevoTicket);
 		
 		try {
-			
-
 			ticketRepository.save(ticket);
 		} catch (Exception e) {
 			throw new MiException(e.getMessage());
@@ -102,6 +101,7 @@ public class TicketsService {
 		
 	}
 
+
 	//devuelve una lista de paginas con tickets
 	public Page<DatosRespuestaTicketDto> ListadoPaginado( Pageable paginacion) throws MiException {
 
@@ -116,5 +116,24 @@ public class TicketsService {
 		}
         
 	}
+
+        
+        public String calificar(Long id, Calificacion calificacion) throws MiException{
+            try {
+                Ticket ticket = ticketRepository.findById(id).get();
+                ticket.setCalificacion(calificacion);
+                ticketRepository.save(ticket);
+                return "";
+            } catch (Exception e) {
+                throw new MiException(e.getMessage());
+            }
+            
+            
+        } 
+        
+        
+       
+        
+        
 
 }

@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 
 import org.springframework.http.HttpStatus;
 
-import com.reparame.demo.entity.Clasificacion;
+import com.reparame.demo.entity.Calificacion;
 import com.reparame.demo.entity.Cliente;
 import com.reparame.demo.entity.Servicio;
 import com.reparame.demo.exception.MiException;
@@ -33,7 +33,7 @@ public record DatosRegistroTicketDto(
 		
 		Servicio servicio,
 		
-		Clasificacion clasificacion,
+		Calificacion calificacion,
 		
 		Cliente cliente) {
 	
