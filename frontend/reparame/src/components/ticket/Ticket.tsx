@@ -1,9 +1,10 @@
 'use client'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 import Image from 'next/image';
 import { useRef } from 'react';
 import StarsUser from '../icons/StarsUser';
 import { Button } from '@nextui-org/react';
+import StarsUser2 from '../icons/StarUser2';
 // import { setInterval } from 'timers/promises';
 
 
@@ -49,8 +50,8 @@ const Ticket: React.FC = () => {
                         <div className='flex gap-2'>
                             <Image src={'/oficina1.webp'} sizes='100vh'  width={50} height={200} alt='oficina1' className='w-40 h-full rounded-md' />
                             <div className='flex flex-col gap-2'>
-                                <Image src={'/oficina2.webp'} sizes='100vh' width={50} height={100} alt='oficina1' className='w-40 h-48 rounded-md' />
-                                <Image src={'/oficina3.webp'} sizes='100vh' width={50} height={100} alt='oficina1' className='w-40 h-48 rounded-md' />
+                                <Image src={'/oficina2.webp'} sizes='100vh' width={50} height={100} alt='oficina1' className='w-40 h-52 rounded-md' />
+                                <Image src={'/oficina3.webp'} sizes='100vh' width={50} height={100} alt='oficina1' className='w-40 h-52 rounded-md' />
 
                             </div>
                         </div>
@@ -78,6 +79,9 @@ const Ticket: React.FC = () => {
                                 <Button className='w-36 text-light-orange hover:bg-light-orange hover:text-gray bg-gray'   id="cancel" type="reset" onClick={closeTicket}>Cancel</Button>
                                 <Button className='w-36 text-light-orange hover:bg-light-orange hover:text-gray bg-gray' type="submit">Confirm</Button>
                             </menu>
+                            <div>
+                                <StarsUser2 />
+                            </div>
                         </div>
 
                     </section>
