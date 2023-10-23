@@ -18,14 +18,13 @@ import com.reparame.demo.Services.PrestadorService;
 import com.reparame.demo.dtos.Prestador.DetallePrestadorDTO;
 import com.reparame.demo.entity.Prestador;
 import java.util.ArrayList;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 
 
 @RestController
 @RequestMapping("/prestadores")
-@CrossOrigin(origins="*")
+
 public class PrestadorController {
 	
     @Autowired

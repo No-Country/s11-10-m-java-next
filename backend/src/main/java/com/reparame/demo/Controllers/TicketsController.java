@@ -19,19 +19,17 @@ import com.reparame.demo.Services.TicketsService;
 import com.reparame.demo.dtos.DatosActualizarTicket;
 import com.reparame.demo.dtos.DatosRegistroTicket;
 import com.reparame.demo.dtos.DatosRespuestaTicket;
-import com.reparame.demo.entity.Calificacion;
 import com.reparame.demo.entity.Ticket;
 import com.reparame.demo.exception.MiException;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping("/tickets")
 @RequiredArgsConstructor
-@CrossOrigin(origins="*")
+
 public class TicketsController {
 
     private final TicketsService ticketsService;

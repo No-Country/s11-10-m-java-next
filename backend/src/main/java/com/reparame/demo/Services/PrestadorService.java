@@ -98,5 +98,8 @@ public class PrestadorService {
             return prestador.isPresent();
         }
         
+        public void guardar(Prestador prestador){
+            prestadorRepo.save(prestador);
+        }
         
 }

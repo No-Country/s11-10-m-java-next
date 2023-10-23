@@ -6,6 +6,7 @@ package com.reparame.demo.dtos;
 
 import com.reparame.demo.exception.MiException;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import lombok.AllArgsConstructor;
@@ -22,23 +23,23 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 public class RegisterRequest {
     @NotBlank(message = "El nombre completo no debe estar en blanco o nulo")
-    
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s']{1,30}$", message = "El nombre completo debe contener solo letras y tener un máximo de 30 caracteres")
     private String nombreCompleto;
     
     @NotBlank(message = "El apellido completo no debe estar en blanco o nulo")
-    
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s']{1,30}$", message = "El apellido completo debe contener solo letras y tener un máximo de 30 caracteres")
     private String apellidoCompleto;
     
     @NotBlank(message = "El correo electronico no debe estar en blanco o nulo")
-    
-    private String ussername;
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "La dirección de correo electrónico no es válida")
+    private String username;
     
     @NotBlank(message = "La contrase\u00F1a no debe estar en blanco o nulo")
-    
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,15}$", message = "La contrase\u00F1a no cumple con los requisitos, ingrese letras mayusculas y minusculas, numeros, un caracter especial y maximo 15")
     private String password;
     
     @NotBlank(message = "El DNI no debe estar en blanco o nulo")
-    
+    @Pattern(regexp = "^[0-9]{8}$", message = "El DNI debe ser una cadena de 8 dígitos numéricos")
     private String DNI;
     
     @NotBlank(message = "La direccion no debe estar en blanco o nulo")
@@ -64,6 +65,10 @@ public class RegisterRequest {
     @NotBlank(message = "El rol no debe estar en blanco o nulo")
     
     private String rol;
+    
+    @NotBlank(message = "La zona no debe estar en blanco o nulo")
+    
+    private String zona;
     
     public LocalDate validarFecha(String fechaNacimiento) throws MiException  {
         try {
