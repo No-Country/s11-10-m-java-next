@@ -1,5 +1,6 @@
 package com.reparame.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.reparame.demo.dtos.DatosRegistroServicio;
 import com.reparame.demo.enumeradores.Rubros;
 import jakarta.persistence.Entity;
@@ -43,6 +44,7 @@ public class Servicio {
     
     @ManyToOne
     @JoinColumn(name="id_prestador")
+    @JsonIgnore
     private Prestador prestador;
     
     public List<Ticket> getTickets(){

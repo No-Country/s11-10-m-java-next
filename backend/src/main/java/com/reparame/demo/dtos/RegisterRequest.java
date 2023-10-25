@@ -42,32 +42,30 @@ public class RegisterRequest {
     @Pattern(regexp = "^[0-9]{8}$", message = "El DNI debe ser una cadena de 8 dígitos numéricos")
     private String DNI;
     
-    @NotBlank(message = "La direccion no debe estar en blanco o nulo")
-    
+    @NotBlank(message = "La dirección no debe estar en blanco o nula")
+    @Pattern(regexp = "^(?=.*\\d)[a-zA-ZÀ-ÿ\\d\\s']{1,30}$", message = "La dirección debe contener letras y dígitos numéricos y tener un máximo de 30 caracteres")
     private String direccion;
     
     @NotBlank(message = "El numero de telefono no debe estar en blanco o nulo")
-    
+    @Pattern(regexp = "^[0-9]{10,}$", message = "El número telefónico debe ser una cadena de al menos 10 dígitos numéricos")
     private String numeroTelefonico;
     
     @NotBlank(message = "El nombre de la provincia no debe estar en blanco o nulo")
-    
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s']{1,30}$", message = "El nombre de la provincia debe contener solo letras y tener un máximo de 30 caracteres")
     private String provincia;
     
     @NotBlank(message = "El nombre de la localidad no debe estar en blanco o nulo")
-    
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s']{1,30}$", message = "El nombre de la localidad debe contener solo letras y tener un máximo de 30 caracteres")
     private String localidad;
     
     @NotBlank(message = "La fecha de nacimiento no debe estar en blanco o nulo")
-    
     private String fechaNacimiento;
     
     @NotBlank(message = "El rol no debe estar en blanco o nulo")
-    
     private String rol;
     
     @NotBlank(message = "La zona no debe estar en blanco o nulo")
-    
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s']{1,30}$", message = "La zona debe contener solo letras y tener un máximo de 30 caracteres")
     private String zona;
     
     public LocalDate validarFecha(String fechaNacimiento) throws MiException  {

@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
@@ -51,9 +52,9 @@ public class UserService {
         
         LocalDate fechaNacimiento = registerRequest.validarFecha(registerRequest.getFechaNacimiento());
         
-        if (prestadorService.prestadorExiste(registerRequest.getUsername()) && 
+        if (prestadorService.prestadorExiste(registerRequest.getUsername()) ||
                 clienteService.clienteExiste(registerRequest.getUsername())) {
-            return new ResponseEntity<String>("Usuario existente", HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario existente");
         }
         
         if (rolRequest.equalsIgnoreCase(rolPrestador)) {

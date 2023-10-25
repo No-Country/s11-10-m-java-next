@@ -22,5 +22,5 @@ public interface ServicioRepository extends JpaRepository<Servicio, Long>{
     List<Servicio> findByEstadoTrue();
     
     @Query("SELECT s FROM Servicio s WHERE s.rubro = :categoria")
-    Servicio findByCategoria(@Param("categoria") Rubros categoria);
+    List<Servicio> findByCategoria(@Param("categoria") Rubros categoria);
 }
