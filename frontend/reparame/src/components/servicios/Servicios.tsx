@@ -7,12 +7,14 @@ import DetalleServicio from './detalleServicio/DetalleServicio'
 import { useAppSelector } from '@/utils/globalStates/hooks'
 import Skeleton from '../loadingSpinner/Skeleton'
 import HeaderManager from '../headerManager/HeaderManager'
+import {useSession} from 'next-auth/react'
 
 const Servicios = () => {
+    const {data} = useSession()
     const [servicios, setServicios] = useState([])
     const id = useAppSelector(state => state.servicios.value)
     useEffect(() => {
-        getServicios(setServicios, id)
+        getServicios(setServicios, id,data?.user.accessToken)
     }, [id])
 
     return (
