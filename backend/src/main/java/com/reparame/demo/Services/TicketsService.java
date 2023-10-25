@@ -8,9 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.reparame.demo.Repositories.TicketsRepository;
-import com.reparame.demo.dtos.requets.DatosActualizarTicketDto;
-import com.reparame.demo.dtos.requets.DatosRegistroTicketDto;
-import com.reparame.demo.dtos.response.DatosRespuestaTicketDto;
+import com.reparame.demo.dtos.request.DatosActualizarTicketDTO;
+import com.reparame.demo.dtos.request.DatosRegistroTicketDTO;
+import com.reparame.demo.dtos.response.DatosRespuestaTicketDTO;
 import com.reparame.demo.entity.Calificacion;
 import com.reparame.demo.entity.Ticket;
 import com.reparame.demo.exception.MiException;
@@ -24,7 +24,7 @@ public class TicketsService {
 	private final TicketsRepository ticketRepository;
 
 	// crear un ticket
-	public DatosRespuestaTicketDto crearTicket(DatosRegistroTicketDto nuevoTicket) throws MiException {
+	public DatosRespuestaTicketDTO crearTicket(DatosRegistroTicketDTO nuevoTicket) throws MiException {
 		
 		Ticket ticket = new Ticket(nuevoTicket);
 		
@@ -34,20 +34,20 @@ public class TicketsService {
 			throw new MiException(e.getMessage());
 		}
 
-		DatosRespuestaTicketDto respuestaTicket = new DatosRespuestaTicketDto(ticket);
+		DatosRespuestaTicketDTO respuestaTicket = new DatosRespuestaTicketDTO(ticket);
 
 		return respuestaTicket;
 	}
 
 	// listar todos los tickets
-	public List<DatosRespuestaTicketDto> listar() throws MiException {
+	public List<DatosRespuestaTicketDTO> listar() throws MiException {
 		try {
 			//List<Ticket> ticketList = ticketRepository.findAll();
 			List<Ticket> ticketList = ticketRepository.findByEstadoTrue();
 
 			// Mapear la lista de Ticket a una lista de DatosRespuestaTicket
-			List<DatosRespuestaTicketDto> datosRespuestaList = ticketList.stream()
-															.map(DatosRespuestaTicketDto::new) 
+			List<DatosRespuestaTicketDTO> datosRespuestaList = ticketList.stream()
+															.map(DatosRespuestaTicketDTO::new) 
 															.collect(Collectors.toList());
 			return datosRespuestaList;
 
@@ -57,10 +57,10 @@ public class TicketsService {
 	}
 
 	//buscar tickets por id
-	public DatosRespuestaTicketDto buscarPorId(Long id) throws MiException {
+	public DatosRespuestaTicketDTO buscarPorId(Long id) throws MiException {
 		try {
 			Ticket ticket = ticketRepository.findById(id).get();
-			DatosRespuestaTicketDto respuestaTicket = new DatosRespuestaTicketDto(ticket);
+			DatosRespuestaTicketDTO respuestaTicket = new DatosRespuestaTicketDTO(ticket);
 			return respuestaTicket;
 
 
@@ -72,12 +72,12 @@ public class TicketsService {
 	}
 	
 	// Actualizar los tickets
-	public DatosRespuestaTicketDto actualizarTicket(DatosActualizarTicketDto actualizarTicket, Long id) throws MiException {
+	public DatosRespuestaTicketDTO actualizarTicket(DatosActualizarTicketDTO actualizarTicket, Long id) throws MiException {
 		try {
 			Ticket ticket = ticketRepository.findById(id).get();
 			ticket.actualizarDatos(actualizarTicket);
 			ticketRepository.save(ticket);
-			DatosRespuestaTicketDto respuestaTicket = new DatosRespuestaTicketDto(ticket);
+			DatosRespuestaTicketDTO respuestaTicket = new DatosRespuestaTicketDTO(ticket);
 			return respuestaTicket;
 
 
@@ -103,12 +103,12 @@ public class TicketsService {
 
 
 	//devuelve una lista de paginas con tickets
-	public Page<DatosRespuestaTicketDto> ListadoPaginado( Pageable paginacion) throws MiException {
+	public Page<DatosRespuestaTicketDTO> ListadoPaginado( Pageable paginacion) throws MiException {
 
 		try {
 			
 		Page<Ticket> pageTickets = ticketRepository.findByEstadoTrue(paginacion); // Obtiene la página de Tickets
-        Page<DatosRespuestaTicketDto> pageDatosRespuestaTicket = pageTickets.map(DatosRespuestaTicketDto::new); // Mapea la página de Tickets a una página de DatosRespuestaTicket
+        Page<DatosRespuestaTicketDTO> pageDatosRespuestaTicket = pageTickets.map(DatosRespuestaTicketDTO::new); // Mapea la página de Tickets a una página de DatosRespuestaTicket
         return pageDatosRespuestaTicket;
 		
 		} catch (Exception e) {

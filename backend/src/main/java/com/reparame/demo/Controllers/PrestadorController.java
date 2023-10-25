@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.reparame.demo.Services.ClienteService;
 import com.reparame.demo.Services.PrestadorService;
-import com.reparame.demo.dtos.Prestador.DetallePrestadorDTO;
+import com.reparame.demo.dtos.response.DetallePrestadorDTO;
 import com.reparame.demo.entity.Cliente;
 import com.reparame.demo.entity.Prestador;
 import java.util.ArrayList;

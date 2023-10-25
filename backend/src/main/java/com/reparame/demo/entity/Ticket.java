@@ -17,8 +17,8 @@ import java.time.format.DateTimeParseException;
 
 import org.springframework.http.HttpStatus;
 
-import com.reparame.demo.dtos.requets.DatosActualizarTicketDto;
-import com.reparame.demo.dtos.requets.DatosRegistroTicketDto;
+import com.reparame.demo.dtos.request.DatosActualizarTicketDTO;
+import com.reparame.demo.dtos.request.DatosRegistroTicketDTO;
 import com.reparame.demo.exception.MiException;
 
 import lombok.AllArgsConstructor;
@@ -53,7 +53,7 @@ public class Ticket {
     private Cliente cliente;
     
     // para crear un ticket a partir de los datos recibidos 
-    public Ticket(DatosRegistroTicketDto ticket) throws MiException {
+    public Ticket(DatosRegistroTicketDTO ticket) throws MiException {
     	this.estado = true;
     	this.descripcion = ticket.descripcion();
     	
@@ -66,7 +66,7 @@ public class Ticket {
     }
     
     // actualizar tikets
-    public void actualizarDatos(DatosActualizarTicketDto actualizarTicket) {
+    public void actualizarDatos(DatosActualizarTicketDTO actualizarTicket) {
     	
     	if (actualizarTicket.estado() != null) {
             this.estado= actualizarTicket.estado();

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reparame.demo.Services.TicketsService;
-import com.reparame.demo.dtos.requets.DatosActualizarTicketDto;
-import com.reparame.demo.dtos.requets.DatosRegistroTicketDto;
-import com.reparame.demo.dtos.response.DatosRespuestaTicketDto;
+import com.reparame.demo.dtos.request.DatosActualizarTicketDTO;
+import com.reparame.demo.dtos.request.DatosRegistroTicketDTO;
+import com.reparame.demo.dtos.response.DatosRespuestaTicketDTO;
 import com.reparame.demo.entity.Calificacion;
 import com.reparame.demo.entity.Ticket;
 import com.reparame.demo.exception.MiException;
@@ -39,10 +39,10 @@ public class TicketsController {
 
 	// crear los tickets
 	@PostMapping("")
-	public ResponseEntity<?> nuevoTicket(@RequestBody @Valid DatosRegistroTicketDto nuevoTicket) {
+	public ResponseEntity<?> nuevoTicket(@RequestBody @Valid DatosRegistroTicketDTO nuevoTicket) {
 
 		try {
-			DatosRespuestaTicketDto respuestaTicket = ticketsService.crearTicket(nuevoTicket);
+			DatosRespuestaTicketDTO respuestaTicket = ticketsService.crearTicket(nuevoTicket);
 
 			return new ResponseEntity<>(respuestaTicket, HttpStatus.CREATED);
 
@@ -56,8 +56,8 @@ public class TicketsController {
     public ResponseEntity<?> listarTicketsPorId(@PathVariable Long id) {
 
 		try {
-			DatosRespuestaTicketDto ticket = ticketsService.buscarPorId(id);
-			return new ResponseEntity<DatosRespuestaTicketDto>(ticket, HttpStatus.OK);
+			DatosRespuestaTicketDTO ticket = ticketsService.buscarPorId(id);
+			return new ResponseEntity<DatosRespuestaTicketDTO>(ticket, HttpStatus.OK);
 		
 		} catch (MiException e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -68,7 +68,7 @@ public class TicketsController {
 	@GetMapping("")
     public ResponseEntity<?> listarTickets() {
             try {
-                    List<DatosRespuestaTicketDto> listaTickets = ticketsService.listar();
+                    List<DatosRespuestaTicketDTO> listaTickets = ticketsService.listar();
 
                     return new ResponseEntity<>(listaTickets, HttpStatus.OK);
             } catch (MiException e) {
@@ -80,10 +80,10 @@ public class TicketsController {
 
 	// modificar tickets
 	@PutMapping("/{id}")
-	public ResponseEntity<?> actualizarTicket(@RequestBody DatosActualizarTicketDto ticket, @PathVariable Long id) {
+	public ResponseEntity<?> actualizarTicket(@RequestBody DatosActualizarTicketDTO ticket, @PathVariable Long id) {
 
 		try {
-			DatosRespuestaTicketDto respuestaTicket = ticketsService.actualizarTicket(ticket, id);
+			DatosRespuestaTicketDTO respuestaTicket = ticketsService.actualizarTicket(ticket, id);
 			return new ResponseEntity<>(respuestaTicket, HttpStatus.OK);
 
 		} catch (MiException e) {
@@ -124,7 +124,7 @@ public class TicketsController {
 	public ResponseEntity<?> listaPaginaTickets(@PageableDefault(size = 2) Pageable paginacion) {
 
 		try {
-			Page<DatosRespuestaTicketDto> pageDatosRespuestaTicket = ticketsService.ListadoPaginado(paginacion);
+			Page<DatosRespuestaTicketDTO> pageDatosRespuestaTicket = ticketsService.ListadoPaginado(paginacion);
 			return ResponseEntity.ok(pageDatosRespuestaTicket);
 
 		} catch (MiException e) {

@@ -1,4 +1,4 @@
-package com.reparame.demo.dtos.requets;
+package com.reparame.demo.dtos.request;
 
 
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ import com.reparame.demo.exception.MiException;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-public record DatosRegistroTicketDto(
+public record DatosRegistroTicketDTO(
 		
 		
 		Boolean estado,
