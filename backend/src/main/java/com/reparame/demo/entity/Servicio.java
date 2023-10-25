@@ -41,7 +41,7 @@ public class Servicio {
     
     @OneToMany(mappedBy = "servicio")
     private List<Ticket> tikets;
-    
+
     @ManyToOne
     @JoinColumn(name="id_prestador")
     @JsonIgnore

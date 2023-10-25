@@ -4,9 +4,11 @@
  */
 package com.reparame.demo.Controllers;
 
+
 import com.reparame.demo.Services.ServicioService;
 import com.reparame.demo.dtos.DatosRegistroServicio;
 import com.reparame.demo.dtos.DatosRespuestaServicio;
+import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.entity.Servicio;
 import com.reparame.demo.enumeradores.Rubros;
 import com.reparame.demo.exception.MiException;
@@ -14,6 +16,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,12 +34,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/servicios")
-
 public class ServicioController {
 
     private final ServicioService servicioServ;
 
     @PostMapping("/{id}")
+
     public ResponseEntity<?> crearServicio(@RequestBody DatosRegistroServicio nuevoServicio, @PathVariable("id") Long id) {
         try {
             DatosRespuestaServicio respuestaServicio = servicioServ.crearServicio(nuevoServicio, id);
@@ -45,6 +48,7 @@ public class ServicioController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
 
     @GetMapping("")
     public ResponseEntity<?> listarServiciosActivos(@RequestParam(name = "categoria", required = false) Rubros categoria) throws MiException {

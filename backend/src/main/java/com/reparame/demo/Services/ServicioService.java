@@ -12,11 +12,9 @@ import com.reparame.demo.entity.Servicio;
 import com.reparame.demo.enumeradores.Rubros;
 import com.reparame.demo.exception.MiException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  *
@@ -42,10 +40,6 @@ public class ServicioService {
 
         DatosRespuestaServicio respuestaServicio = new DatosRespuestaServicio(servicio);
         return respuestaServicio;
-    }
-
-    public List<Servicio> listarServiciosActivos() {
-        return servicioRep.findByEstadoTrue();
     }
 
     public List<DatosRespuestaServicio> listar() throws MiException {

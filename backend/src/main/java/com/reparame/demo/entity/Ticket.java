@@ -13,9 +13,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
-import com.reparame.demo.dtos.DatosActualizarTicket;
-import com.reparame.demo.dtos.DatosRegistroTicket;
+import org.springframework.http.HttpStatus;
+
+import com.reparame.demo.dtos.requets.DatosActualizarTicketDto;
+import com.reparame.demo.dtos.requets.DatosRegistroTicketDto;
+import com.reparame.demo.exception.MiException;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,11 +53,12 @@ public class Ticket {
     private Cliente cliente;
     
     // para crear un ticket a partir de los datos recibidos 
-    public Ticket( DatosRegistroTicket ticket) {
+    public Ticket(DatosRegistroTicketDto ticket) throws MiException {
     	this.estado = true;
     	this.descripcion = ticket.descripcion();
-    	this.fechaInicio = ticket.fechaInicio();
-    	this.fechaRequerida = ticket.fechaRequerida();
+    	
+    	this.fechaInicio = this.validarFecha(ticket.fechaInicio());
+    	this.fechaRequerida = this.validarFecha(ticket.fechaRequerida());
     	this.servicio = ticket.servicio();
     	this.calificacion = ticket.calificacion();
     	this.cliente =ticket.cliente();
@@ -61,7 +66,7 @@ public class Ticket {
     }
     
     // actualizar tikets
-    public void actualizarDatos(DatosActualizarTicket actualizarTicket) {
+    public void actualizarDatos(DatosActualizarTicketDto actualizarTicket) {
     	
     	if (actualizarTicket.estado() != null) {
             this.estado= actualizarTicket.estado();
@@ -81,19 +86,29 @@ public class Ticket {
     }
 
     // desactivar ticket
-    public void desactivarTicket() {
-            this.estado = false;
+	public void desactivarTicket() {
+		this.estado = false;	
+	}
+	
 
+    //validar la fecha de nacimiento
+    public LocalDate validarFecha(String fechaNacimiento) throws MiException  {
+        try {
+        	//si la fecha que recibe es en formato corrrecto devuelve la fecha como localdate
+            LocalDate fechaNac = LocalDate.parse(fechaNacimiento);
+            
+            // Verifica si la fecha de nacimiento es del pasado
+            LocalDate fechaActual = LocalDate.now();
+            if (fechaNac.isAfter(fechaActual)) {
+                throw new MiException("La fecha de nacimiento debe ser del pasado", HttpStatus.BAD_REQUEST);
+            }
+            return fechaNac; 
+            
+        } catch (DateTimeParseException e) {
+            throw new MiException("El formato de fecha debe ser yyyy-MM-dd", HttpStatus.BAD_REQUEST);
+        }
+        
     }
-    
-    public Calificacion getCalificacion(){
-        return calificacion;
-    }
-    
-    public void setCalificacion(Calificacion calificacion){
-        this.calificacion = calificacion;
-    }
-
     
 }
 

@@ -2,6 +2,7 @@ package com.reparame.demo.exception;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -25,6 +26,14 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorMessage, status);
     }
+    
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<String> handleResponseStatusException(ResponseStatusException ex) {
+        HttpStatus status = (HttpStatus) ex.getStatusCode();
+        String errorMessage = ex.getReason();
+
+        return new ResponseEntity<>(errorMessage, status);
+    }
 
     //tratando los errores de campos del registro para que no se reciba campos nulos, vacio etc.
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
@@ -41,11 +50,4 @@ public class GlobalExceptionHandler {
         return errors;
     }
 
-    @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<String> handleResponseStatusException(ResponseStatusException ex) {
-        HttpStatus status = (HttpStatus) ex.getStatusCode();
-        String errorMessage = ex.getReason();
-
-        return new ResponseEntity<>(errorMessage, status);
-    }
 }
