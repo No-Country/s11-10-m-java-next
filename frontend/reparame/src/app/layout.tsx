@@ -22,7 +22,7 @@ export default function RootLayout({
       <Providers>
         <body className={inter.className}>
           <Header />
-          <main className='bg-grayUi flex items-center justify-center flex-col min-h-screen'>
+          <main className='bg-grayUi flex items-center justify-start flex-col min-h-screen'>
             {children}
           </main>
         </body>
