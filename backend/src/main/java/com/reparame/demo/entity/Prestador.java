@@ -29,7 +29,6 @@ public class Prestador extends Persona{
     @OneToMany(mappedBy = "prestador")
     private List<Servicio> servicios;
     
-
     @OneToOne
     private Imagen foto;
      
