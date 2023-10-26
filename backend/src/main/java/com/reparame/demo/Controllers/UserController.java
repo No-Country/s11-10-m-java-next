@@ -10,7 +10,12 @@ import com.reparame.demo.dtos.request.RegisterRequestDTO;
 import com.reparame.demo.exception.MiException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,5 +50,17 @@ public class UserController {
             return new ResponseEntity<String>(miExeception.getMensaje(), miExeception.getStatus());
         }
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> Me(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails != null) {
+            //String username = userDetails.getUsername();
+            // Aquí puedes acceder a otros datos del usuario desde userDetails si es necesario.
+            return ResponseEntity.ok(userDetails);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No hay usuario logueado.");
+        }
+    }
+    
 
 }

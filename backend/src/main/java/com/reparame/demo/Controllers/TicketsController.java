@@ -19,12 +19,10 @@ import com.reparame.demo.dtos.request.DatosActualizarTicketDTO;
 import com.reparame.demo.dtos.request.DatosRegistroTicketDTO;
 import com.reparame.demo.dtos.response.DatosRespuestaTicketDTO;
 import com.reparame.demo.entity.Calificacion;
-import com.reparame.demo.entity.Ticket;
 import com.reparame.demo.exception.MiException;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
