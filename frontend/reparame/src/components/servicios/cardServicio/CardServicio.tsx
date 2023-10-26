@@ -2,7 +2,6 @@ import { useAppDispatch } from "@/utils/globalStates/hooks";
 import Ticket from "@/components/ticket/Ticket";
 import { verServicios } from "@/utils/globalStates/features/serviciosSlice";
 import { BsFillStarFill } from "react-icons/bs";
-import Link from "next/link";
 import Image from "next/image";
 
 export const CardServicio = (servicios: any) => {

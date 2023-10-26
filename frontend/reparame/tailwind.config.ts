@@ -18,6 +18,10 @@ const config: Config = {
         red2: "#ef4444",
         orange: "#fdba74",
         grayUi: "#f5f5f5",
+        'grayText': '#9ca3af'
+      },
+      width: {
+        'inputPerfil': '600px'
       },
       maxWidth: {
         "max-view": "1520px",
@@ -27,7 +31,9 @@ const config: Config = {
         avatarHeader: "2.5rem",
         searchBar: "180px",
       },
-      boxShadow:{
+      boxShadow: {
+        'cardsPerfil': '2px 3px 3px 0px rgb(0 0 0 / 0.1)',
+        'cardsProfesiones': '0px 0px 8px 0px #ff983f',
         cardProfesionHome: "2px 3px 12px 0px #959393",
         circle:"0px 4px 0px 0px #b0b0b0",
         spanCircle:"0px 4px 5px 0px #b0b0b0"
