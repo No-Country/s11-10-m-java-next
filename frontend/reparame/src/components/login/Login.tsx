@@ -4,7 +4,7 @@ import Input from "./input/Input";
 import HeaderManager from "../headerManager/HeaderManager";
 const Login = () => {
   return (
-    <section className="w-full flex items-center h-screen justify-center ">
+    <section className="w-full flex items-center mt-10 justify-center ">
       <HeaderManager page='login' />
       <div className=" max-w-4xl w-full">
         <form className="flex flex-col gap-7 items-center w-full">

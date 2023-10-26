@@ -39,10 +39,12 @@ const Perfil = () => {
     <section className="flex flex-col gap-10 max-w-max-textArea w-full px-10 pt-10 pb-10 text-light-orange bg-grayUi">
       <HeaderManager page='perfil' />
       <h1 className="text-2xl text-black">Configuración de perfil</h1>
-      <figure className="flex flex-row items-center gap-6">
+      <figure className="flex flex-row items-center gap-6 flex-wrap">
         <div className="flex flex-row items-end">
-          <Image src={'/images/Ellipse 48.png'} alt="avatar User" width={120} height={120} className="border-3 border-dark-orange rounded-full" />
-          <button className="bg-dark-orange rounded-full relative right-8 bottom-2">
+          <Image src={'/images/Ellipse 48.png'} alt="avatar User" width={200} height={200}
+            className="border-3 border-dark-orange rounded-full h-28 w-28"
+          />
+          <button className="bg-dark-orange rounded-full relative right-7 bottom-2">
             <MdModeEdit className='w-6 h-6 text-white p-1' />
           </button>
         </div>
@@ -84,10 +86,14 @@ const Perfil = () => {
       </section>
       <section className="flex flex-col gap-5">
         <h3 className="text-dark-orange ">Certificados</h3>
-        <CardCertificados />
+        <div className="flex justify-evenly gap-5 flex-wrap">
+          <CardCertificados /><CardCertificados /><CardCertificados /><CardCertificados />
+        </div>
       </section>
       <BtnsActualizar />
     </section>
   );
 };
 export default Perfil;
+
+

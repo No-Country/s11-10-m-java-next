@@ -8,13 +8,9 @@ const CardExp = () => {
                 <small className="text-sm">Experiencia</small>
                 <span className="text-sm">{exp}{' '}años</span>
             </div>
-            <input type="range" value={exp} onChange={(e) => { setExp(e.target.value) }} style={{
-                appearance: 'none',
-                background: '#ff983f',
-                cursor: 'pointer',
-                width: 'auto',
-                height: '2px'
-            }} />
+            <input type="range" min={1} max={50} value={exp} onChange={(e) => { setExp(e.target.value) }}
+                className='rounded-lg h-0.5 appearance-none cursor-pointer bg-light-orange'
+            />
         </label>
     )
 }

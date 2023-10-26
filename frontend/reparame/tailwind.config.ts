@@ -18,7 +18,8 @@ const config: Config = {
         'red2': '#ef4444',
         'orange': '#fdba74',
         'grayUi': '#f5f5f5',
-        'grayText': '#9ca3af'
+        'grayText': '#9ca3af',
+        'grayDark': '#929292'
       },
       width: {
         'inputPerfil': '600px'
@@ -33,7 +34,8 @@ const config: Config = {
       },
       boxShadow: {
         'cardsPerfil': '2px 3px 3px 0px rgb(0 0 0 / 0.1)',
-        'cardsProfesiones': '0px 0px 8px 0px #ff983f',
+        'cardsProfesionesActive': '0px 0px 8px 0px #ff983f',
+        'cardsProfesionesDesactive': '0px 0px 8px 0px #929292',
       },
     }
   },

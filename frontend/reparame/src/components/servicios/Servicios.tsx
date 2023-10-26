@@ -2,7 +2,7 @@
 import React from 'react'
 import { CardServicio } from './cardServicio/CardServicio'
 import { useEffect, useState } from 'react'
-import { getServicios } from '@/utils/requestServicios/getServicios'
+import { getServicios, postLogin } from '@/utils/requestServicios/getServicios'
 import DetalleServicio from './detalleServicio/DetalleServicio'
 import { useAppSelector } from '@/utils/globalStates/hooks'
 import Skeleton from '../loadingSpinner/Skeleton'
