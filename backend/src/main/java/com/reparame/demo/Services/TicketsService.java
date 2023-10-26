@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.reparame.demo.Repositories.CalificacionRepository;
 import com.reparame.demo.Repositories.ServicioRepository;
 import com.reparame.demo.Repositories.TicketsRepository;
 import com.reparame.demo.dtos.request.DatosActualizarTicketDTO;
@@ -32,6 +33,9 @@ public class TicketsService {
 	
 	@Autowired
 	ServicioRepository servicioRepository;
+	
+	@Autowired
+	CalificacionRepository calificacionRepository;	
 
 	// crear un ticket
 	public DatosRespuestaTicketDTO crearTicket(DatosRegistroTicketDTO nuevoTicket, Long id) throws MiException {
@@ -131,12 +135,16 @@ public class TicketsService {
         
         public String calificar(Long id, Calificacion calificacion) throws MiException{
             try {
-                Ticket ticket = ticketRepository.findById(id).get();
-                ticket.setCalificacion(calificacion);
+            	Ticket ticket = ticketRepository.findById(id).get();
+            	calificacion.setTicket(ticket);
+            	Calificacion nuevacalificacion = calificacionRepository.save(calificacion);
+                
+	
+                ticket.setCalificacion(nuevacalificacion);
                 ticketRepository.save(ticket);
                 return "";
             } catch (Exception e) {
-                throw new MiException(e.getMessage());
+                throw new MiException("El ticket no existe , o ya tiene calificación");
             }
             
             

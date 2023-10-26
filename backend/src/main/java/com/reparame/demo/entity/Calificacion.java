@@ -32,7 +32,7 @@ public class Calificacion {
     private Integer puntuacion;
     private String descripcion;
     
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name="id_Tiket")
     private Ticket ticket;
     

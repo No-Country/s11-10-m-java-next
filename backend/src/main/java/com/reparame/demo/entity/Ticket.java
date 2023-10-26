@@ -45,7 +45,7 @@ public class Ticket {
     @JoinColumn(name="id_servicio")
     private Servicio servicio;
     
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name="id_calificacion")
     private Calificacion calificacion;
     
