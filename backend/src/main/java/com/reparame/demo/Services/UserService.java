@@ -114,7 +114,7 @@ public class UserService {
             }
             
             UserDetails user = (prestador.isPresent()) ? prestador.get() : cliente.get();
-            
+            System.out.println(loginRequest.getUsername() + loginRequest.getPassword());
             authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
