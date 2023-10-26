@@ -4,6 +4,7 @@
  */
 package com.reparame.demo.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,7 +32,7 @@ public class Calificacion {
     private Integer puntuacion;
     private String descripcion;
     
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="id_Tiket")
     private Ticket ticket;
     

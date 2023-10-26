@@ -3,15 +3,21 @@ package com.reparame.demo.Services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.reparame.demo.Repositories.ServicioRepository;
 import com.reparame.demo.Repositories.TicketsRepository;
 import com.reparame.demo.dtos.request.DatosActualizarTicketDTO;
 import com.reparame.demo.dtos.request.DatosRegistroTicketDTO;
 import com.reparame.demo.dtos.response.DatosRespuestaTicketDTO;
 import com.reparame.demo.entity.Calificacion;
+import com.reparame.demo.entity.Cliente;
+import com.reparame.demo.entity.Servicio;
+import com.reparame.demo.entity.Imagen;
+import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.entity.Ticket;
 import com.reparame.demo.exception.MiException;
 
@@ -22,13 +28,18 @@ import lombok.RequiredArgsConstructor;
 public class TicketsService {
 
 	private final TicketsRepository ticketRepository;
+	private final ClienteService clienteService;
+	
+	@Autowired
+	ServicioRepository servicioRepository;
 
 	// crear un ticket
-	public DatosRespuestaTicketDTO crearTicket(DatosRegistroTicketDTO nuevoTicket) throws MiException {
-		
-		Ticket ticket = new Ticket(nuevoTicket);
-		
+	public DatosRespuestaTicketDTO crearTicket(DatosRegistroTicketDTO nuevoTicket, Long id) throws MiException {
+        Ticket ticket = new Ticket(nuevoTicket);
+        
 		try {
+	        Cliente cliente = clienteService.buscarPorID(id).get();
+	        ticket.setCliente(cliente);
 			ticketRepository.save(ticket);
 		} catch (Exception e) {
 			throw new MiException(e.getMessage());
@@ -129,7 +140,19 @@ public class TicketsService {
             }
             
             
-        } 
+        }
+
+		public Ticket vincularServicio(Long idServicio, Long idTicket) throws Exception{
+			try {
+				Ticket ticket = ticketRepository.findById(idTicket).get();
+				Servicio servicio = servicioRepository.findById(idServicio).get();
+				ticket.setServicio(servicio);
+				return ticketRepository.save(ticket);
+			} catch (Exception e) {
+				throw new Exception("no existe ticket y/o servicio con ese id");
+			}
+			
+		} 
         
         
        

@@ -12,7 +12,7 @@ public record DatosRespuestaTicketDTO( Long id , Boolean estado, String descripc
 
 	
 	public DatosRespuestaTicketDTO(Ticket ticket) {
-        this(ticket.getId_Tiket(), ticket.getEstado(), ticket.getDescripcion(), ticket.getFechaInicio(), ticket.getFechaRequerida());
+        this(ticket.getId_Tiket(), ticket.getEstado(), ticket.getDescripcion(), ticket.getFechaInicio(), ticket.getFechaRequerida() );
     }
 	
 
