@@ -4,8 +4,10 @@
  */
 package com.reparame.demo.Services;
 
+import com.reparame.demo.Repositories.PrestadorRepository;
 import com.reparame.demo.Repositories.ServicioRepository;
 import com.reparame.demo.dtos.request.DatosRegistroServicioDTO;
+import com.reparame.demo.dtos.request.RegistroServicioDTO;
 import com.reparame.demo.dtos.response.DatosRespuestaServicioDTO;
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.entity.Servicio;
@@ -14,6 +16,9 @@ import com.reparame.demo.exception.MiException;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,6 +31,10 @@ public class ServicioService {
 
     private final ServicioRepository servicioRep;
     private final PrestadorService prestadorService;
+    
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public DatosRespuestaServicioDTO crearServicio(DatosRegistroServicioDTO nuevoServicio, Long idPrestador) throws MiException {
         Servicio servicio = new Servicio(nuevoServicio);
@@ -40,6 +49,19 @@ public class ServicioService {
 
         DatosRespuestaServicioDTO respuestaServicio = new DatosRespuestaServicioDTO(servicio);
         return respuestaServicio;
+    }
+
+    public Servicio crear(RegistroServicioDTO registroServicioDTO, String username) throws MiException {
+        try {
+            Prestador prestador = prestadorService.getByUsername(username);
+            Servicio servicio = modelMapper.map(registroServicioDTO, Servicio.class);
+            servicio.setPrestador(prestador);
+            servicio.setAlta(true);
+            servicioRep.save(servicio);
+            return servicio;
+        } catch (Exception e) {
+            throw new MiException(e.getMessage());
+        }
     }
 
     public List<DatosRespuestaServicioDTO> listar() throws MiException {
