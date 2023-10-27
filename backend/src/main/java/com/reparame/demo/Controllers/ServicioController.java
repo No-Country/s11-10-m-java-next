@@ -6,11 +6,10 @@ package com.reparame.demo.Controllers;
 
 
 import com.reparame.demo.Services.ServicioService;
-import com.reparame.demo.Services.UserService;
-import com.reparame.demo.dtos.request.DatosRegistroServicioDTO;
+
 import com.reparame.demo.dtos.request.RegistroServicioDTO;
 import com.reparame.demo.dtos.response.DatosRespuestaServicioDTO;
-import com.reparame.demo.entity.Prestador;
+import com.reparame.demo.dtos.response.ServicioListadoDTO;
 import com.reparame.demo.entity.Servicio;
 import com.reparame.demo.enumeradores.Rubros;
 import com.reparame.demo.exception.MiException;
@@ -67,7 +66,7 @@ public class ServicioController {
 
     @GetMapping("")
     public ResponseEntity<?> listarServiciosActivos(@RequestParam(name = "categoria", required = false) Rubros categoria) throws MiException {
-        List<DatosRespuestaServicioDTO> listaServicios = null;
+        List<ServicioListadoDTO> listaServicios = null;
         if (categoria != null) {
             listaServicios = servicioServ.listarPorCategoria(categoria);
         } else {

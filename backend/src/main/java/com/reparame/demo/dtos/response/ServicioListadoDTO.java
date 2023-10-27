@@ -2,15 +2,18 @@ package com.reparame.demo.dtos.response;
 
 import com.reparame.demo.enumeradores.Rubros;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class ListadoServicioDTO {
+public class ServicioListadoDTO {
     private Long id;
     private String descripcion;
     private Integer añosSector; 
     private Integer precio; 
-    private Boolean alta; 
     private Rubros rubro; 
-    private String nombrePrestador;
+    private PrestadorServicioListadoDTO prestador;
 }

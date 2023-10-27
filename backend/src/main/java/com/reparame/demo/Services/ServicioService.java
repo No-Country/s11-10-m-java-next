@@ -9,6 +9,8 @@ import com.reparame.demo.Repositories.ServicioRepository;
 import com.reparame.demo.dtos.request.DatosRegistroServicioDTO;
 import com.reparame.demo.dtos.request.RegistroServicioDTO;
 import com.reparame.demo.dtos.response.DatosRespuestaServicioDTO;
+import com.reparame.demo.dtos.response.PrestadorServicioListadoDTO;
+import com.reparame.demo.dtos.response.ServicioListadoDTO;
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.entity.Servicio;
 import com.reparame.demo.enumeradores.Rubros;
@@ -36,7 +38,7 @@ public class ServicioService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public DatosRespuestaServicioDTO crearServicio(DatosRegistroServicioDTO nuevoServicio, Long idPrestador) throws MiException {
+    /* public DatosRespuestaServicioDTO crearServicio(DatosRegistroServicioDTO nuevoServicio, Long idPrestador) throws MiException {
         Servicio servicio = new Servicio(nuevoServicio);
 
         try {
@@ -49,7 +51,7 @@ public class ServicioService {
 
         DatosRespuestaServicioDTO respuestaServicio = new DatosRespuestaServicioDTO(servicio);
         return respuestaServicio;
-    }
+    } */
 
     public Servicio crear(RegistroServicioDTO registroServicioDTO, String username) throws MiException {
         try {
@@ -64,12 +66,15 @@ public class ServicioService {
         }
     }
 
-    public List<DatosRespuestaServicioDTO> listar() throws MiException {
+    public List<ServicioListadoDTO> listar() throws MiException {
         try {
             List<Servicio> servicioLista = servicioRep.findByEstadoTrue();
 
-            List<DatosRespuestaServicioDTO> datosRespuestaList = servicioLista.stream().map(DatosRespuestaServicioDTO::new)
-                    .collect(Collectors.toList());
+            List<ServicioListadoDTO> datosRespuestaList = servicioLista.stream().map(servicio -> {
+                ServicioListadoDTO servicioListadoDTO = modelMapper.map(servicio, ServicioListadoDTO.class);
+                servicioListadoDTO.setPrestador(modelMapper.map(servicioListadoDTO.getPrestador(), PrestadorServicioListadoDTO.class));
+                return servicioListadoDTO;
+            }).collect(Collectors.toList());
 
             return datosRespuestaList;
 
@@ -78,10 +83,13 @@ public class ServicioService {
         }
     }
 
-    public List<DatosRespuestaServicioDTO> listarPorCategoria(Rubros categoria) {
+    public List<ServicioListadoDTO> listarPorCategoria(Rubros categoria) {
         List<Servicio> servicioLista = servicioRep.findByCategoria(categoria);
-        List<DatosRespuestaServicioDTO> datosRespuestaList = servicioLista.stream().map(DatosRespuestaServicioDTO::new)
-                .collect(Collectors.toList());
+        List<ServicioListadoDTO> datosRespuestaList = servicioLista.stream().map(servicio -> {
+                ServicioListadoDTO servicioListadoDTO = modelMapper.map(servicio, ServicioListadoDTO.class);
+                servicioListadoDTO.setPrestador(modelMapper.map(servicioListadoDTO.getPrestador(), PrestadorServicioListadoDTO.class));
+                return servicioListadoDTO;
+            }).collect(Collectors.toList());
 
         return datosRespuestaList;
     }
