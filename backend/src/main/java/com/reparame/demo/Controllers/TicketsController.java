@@ -8,6 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.reparame.demo.Services.TicketsService;
 import com.reparame.demo.dtos.request.DatosActualizarTicketDTO;
+import com.reparame.demo.dtos.request.DatosCalificacionDTO;
 import com.reparame.demo.dtos.request.DatosRegistroTicketDTO;
 import com.reparame.demo.dtos.response.DatosRespuestaTicketDTO;
 import com.reparame.demo.entity.Calificacion;
@@ -37,12 +41,14 @@ public class TicketsController {
 //	private final TicketsRepository ticketsRepository;
 
 	// crear los tickets
-	@PostMapping("{idCliente}")
-	public ResponseEntity<?> nuevoTicket(@RequestBody @Valid DatosRegistroTicketDTO nuevoTicket, @PathVariable("idCliente") Long id) {
+	@Secured("CLIENTE")
+	@PostMapping("/{idServicio}")
+	public ResponseEntity<?> nuevoTicket(@RequestBody @Valid DatosRegistroTicketDTO nuevoTicket, 
+	@PathVariable("idServicio") Long id, @AuthenticationPrincipal UserDetails userDetails) {
 
+		String username = userDetails.getUsername(); 
 		try {
-			DatosRespuestaTicketDTO respuestaTicket = ticketsService.crearTicket(nuevoTicket, id);
-
+			DatosRespuestaTicketDTO respuestaTicket = ticketsService.crearTicket(nuevoTicket, id, username);
 			return new ResponseEntity<>(respuestaTicket, HttpStatus.CREATED);
 
 		} catch (MiException e) {
@@ -106,18 +112,6 @@ public class TicketsController {
 
 	}
 
-//	// borra un ticket definitivo de la db
-//	@DeleteMapping("/{id}")
-//	public ResponseEntity<?> eliminarTicket(@PathVariable Long id) {
-//
-//		try {
-//			ticketsService.eliminarTicket(id);
-//			return new ResponseEntity<>("registro eliminado con exito", HttpStatus.OK);
-//		} catch (MiException e) {
-//			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//		}
-//
-//	}
 
 	@GetMapping("paginas")
 	public ResponseEntity<?> listaPaginaTickets(@PageableDefault(size = 2) Pageable paginacion) {
@@ -131,27 +125,17 @@ public class TicketsController {
 		}
 	}
 
+	@Secured("CLIENTE")
 	@PostMapping("/{id}/calificar")
-	public ResponseEntity<String> calificarTicket(@PathVariable Long id, @RequestBody Calificacion calificacion) {
+	public ResponseEntity<String> calificarTicket(@PathVariable Long id, 
+	@RequestBody DatosCalificacionDTO datosCalificacionDTO, @AuthenticationPrincipal UserDetails userDetails) {
 		try {
-			ticketsService.calificar(id, calificacion);
+			String username = userDetails.getUsername(); 
+			ticketsService.calificar(id, datosCalificacionDTO, username);
 			return new ResponseEntity<String>("ticket calificado exitosamente", HttpStatus.OK);
 		} catch (MiException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-    @PutMapping("/vincularservicio")
-    public ResponseEntity<String> vincularServicio (@RequestBody Map<String, Long> datos){
-    	try {
-			Long idTicket = datos.get("idTicket");
-			Long idServicio = datos.get("idServicio");
-			ticketsService.vincularServicio(idServicio, idTicket);
-    		return new ResponseEntity<String>("Servicio asignado", HttpStatus.OK);
-    	} catch (Exception e) {
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    	}
-    	
-    }    
-
 }

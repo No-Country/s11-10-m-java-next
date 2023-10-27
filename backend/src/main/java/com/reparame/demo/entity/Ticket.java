@@ -59,11 +59,7 @@ public class Ticket {
     	this.descripcion = ticket.descripcion();
     	
     	this.fechaInicio = this.validarFecha(ticket.fechaInicio());
-    	this.fechaRequerida = this.validarFecha(ticket.fechaRequerida());
-    	this.servicio = ticket.servicio();
-    	this.calificacion = ticket.calificacion();
-    	this.cliente =ticket.cliente();
-    	
+    	this.fechaRequerida = this.validarFecha(ticket.fechaRequerida());	
     }
     
     // actualizar tikets
@@ -97,13 +93,13 @@ public class Ticket {
         try {
         	//si la fecha que recibe es en formato corrrecto devuelve la fecha como localdate
             LocalDate fechaNac = LocalDate.parse(fechaNacimiento);
-            
+            return fechaNac;
             // Verifica si la fecha de nacimiento es del pasado
-            LocalDate fechaActual = LocalDate.now();
+            /* LocalDate fechaActual = LocalDate.now();
             if (fechaNac.isAfter(fechaActual)) {
                 throw new MiException("La fecha de nacimiento debe ser del pasado", HttpStatus.BAD_REQUEST);
             }
-            return fechaNac; 
+            return fechaNac; */ 
             
         } catch (DateTimeParseException e) {
             throw new MiException("El formato de fecha debe ser yyyy-MM-dd", HttpStatus.BAD_REQUEST);
