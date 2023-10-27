@@ -11,6 +11,7 @@ import com.reparame.demo.dtos.request.LoginRequestDTO;
 import com.reparame.demo.dtos.request.RegisterRequestDTO;
 import com.reparame.demo.dtos.response.TokenResponseDTO;
 import com.reparame.demo.entity.Cliente;
+import com.reparame.demo.entity.Persona;
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.enumeradores.Roles;
 import com.reparame.demo.exception.MiException;
@@ -130,5 +131,15 @@ public class UserService {
         
         
     }
+
+    public Prestador getPrestadorByUsername(String username){
+        return prestadorService.getByUsername(username);
+    }
+
+    public Cliente getlienteByUsername(String username){
+        return clienteService.getByUsername(username);
+    }
+
+  
     
 }

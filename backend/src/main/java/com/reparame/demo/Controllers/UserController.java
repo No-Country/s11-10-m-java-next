@@ -4,15 +4,22 @@
  */
 package com.reparame.demo.Controllers;
 
+import com.reparame.demo.Repositories.PrestadorRepository;
 import com.reparame.demo.Services.UserService;
 import com.reparame.demo.dtos.request.LoginRequestDTO;
 import com.reparame.demo.dtos.request.RegisterRequestDTO;
+import com.reparame.demo.entity.Cliente;
+import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.exception.MiException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +40,7 @@ public class UserController {
 
     private final UserService userService;
 
+
     @PostMapping("/registro")
     public ResponseEntity<?> registro(@RequestBody @Valid RegisterRequestDTO request) {
         try {
@@ -52,15 +60,21 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<?> Me(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<?> GetUser(@AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails != null) {
-            //String username = userDetails.getUsername();
-            // Aquí puedes acceder a otros datos del usuario desde userDetails si es necesario.
-            return ResponseEntity.ok(userDetails);
+            String username = userDetails.getUsername();
+            Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+            if (authorities.stream().anyMatch(a -> a.getAuthority().equals("PRESTADOR"))) {
+                Prestador prestador = userService.getPrestadorByUsername(username);
+                return ResponseEntity.ok(prestador);
+            }else{
+                Cliente cliente = userService.getlienteByUsername(username);
+                return ResponseEntity.ok(cliente);
+            }
+        
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No hay usuario logueado.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No hay usuario autenticado.");
         }
     }
     
-
 }

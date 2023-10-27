@@ -3,6 +3,8 @@ package com.reparame.demo.Services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.el.stream.Optional;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +14,7 @@ import com.reparame.demo.Repositories.CalificacionRepository;
 import com.reparame.demo.Repositories.ServicioRepository;
 import com.reparame.demo.Repositories.TicketsRepository;
 import com.reparame.demo.dtos.request.DatosActualizarTicketDTO;
+import com.reparame.demo.dtos.request.DatosCalificacionDTO;
 import com.reparame.demo.dtos.request.DatosRegistroTicketDTO;
 import com.reparame.demo.dtos.response.DatosRespuestaTicketDTO;
 import com.reparame.demo.entity.Calificacion;
@@ -37,13 +40,19 @@ public class TicketsService {
 	@Autowired
 	CalificacionRepository calificacionRepository;	
 
+	@Autowired
+    private ModelMapper modelMapper;
+
 	// crear un ticket
-	public DatosRespuestaTicketDTO crearTicket(DatosRegistroTicketDTO nuevoTicket, Long id) throws MiException {
+	public DatosRespuestaTicketDTO crearTicket(DatosRegistroTicketDTO nuevoTicket, Long id, String usernameCliente) 
+	throws MiException {
         Ticket ticket = new Ticket(nuevoTicket);
         
 		try {
-	        Cliente cliente = clienteService.buscarPorID(id).get();
+	        Cliente cliente = clienteService.getByUsername(usernameCliente);
+			Servicio servicio = servicioRepository.findById(id).get();
 	        ticket.setCliente(cliente);
+			ticket.setServicio(servicio);
 			ticketRepository.save(ticket);
 		} catch (Exception e) {
 			throw new MiException(e.getMessage());
@@ -133,22 +142,27 @@ public class TicketsService {
 	}
 
         
-        public String calificar(Long id, Calificacion calificacion) throws MiException{
-            try {
-            	Ticket ticket = ticketRepository.findById(id).get();
-            	calificacion.setTicket(ticket);
-            	Calificacion nuevacalificacion = calificacionRepository.save(calificacion);
-                
-	
-                ticket.setCalificacion(nuevacalificacion);
-                ticketRepository.save(ticket);
-                return "";
-            } catch (Exception e) {
-                throw new MiException("El ticket no existe , o ya tiene calificación");
-            }
-            
-            
-        }
+	public Calificacion calificar(Long id, DatosCalificacionDTO datosCalificacionDTO, String username) 
+	throws MiException{
+		try {
+			Cliente cliente = clienteService.getByUsername(username);
+			Ticket ticket = ticketRepository.findById(id).get();
+
+			if (ticket.getCliente() != cliente){
+				throw new MiException("No puedes calificar este ticket");
+			}else{
+				Calificacion calificacion = modelMapper.map(datosCalificacionDTO,Calificacion.class);
+				calificacion.setTicket(ticket);
+				Calificacion nuevacalificacion = calificacionRepository.save(calificacion);
+				ticket.setCalificacion(nuevacalificacion);
+				ticketRepository.save(ticket);
+				return nuevacalificacion;
+			}
+ 
+		} catch (Exception e) {
+			throw new MiException("El ticket no existe , o ya tiene calificación");
+		}
+	}
 
 		public Ticket vincularServicio(Long idServicio, Long idTicket) throws Exception{
 			try {

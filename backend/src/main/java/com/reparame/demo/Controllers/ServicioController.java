@@ -6,9 +6,10 @@ package com.reparame.demo.Controllers;
 
 
 import com.reparame.demo.Services.ServicioService;
-import com.reparame.demo.dtos.request.DatosRegistroServicioDTO;
+
+import com.reparame.demo.dtos.request.RegistroServicioDTO;
 import com.reparame.demo.dtos.response.DatosRespuestaServicioDTO;
-import com.reparame.demo.entity.Prestador;
+import com.reparame.demo.dtos.response.ServicioListadoDTO;
 import com.reparame.demo.entity.Servicio;
 import com.reparame.demo.enumeradores.Rubros;
 import com.reparame.demo.exception.MiException;
@@ -16,7 +17,8 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,13 +39,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class ServicioController {
 
     private final ServicioService servicioServ;
+    
+    //@PostMapping("/{id}")
 
-    @PostMapping("/{id}")
-
-    public ResponseEntity<?> crearServicio(@RequestBody DatosRegistroServicioDTO nuevoServicio, @PathVariable("id") Long id) {
+    /* public ResponseEntity<?> crearServicio(@RequestBody DatosRegistroServicioDTO nuevoServicio, @PathVariable("id") Long id) {
         try {
             DatosRespuestaServicioDTO respuestaServicio = servicioServ.crearServicio(nuevoServicio, id);
-            return new ResponseEntity<>(respuestaServicio, HttpStatus.CREATED);
+            
+        } catch (MiException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    } */
+
+    @PostMapping("")
+    public ResponseEntity<?> crearServicio(@RequestBody RegistroServicioDTO nuevoServicio, 
+    @AuthenticationPrincipal UserDetails userDetails) {
+        String username = userDetails.getUsername(); 
+        try {
+            servicioServ.crear(nuevoServicio, username);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Servicio creado exitosamente");
         } catch (MiException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -52,7 +66,7 @@ public class ServicioController {
 
     @GetMapping("")
     public ResponseEntity<?> listarServiciosActivos(@RequestParam(name = "categoria", required = false) Rubros categoria) throws MiException {
-        List<DatosRespuestaServicioDTO> listaServicios = null;
+        List<ServicioListadoDTO> listaServicios = null;
         if (categoria != null) {
             listaServicios = servicioServ.listarPorCategoria(categoria);
         } else {

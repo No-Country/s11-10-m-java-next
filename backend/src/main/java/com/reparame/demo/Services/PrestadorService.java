@@ -109,9 +109,14 @@ public class PrestadorService {
 		}
 	}
 
-        public boolean prestadorExiste(String ussername){
-            Optional<Prestador> prestador = prestadorRepo.findByUsername(ussername);
-            return prestador.isPresent();
-        }
+	public boolean prestadorExiste(String ussername){
+		Optional<Prestador> prestador = prestadorRepo.findByUsername(ussername);
+		return prestador.isPresent();
+	}
+	
+	public Prestador getByUsername(String username){
+		Prestador prestador = prestadorRepo.findByUsername(username).orElse(null);
+		return prestador;
+	}
              
 }
