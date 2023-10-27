@@ -4,6 +4,7 @@
  */
 package com.reparame.demo.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -44,7 +45,7 @@ public class Ticket {
     @JoinColumn(name="id_servicio")
     private Servicio servicio;
     
-    @OneToOne(mappedBy="ticket")
+    @OneToOne
     @JoinColumn(name="id_calificacion")
     private Calificacion calificacion;
     

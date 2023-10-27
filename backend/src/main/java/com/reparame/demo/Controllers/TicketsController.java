@@ -1,6 +1,7 @@
 package com.reparame.demo.Controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,11 +37,11 @@ public class TicketsController {
 //	private final TicketsRepository ticketsRepository;
 
 	// crear los tickets
-	@PostMapping("")
-	public ResponseEntity<?> nuevoTicket(@RequestBody @Valid DatosRegistroTicketDTO nuevoTicket) {
+	@PostMapping("{idCliente}")
+	public ResponseEntity<?> nuevoTicket(@RequestBody @Valid DatosRegistroTicketDTO nuevoTicket, @PathVariable("idCliente") Long id) {
 
 		try {
-			DatosRespuestaTicketDTO respuestaTicket = ticketsService.crearTicket(nuevoTicket);
+			DatosRespuestaTicketDTO respuestaTicket = ticketsService.crearTicket(nuevoTicket, id);
 
 			return new ResponseEntity<>(respuestaTicket, HttpStatus.CREATED);
 
@@ -131,13 +132,26 @@ public class TicketsController {
 	}
 
 	@PostMapping("/{id}/calificar")
-	public ResponseEntity<?> calificarTicket(@PathVariable Long id, @RequestBody Calificacion calificacion) {
+	public ResponseEntity<String> calificarTicket(@PathVariable Long id, @RequestBody Calificacion calificacion) {
 		try {
 			ticketsService.calificar(id, calificacion);
-			return new ResponseEntity<>("ticket calificado exitosamente", HttpStatus.OK);
+			return new ResponseEntity<String>("ticket calificado exitosamente", HttpStatus.OK);
 		} catch (MiException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+    @PutMapping("/vincularservicio")
+    public ResponseEntity<String> vincularServicio (@RequestBody Map<String, Long> datos){
+    	try {
+			Long idTicket = datos.get("idTicket");
+			Long idServicio = datos.get("idServicio");
+			ticketsService.vincularServicio(idServicio, idTicket);
+    		return new ResponseEntity<String>("Servicio asignado", HttpStatus.OK);
+    	} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    	}
+    	
+    }    
 
 }
