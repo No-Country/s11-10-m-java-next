@@ -6,6 +6,7 @@ package com.reparame.demo.Services;
 
 import com.reparame.demo.Repositories.ClienteRepository;
 import com.reparame.demo.entity.Cliente;
+import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.enumeradores.Roles;
 import java.util.List;
 import java.util.Optional;
@@ -82,4 +83,9 @@ public class ClienteService {
             Optional<Cliente> cliente = clienteRepo.findByUsername(ussername);
             return cliente.isPresent();
     }
+
+    public Cliente getByUsername(String username){
+		Cliente cliente = clienteRepo.findByUsername(username).orElse(null);
+		return cliente;
+	}
 }
