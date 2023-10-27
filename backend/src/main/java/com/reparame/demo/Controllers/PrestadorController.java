@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.reparame.demo.Services.ClienteService;
 import com.reparame.demo.Services.PrestadorService;
-import com.reparame.demo.dtos.Prestador.DetallePrestadorDTO;
+import com.reparame.demo.dtos.response.DetallePrestadorDTO;
+import com.reparame.demo.entity.Cliente;
 import com.reparame.demo.entity.Prestador;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,14 +32,16 @@ import lombok.RequiredArgsConstructor;
 public class PrestadorController {
 	
     private final PrestadorService prestadorService;
+    
+    private final ClienteService clienteService;
 	
     @PostMapping("")
-    public ResponseEntity<Prestador> nuevoPrestador(@RequestBody Prestador prestador){
+    public ResponseEntity<?> nuevoPrestador(@RequestBody Prestador prestador){
     	try {
         	Prestador nuevoPrestador = prestadorService.nuevoPrestador(prestador);    	
         	return new ResponseEntity<>(nuevoPrestador, HttpStatus.OK);
     	} catch (Exception e) {
-    		return ResponseEntity.notFound().build();
+    		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     	}
     }
 	
@@ -59,6 +63,29 @@ public class PrestadorController {
         
     }
     
+//    @GetMapping("listarusuarios")
+//    public ResponseEntity<Map<String, Object>> listarUsuarios(){
+//    	
+//    	Map<String, Object> message = new HashMap<>();
+//    	
+//        List<Prestador> prestadores = prestadorService.listarPrestadoresActivos();
+//        if (!prestadores.isEmpty()) {
+//            List<DetallePrestadorDTO> prestadoresDTO = new ArrayList<>();          
+//            for (Prestador prestador : prestadores) {
+//                DetallePrestadorDTO prestadorDTO = new DetallePrestadorDTO(prestador);
+//                prestadoresDTO.add(prestadorDTO);
+//            }
+//            List<Cliente> clientes = clienteService.listarClientes();  
+//            System.out.println("estoy");
+//    		message.put("prestadores", prestadoresDTO);
+////			message.put("clientes", clientes);
+//            
+//        	return new ResponseEntity<Map<String, Object>>(message, HttpStatus.OK);
+//        } 
+//
+//        return ResponseEntity.notFound().build();
+//        
+//    }
     
     /*
     @GetMapping("/listarActivos")
@@ -68,23 +95,23 @@ public class PrestadorController {
     
     
     @GetMapping("/{id}")
-    public ResponseEntity<DetallePrestadorDTO> verPrestador(@PathVariable("id") Long id){
+    public ResponseEntity<?> verPrestador(@PathVariable("id") Long id){
         try {
                 Prestador prestador = prestadorService.verPrestador(id);
                 DetallePrestadorDTO detallePrestadorDTO = new DetallePrestadorDTO(prestador);
             return new ResponseEntity<>(detallePrestadorDTO, HttpStatus.OK);
         } catch (Exception e) {
-        	return ResponseEntity.notFound().build();
+        	return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
     
     @PutMapping("/darBaja/{id}")
-    public ResponseEntity<Prestador> bajaPrestador(@PathVariable("id") Long id){
+    public ResponseEntity<?> bajaPrestador(@PathVariable("id") Long id){
         try {
         	Prestador prestador = prestadorService.bajaPrestador(id);      	
             return new ResponseEntity<>(prestador, HttpStatus.OK);
         } catch (Exception e) {
-        	return ResponseEntity.notFound().build();
+        	return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }    
     
@@ -95,24 +122,24 @@ public class PrestadorController {
     
     
     @PutMapping("/{id}")
-    public ResponseEntity<Prestador> modificarPrestador(@PathVariable("id") Long id, 
+    public ResponseEntity<?> modificarPrestador(@PathVariable("id") Long id, 
     		@RequestBody Prestador prestador){
     	try {
         	Prestador prestadorModificado = prestadorService.modificarPrestador(id, prestador);    	
         	return new ResponseEntity<>(prestadorModificado, HttpStatus.OK);
     	} catch (Exception e) {
-    		return ResponseEntity.notFound().build();
+    		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     	}
     	
     }
     
     @PutMapping("/cambiarfoto")
-    public ResponseEntity<?> cambiarfoto (@RequestBody Map<String, Long> datos){
+    public ResponseEntity<String> cambiarfoto (@RequestBody Map<String, Long> datos){
     	try {
 			Long idImagen = datos.get("idImagen");
 			Long idPrestador = datos.get("idPrestador");
-        	Prestador prestadorModificado = prestadorService.cambiarFoto(idPrestador, idImagen);
-    		return new ResponseEntity<>(prestadorModificado, HttpStatus.OK);
+        	prestadorService.cambiarFoto(idPrestador, idImagen);
+    		return new ResponseEntity<String>("Foto asignada", HttpStatus.OK);
     	} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
     	}

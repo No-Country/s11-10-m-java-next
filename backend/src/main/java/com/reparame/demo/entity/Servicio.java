@@ -1,7 +1,7 @@
 package com.reparame.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.reparame.demo.dtos.DatosRegistroServicio;
+import com.reparame.demo.dtos.request.DatosRegistroServicioDTO;
 import com.reparame.demo.enumeradores.Rubros;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -51,7 +51,7 @@ public class Servicio {
         return tikets;
     }
 
-    public Servicio(DatosRegistroServicio servicio){
+    public Servicio(DatosRegistroServicioDTO servicio){
         this.descripcion = servicio.descripcion();
         this.añosSector = servicio.añosSector();
         this.precio = servicio.precio();

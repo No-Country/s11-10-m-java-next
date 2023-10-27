@@ -6,8 +6,8 @@ package com.reparame.demo.Controllers;
 
 
 import com.reparame.demo.Services.ServicioService;
-import com.reparame.demo.dtos.DatosRegistroServicio;
-import com.reparame.demo.dtos.DatosRespuestaServicio;
+import com.reparame.demo.dtos.request.DatosRegistroServicioDTO;
+import com.reparame.demo.dtos.response.DatosRespuestaServicioDTO;
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.entity.Servicio;
 import com.reparame.demo.enumeradores.Rubros;
@@ -40,9 +40,9 @@ public class ServicioController {
 
     @PostMapping("/{id}")
 
-    public ResponseEntity<?> crearServicio(@RequestBody DatosRegistroServicio nuevoServicio, @PathVariable("id") Long id) {
+    public ResponseEntity<?> crearServicio(@RequestBody DatosRegistroServicioDTO nuevoServicio, @PathVariable("id") Long id) {
         try {
-            DatosRespuestaServicio respuestaServicio = servicioServ.crearServicio(nuevoServicio, id);
+            DatosRespuestaServicioDTO respuestaServicio = servicioServ.crearServicio(nuevoServicio, id);
             return new ResponseEntity<>(respuestaServicio, HttpStatus.CREATED);
         } catch (MiException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -52,7 +52,7 @@ public class ServicioController {
 
     @GetMapping("")
     public ResponseEntity<?> listarServiciosActivos(@RequestParam(name = "categoria", required = false) Rubros categoria) throws MiException {
-        List<DatosRespuestaServicio> listaServicios = null;
+        List<DatosRespuestaServicioDTO> listaServicios = null;
         if (categoria != null) {
             listaServicios = servicioServ.listarPorCategoria(categoria);
         } else {
@@ -64,7 +64,7 @@ public class ServicioController {
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorID(@PathVariable("id") Long id) {
         try {
-            DatosRespuestaServicio servicioDTO = servicioServ.buscarPorId(id);
+            DatosRespuestaServicioDTO servicioDTO = servicioServ.buscarPorId(id);
             return new ResponseEntity<>(servicioDTO, HttpStatus.OK);
         } catch (MiException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

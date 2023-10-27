@@ -7,9 +7,9 @@ package com.reparame.demo.Services;
 import com.reparame.demo.JWT.JwtService;
 import com.reparame.demo.Repositories.ClienteRepository;
 import com.reparame.demo.Repositories.PrestadorRepository;
-import com.reparame.demo.dtos.LoginRequest;
-import com.reparame.demo.dtos.RegisterRequest;
-import com.reparame.demo.dtos.TokenResponseDTO;
+import com.reparame.demo.dtos.request.LoginRequestDTO;
+import com.reparame.demo.dtos.request.RegisterRequestDTO;
+import com.reparame.demo.dtos.response.TokenResponseDTO;
 import com.reparame.demo.entity.Cliente;
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.enumeradores.Roles;
@@ -42,7 +42,7 @@ public class UserService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     
-    public ResponseEntity<?> registro(RegisterRequest registerRequest) throws MiException{
+    public ResponseEntity<?> registro(RegisterRequestDTO registerRequest) throws MiException{
         Prestador prestador = new Prestador();
         Cliente cliente = new Cliente();
         TokenResponseDTO tokenDTO = new TokenResponseDTO();
@@ -102,7 +102,7 @@ public class UserService {
 
     }
     
-    public ResponseEntity<?> login(LoginRequest loginRequest) throws MiException{
+    public ResponseEntity<?> login(LoginRequestDTO loginRequest) throws MiException{
         try {
             Optional<Prestador> prestador = prestadorRepository.findByUsername(loginRequest.getUsername());
             Optional<Cliente> cliente = clienteRepository.findByUsername(loginRequest.getUsername());
@@ -114,7 +114,7 @@ public class UserService {
             }
             
             UserDetails user = (prestador.isPresent()) ? prestador.get() : cliente.get();
-            
+            System.out.println(loginRequest.getUsername() + loginRequest.getPassword());
             authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 

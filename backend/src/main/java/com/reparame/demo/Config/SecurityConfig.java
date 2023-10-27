@@ -14,8 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
-/**
+
+/**	
  *
  * @author Admin
  */
@@ -27,25 +29,33 @@ public class SecurityConfig {
 	 
     private final AuthenticationProvider authProvider;
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(authRequest ->
+                authRequest
+                    .requestMatchers("/user/**").permitAll()
+                    .anyRequest().authenticated()
+            )
+            .sessionManagement(sessionManager ->
+                sessionManager
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .authenticationProvider(authProvider)
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-		 return http
-		            .csrf(csrf -> 
-		                csrf
-		                .disable())
-		            .authorizeHttpRequests(authRequest ->
-		              authRequest
-		                .requestMatchers("/user/**").permitAll()
-		                .anyRequest().authenticated()
-		                )
-		            .sessionManagement(sessionManager->
-		                sessionManager 
-		                  .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-		            .authenticationProvider(authProvider)
-		            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-		            .build();
-	}
+        // Agrega tu configuración CORS personalizada
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+
+        return http.build();
+    }
     
     
-}
+
+        
+    }
+	
+
+

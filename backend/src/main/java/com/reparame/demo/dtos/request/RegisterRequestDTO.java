@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.reparame.demo.dtos;
+package com.reparame.demo.dtos.request;
 
 import com.reparame.demo.exception.MiException;
 import jakarta.validation.constraints.NotBlank;
@@ -21,7 +21,7 @@ import org.springframework.http.HttpStatus;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class RegisterRequestDTO {
     @NotBlank(message = "El nombre completo no debe estar en blanco o nulo")
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s']{1,30}$", message = "El nombre completo debe contener solo letras y tener un máximo de 30 caracteres")
     private String nombreCompleto;

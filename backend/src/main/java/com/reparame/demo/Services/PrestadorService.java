@@ -102,11 +102,6 @@ public class PrestadorService {
 		try {
 			Prestador prestadorModificado = prestadorRepo.findById(id).get();
 			Imagen foto = imagenService.getOne(idImagen).get();
-			
-			System.out.println("PRESTADOR: " + prestadorModificado);
-			System.out.println("IMAGEN: " +  foto);
-			
-			
 			prestadorModificado.setFoto(foto);	
 			return prestadorRepo.save(prestadorModificado);
 		} catch (Exception e) {

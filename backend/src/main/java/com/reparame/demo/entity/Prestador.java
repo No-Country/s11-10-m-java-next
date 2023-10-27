@@ -25,11 +25,11 @@ import lombok.NoArgsConstructor;
 public class Prestador extends Persona{
     private String zona;
     private Double calificacion;
+    private String descripcion;
     
     @OneToMany(mappedBy = "prestador")
     private List<Servicio> servicios;
     
- 
     @OneToOne
     private Imagen foto;
      

@@ -5,8 +5,8 @@
 package com.reparame.demo.Services;
 
 import com.reparame.demo.Repositories.ServicioRepository;
-import com.reparame.demo.dtos.DatosRegistroServicio;
-import com.reparame.demo.dtos.DatosRespuestaServicio;
+import com.reparame.demo.dtos.request.DatosRegistroServicioDTO;
+import com.reparame.demo.dtos.response.DatosRespuestaServicioDTO;
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.entity.Servicio;
 import com.reparame.demo.enumeradores.Rubros;
@@ -27,7 +27,7 @@ public class ServicioService {
     private final ServicioRepository servicioRep;
     private final PrestadorService prestadorService;
 
-    public DatosRespuestaServicio crearServicio(DatosRegistroServicio nuevoServicio, Long idPrestador) throws MiException {
+    public DatosRespuestaServicioDTO crearServicio(DatosRegistroServicioDTO nuevoServicio, Long idPrestador) throws MiException {
         Servicio servicio = new Servicio(nuevoServicio);
 
         try {
@@ -38,15 +38,15 @@ public class ServicioService {
             throw new MiException(e.getMessage());
         }
 
-        DatosRespuestaServicio respuestaServicio = new DatosRespuestaServicio(servicio);
+        DatosRespuestaServicioDTO respuestaServicio = new DatosRespuestaServicioDTO(servicio);
         return respuestaServicio;
     }
 
-    public List<DatosRespuestaServicio> listar() throws MiException {
+    public List<DatosRespuestaServicioDTO> listar() throws MiException {
         try {
             List<Servicio> servicioLista = servicioRep.findByEstadoTrue();
 
-            List<DatosRespuestaServicio> datosRespuestaList = servicioLista.stream().map(DatosRespuestaServicio::new)
+            List<DatosRespuestaServicioDTO> datosRespuestaList = servicioLista.stream().map(DatosRespuestaServicioDTO::new)
                     .collect(Collectors.toList());
 
             return datosRespuestaList;
@@ -56,18 +56,18 @@ public class ServicioService {
         }
     }
 
-    public List<DatosRespuestaServicio> listarPorCategoria(Rubros categoria) {
+    public List<DatosRespuestaServicioDTO> listarPorCategoria(Rubros categoria) {
         List<Servicio> servicioLista = servicioRep.findByCategoria(categoria);
-        List<DatosRespuestaServicio> datosRespuestaList = servicioLista.stream().map(DatosRespuestaServicio::new)
+        List<DatosRespuestaServicioDTO> datosRespuestaList = servicioLista.stream().map(DatosRespuestaServicioDTO::new)
                 .collect(Collectors.toList());
 
         return datosRespuestaList;
     }
 
-    public DatosRespuestaServicio buscarPorId(Long id) throws MiException {
+    public DatosRespuestaServicioDTO buscarPorId(Long id) throws MiException {
         try {
             Servicio servicio = servicioRep.findById(id).get();
-            DatosRespuestaServicio respuestaServicio = new DatosRespuestaServicio(servicio);
+            DatosRespuestaServicioDTO respuestaServicio = new DatosRespuestaServicioDTO(servicio);
             return respuestaServicio;
 
         } catch (Exception e) {
