@@ -1,20 +1,16 @@
 'use client'
 import { Provider } from 'react-redux'
 import { store } from './store'
-import Header from '@/components/header/Header'
 
-function Providers({ children,
+
+export function Providers({ children,
 }: {
     children: React.ReactNode
 }) {
     return (
         <Provider store={store}>
-            <Header />
-            <main className='flex items-center justify-center'>
-                {children}
-            </main>
+            {children}
         </Provider>
     )
 }
 
-export default Providers

@@ -27,8 +27,8 @@ const Ticket: React.FC = () => {
             //     showConfirmButton: false,
             //     timer: 2000
             //   })
-          alertRef.current != null ? alertRef.current.close() : {}
-        }, 2000  )) : {}
+            alertRef.current != null ? alertRef.current.close() : {}
+        }, 2000)) : {}
     }
     const closeAlert = () => {
         alertRef.current != null ? alertRef.current.close() : {}
@@ -58,7 +58,7 @@ const Ticket: React.FC = () => {
                         <div className='w-96'>
                             <figure className='flex flex-row  justify-between items-center'>
                                 <div className="flex gap-4 items-center">
-                                    <Image src="/favicon.ico" width={80} height={80} alt='imagen prueba' className='rounded-full' />
+                                    <Image src="/images/Ellipse 48.png" width={80} height={80} alt='imagen prueba' className='rounded-full' />
                                 </div>
                                 <div className='flex'>
 
@@ -76,8 +76,8 @@ const Ticket: React.FC = () => {
                             <p className='py-6'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta culpa nam quia explicabo iure, asperiores minima dolore consequuntur saepe maiores est et modi? Magnam, beatae hic dolore nesciunt dolorem quasi?
                                 Itaque rerum distinctio, suscipit temporibus, facere tempora omnis delectus ipsa.</p>
                             <menu className='flex flex-row gap-10 self-center'>
-                                <Button className='w-36 text-light-orange hover:bg-light-orange hover:text-gray bg-gray'   id="cancel" type="reset" onClick={closeTicket}>Cancel</Button>
-                                <Button className='w-36 text-light-orange hover:bg-light-orange hover:text-gray bg-gray' type="submit">Confirm</Button>
+                                <Button className='w-36 text-white hover:bg-red2 bg-red'   id="cancel" type="reset" onClick={closeTicket}>Cancel</Button>
+                                <Button className='w-36 text-white hover:bg-light-orange bg-orange' type="submit">Confirm</Button>
                             </menu>
                             <div>
                                 <StarsUser2 />
@@ -97,11 +97,10 @@ const Ticket: React.FC = () => {
             >
                 <span>
                     Contratado con éxito!
-                    
+
                 </span>
             </dialog>
         </div>
-
     )
 }
 

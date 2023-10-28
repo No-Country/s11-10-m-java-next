@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import prestadoresReducer from "./features/prestadoresSlice";
+import serviciosReducer from "./features/serviciosSlice";
+import logReducer from './features/pathSlice';
 
 export const store = configureStore({
     reducer: {
-        prestadores: prestadoresReducer,
+        servicios: serviciosReducer,
+        log: logReducer
     }
 })
 

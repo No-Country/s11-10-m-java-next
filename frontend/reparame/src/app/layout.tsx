@@ -1,7 +1,9 @@
+
+import { Providers } from '@/utils/globalStates/providers'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Providers from '@/utils/globalStates/providers'
+import Header from '@/components/header/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,11 +19,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers >
-          {children}
-        </Providers>
-      </body>
+      <Providers>
+        <body className={inter.className}>
+          <Header />
+          <main className='bg-grayUi flex items-center justify-center flex-col min-h-screen'>
+            {children}
+          </main>
+        </body>
+      </Providers >
     </html>
   )
 }

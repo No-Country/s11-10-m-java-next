@@ -6,28 +6,31 @@ import { getServicios } from '@/utils/requestServicios/getServicios'
 import DetalleServicio from './detalleServicio/DetalleServicio'
 import { useAppSelector } from '@/utils/globalStates/hooks'
 import Skeleton from '../loadingSpinner/Skeleton'
-import Ticket from '../ticket/Ticket'
-
+import HeaderManager from '../headerManager/HeaderManager'
 
 const Servicios = () => {
-    const [prestadores, setPrestadores] = useState([])
-    const id = useAppSelector(state => state.prestadores.value)
+    const [servicios, setServicios] = useState([])
+    const id = useAppSelector(state => state.servicios.value)
     useEffect(() => {
-        getServicios(setPrestadores, id)
+        getServicios(setServicios, id)
     }, [id])
+
     return (
         <section className='flex flex-col max-w-max-view w-full gap-12'>
-            {prestadores[0] || prestadores.length === undefined ? prestadores.length > 0 ?
-                <article className='flex flex-col gap-12'>
-                    <h1 className='text-2xl'>Aca va la lista de proveedores</h1>
-                    {prestadores.map((res: any) => (
-                        <CardServicio key={res.id} prestador={res} />
-                    ))}
-                </article>
-                : <DetalleServicio prestador={prestadores} />
+            <HeaderManager page='servicios' />
+            {servicios[0] || servicios.length === undefined
+                ? servicios.length > 0 ?
+                    <article className='flex flex-col gap-12'>
+                        <h1 className='text-2xl'>Aca va la lista de proveedores</h1>
+                        {servicios.map((res: any) => (
+                            <CardServicio key={res.id_Servicio} servicio={res} />
+                        ))}
+                    </article>
+                    : <DetalleServicio servicio={servicios} />
                 : <><Skeleton /><Skeleton /><Skeleton /></>}
-        </section>
-    )
-}
 
-export default Servicios
+        </section>
+    );
+};
+
+export default Servicios;

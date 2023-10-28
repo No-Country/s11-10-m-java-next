@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import {nextui} from "@nextui-org/react";
+import { nextui } from "@nextui-org/react";
 
 const config: Config = {
   content: [
@@ -11,19 +11,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        'mega-light-orange': '#fac79a',
         'light-orange': '#ff983f',
         'dark-orange': '#ff6600',
         'red': '#fca5a5',
         'red2': '#ef4444',
         'orange': '#fdba74',
-        'gray': '#F5F5F5',
+        'gray-1': '#929292',
       },
       maxWidth: {
-        'max-view': '1500px',
+        'max-view': '1520px',
+        'max-textArea': '778px',
       },
       minWidth: {
         'avatarHeader': '2.5rem',
-        'searchBar': '180px'
+        'searchBar': '180px',
       },
     }
   },

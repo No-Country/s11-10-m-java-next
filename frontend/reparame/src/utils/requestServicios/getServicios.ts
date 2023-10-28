@@ -1,9 +1,9 @@
 import axios from "axios"
 
-export const getServicios = async (setPrestadores: Function, prestadorId: any) => {
+export const getServicios = async (setPrestadores: Function, servicioId: any) => {
 
     await axios.get(
-        `https://jsonplaceholder.typicode.com/users/${prestadorId ? prestadorId : ''}`,
+        `https://reparame-api.onrender.com/servicio/${servicioId ? 'buscarPorID/' + servicioId : 'listar'}`,
     )
         .then(function (response) {
             setPrestadores(response.data)
