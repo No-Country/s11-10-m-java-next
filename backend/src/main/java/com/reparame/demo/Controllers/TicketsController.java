@@ -112,7 +112,8 @@ public class TicketsController {
 
 	}
 
-
+	
+	//retorna una paginacion de tickets
 	@GetMapping("paginas")
 	public ResponseEntity<?> listaPaginaTickets(@PageableDefault(size = 2) Pageable paginacion) {
 
