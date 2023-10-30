@@ -14,9 +14,8 @@ const Servicios = () => {
     const [servicios, setServicios] = useState([])
     const id = useAppSelector(state => state.servicios.value)
     useEffect(() => {
-        getServicios(setServicios, id)
-    }, [id])
-
+        getServicios(setServicios, id, data?.user.accessToken)
+    }, [id, data?.user.accessToken])
     return (
         <section className='flex flex-col max-w-max-view w-full gap-12'>
             <HeaderManager page='servicios' />
