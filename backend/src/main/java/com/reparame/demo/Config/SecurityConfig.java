@@ -39,6 +39,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authRequest ->
                 authRequest
                     .requestMatchers("/user/**").permitAll()
+                    .requestMatchers("/validarToken/**").permitAll()
                     .anyRequest().authenticated()
             )
             .sessionManagement(sessionManager ->

@@ -6,6 +6,8 @@ package com.reparame.demo.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,6 +22,7 @@ import org.springframework.http.HttpStatus;
 
 import com.reparame.demo.dtos.request.DatosActualizarTicketDTO;
 import com.reparame.demo.dtos.request.DatosRegistroTicketDTO;
+import com.reparame.demo.enumeradores.ProgresoTicket;
 import com.reparame.demo.exception.MiException;
 
 import lombok.AllArgsConstructor;
@@ -40,6 +43,9 @@ public class Ticket {
     private String descripcion;
     private LocalDate fechaInicio;
     private LocalDate fechaRequerida;
+    
+    @Enumerated(EnumType.STRING)
+    private ProgresoTicket progreso;
     
     @ManyToOne
     @JoinColumn(name="id_servicio")

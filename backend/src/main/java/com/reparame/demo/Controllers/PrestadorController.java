@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.reparame.demo.Services.ClienteService;
 import com.reparame.demo.Services.PrestadorService;
+import com.reparame.demo.Services.TicketsService;
 import com.reparame.demo.dtos.response.DetallePrestadorDTO;
 import com.reparame.demo.entity.Cliente;
 import com.reparame.demo.entity.Prestador;
-import java.util.ArrayList;
+
+
 import java.util.HashMap;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,8 @@ public class PrestadorController {
     private final PrestadorService prestadorService;
     
     private final ClienteService clienteService;
+
+    private final TicketsService ticketService;
 	
     @PostMapping("")
     public ResponseEntity<?> nuevoPrestador(@RequestBody Prestador prestador){
@@ -45,7 +49,7 @@ public class PrestadorController {
     	}
     }
 	
-    @GetMapping("")
+    /* @GetMapping("")
     public ResponseEntity<List<DetallePrestadorDTO>> listarPrestadores(){
         List<Prestador> prestadores = prestadorService.listarPrestadoresActivos();
         if (!prestadores.isEmpty()) {
@@ -61,37 +65,7 @@ public class PrestadorController {
         
         return ResponseEntity.notFound().build();
         
-    }
-    
-//    @GetMapping("listarusuarios")
-//    public ResponseEntity<Map<String, Object>> listarUsuarios(){
-//    	
-//    	Map<String, Object> message = new HashMap<>();
-//    	
-//        List<Prestador> prestadores = prestadorService.listarPrestadoresActivos();
-//        if (!prestadores.isEmpty()) {
-//            List<DetallePrestadorDTO> prestadoresDTO = new ArrayList<>();          
-//            for (Prestador prestador : prestadores) {
-//                DetallePrestadorDTO prestadorDTO = new DetallePrestadorDTO(prestador);
-//                prestadoresDTO.add(prestadorDTO);
-//            }
-//            List<Cliente> clientes = clienteService.listarClientes();  
-//            System.out.println("estoy");
-//    		message.put("prestadores", prestadoresDTO);
-////			message.put("clientes", clientes);
-//            
-//        	return new ResponseEntity<Map<String, Object>>(message, HttpStatus.OK);
-//        } 
-//
-//        return ResponseEntity.notFound().build();
-//        
-//    }
-    
-    /*
-    @GetMapping("/listarActivos")
-    public List<Prestador> listarPrestadoresActivos(){
-        return prestadorService.listarPrestadoresActivos();
-    }*/
+    } */
     
     
     @GetMapping("/{id}")
@@ -144,16 +118,27 @@ public class PrestadorController {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
     	}
     	
-    }      
-    
+    }
 
 
     
-
-  
-
+    /* @GetMapping("/tickets")
+    public ResponseEntity<List<DetallePrestadorDTO>> listarTickets(){
+        List<Prestador> prestadores = prestadorService.listarPrestadoresActivos();
+        if (!prestadores.isEmpty()) {
+            List<DetallePrestadorDTO> prestadoresDTO = new ArrayList<>();
+            
+            for (Prestador prestador : prestadores) {
+                DetallePrestadorDTO prestadorDTO = new DetallePrestadorDTO(prestador);
+                prestadoresDTO.add(prestadorDTO);
+            }
+            
+            return ResponseEntity.ok(prestadoresDTO);
+        } 
+        
+        return ResponseEntity.notFound().build();
+        
+    } */
 
     
-
-
 }
