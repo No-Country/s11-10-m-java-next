@@ -18,4 +18,5 @@ public class PrestadorServicioListadoDTO {
     private String numeroTelefonico;
     private Double calificacion;
     private String zona;
+    private String descripcion;
 }
