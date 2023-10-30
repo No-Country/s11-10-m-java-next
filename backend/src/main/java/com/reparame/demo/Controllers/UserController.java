@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.reparame.demo.dtos.response.DetallePrestadorDTO;
 
 /**
  *
@@ -61,12 +62,14 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<?> GetUser(@AuthenticationPrincipal UserDetails userDetails) {
+    	System.out.println("ESTOY");
         if (userDetails != null) {
             String username = userDetails.getUsername();
             Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
             if (authorities.stream().anyMatch(a -> a.getAuthority().equals("PRESTADOR"))) {
                 Prestador prestador = userService.getPrestadorByUsername(username);
-                return ResponseEntity.ok(prestador);
+                DetallePrestadorDTO detallePrestadorDTO= new DetallePrestadorDTO(prestador);
+                return ResponseEntity.ok(detallePrestadorDTO);
             }else{
                 Cliente cliente = userService.getlienteByUsername(username);
                 return ResponseEntity.ok(cliente);
