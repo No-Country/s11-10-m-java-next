@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.reparame.demo.Repositories.CalificacionRepository;
+import com.reparame.demo.Repositories.PrestadorRepository;
 import com.reparame.demo.Repositories.ServicioRepository;
 import com.reparame.demo.Repositories.TicketsRepository;
 import com.reparame.demo.dtos.request.DatosActualizarTicketDTO;
@@ -23,6 +24,7 @@ import com.reparame.demo.entity.Servicio;
 import com.reparame.demo.entity.Imagen;
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.entity.Ticket;
+import com.reparame.demo.enumeradores.ProgresoTicket;
 import com.reparame.demo.exception.MiException;
 
 import lombok.RequiredArgsConstructor;
@@ -33,6 +35,7 @@ public class TicketsService {
 
 	private final TicketsRepository ticketRepository;
 	private final ClienteService clienteService;
+	private final PrestadorService prestadorService;
 	
 	@Autowired
 	ServicioRepository servicioRepository;
@@ -53,6 +56,7 @@ public class TicketsService {
 			Servicio servicio = servicioRepository.findById(id).get();
 	        ticket.setCliente(cliente);
 			ticket.setServicio(servicio);
+			ticket.setProgreso(ProgresoTicket.SOLICITADO);
 			ticketRepository.save(ticket);
 		} catch (Exception e) {
 			throw new MiException(e.getMessage());
@@ -67,10 +71,14 @@ public class TicketsService {
 	public List<DatosRespuestaTicketDTO> listar() throws MiException {
 		try {
 			//List<Ticket> ticketList = ticketRepository.findAll();
-			List<Ticket> ticketList = ticketRepository.findByEstadoTrue();
+			//Cliente cliente = clienteService.getByUsername(usernameCliente);
+			//List<Ticket> tickets = ticketRepository.findByCliente(cliente);
 
+			List<Ticket> tickets = ticketRepository.findAll();
+
+			
 			// Mapear la lista de Ticket a una lista de DatosRespuestaTicket
-			List<DatosRespuestaTicketDTO> datosRespuestaList = ticketList.stream()
+			List<DatosRespuestaTicketDTO> datosRespuestaList = tickets.stream()
 															.map(DatosRespuestaTicketDTO::new) 
 															.collect(Collectors.toList());
 			return datosRespuestaList;
@@ -81,13 +89,16 @@ public class TicketsService {
 	}
 
 	//buscar tickets por id
-	public DatosRespuestaTicketDTO buscarPorId(Long id) throws MiException {
+	public DatosRespuestaTicketDTO buscarPorId(Long id, String username) throws MiException {
 		try {
+			Cliente cliente = clienteService.getByUsername(username);
 			Ticket ticket = ticketRepository.findById(id).get();
-			DatosRespuestaTicketDTO respuestaTicket = new DatosRespuestaTicketDTO(ticket);
-			return respuestaTicket;
-
-
+			if (ticket.getCliente() != cliente){
+				throw new MiException("No puedes calificar este ticket");
+			}else{
+				DatosRespuestaTicketDTO respuestaTicket = new DatosRespuestaTicketDTO(ticket);
+				return respuestaTicket;
+			}
 		} catch (Exception e) {
 			throw new MiException(e.getMessage());
 		}
@@ -164,21 +175,37 @@ public class TicketsService {
 		}
 	}
 
-		public Ticket vincularServicio(Long idServicio, Long idTicket) throws Exception{
-			try {
-				Ticket ticket = ticketRepository.findById(idTicket).get();
-				Servicio servicio = servicioRepository.findById(idServicio).get();
-				ticket.setServicio(servicio);
-				return ticketRepository.save(ticket);
-			} catch (Exception e) {
-				throw new Exception("no existe ticket y/o servicio con ese id");
-			}
-			
-		} 
-        
-        
-       
-        
-        
+	//obtener los tickets del prestador autenticado, por eso se pasa el username que viene de la peticion
 
+	public List<DatosRespuestaTicketDTO> listadoPorPrestador(String username) throws MiException{
+		try{
+			//estador = prestadorService.getByUsername(username);
+			List <Ticket> tickets = ticketRepository.findByPrestador(username);
+
+			// Mapear la lista de Ticket a una lista de DatosRespuestaTicket
+			List<DatosRespuestaTicketDTO> datosRespuestaList = tickets.stream()
+															.map(DatosRespuestaTicketDTO::new) 
+															.collect(Collectors.toList());
+			return datosRespuestaList;
+
+		} catch (Exception e) {
+			throw new MiException("No se encontro el prestador");
+		}
+	}
+
+	public List<DatosRespuestaTicketDTO> listadorPorCliente(String username) throws MiException{
+		try{
+			Cliente cliente = clienteService.getByUsername(username);
+			List<Ticket> tickets = ticketRepository.findByCliente(cliente);
+
+			// Mapear la lista de Ticket a una lista de DatosRespuestaTicket
+			List<DatosRespuestaTicketDTO> datosRespuestaList = tickets.stream()
+															.map(DatosRespuestaTicketDTO::new) 
+															.collect(Collectors.toList());
+			return datosRespuestaList;
+
+		} catch (Exception e) {
+			throw new MiException("No se encontro el cliente");
+		}
+	}
 }

@@ -38,7 +38,6 @@ public class TicketsController {
 
 
 	private final TicketsService ticketsService;
-//	private final TicketsRepository ticketsRepository;
 
 	// crear los tickets
 	@Secured("CLIENTE")
@@ -56,12 +55,13 @@ public class TicketsController {
 		}
 	}
 	
-	// Obtener un ticket por ID
+	// Obtener un ticket por ID del cliente
 	@GetMapping("/{id}")
-    public ResponseEntity<?> listarTicketsPorId(@PathVariable Long id) {
-
+    public ResponseEntity<?> listarTicketsPorId(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails) {
+		
+		String username = userDetails.getUsername();
 		try {
-			DatosRespuestaTicketDTO ticket = ticketsService.buscarPorId(id);
+			DatosRespuestaTicketDTO ticket = ticketsService.buscarPorId(id, username);
 			return new ResponseEntity<DatosRespuestaTicketDTO>(ticket, HttpStatus.OK);
 		
 		} catch (MiException e) {
@@ -72,16 +72,43 @@ public class TicketsController {
 	// Listar todos los tickets
 	@GetMapping("")
     public ResponseEntity<?> listarTickets() {
-            try {
-                    List<DatosRespuestaTicketDTO> listaTickets = ticketsService.listar();
 
-                    return new ResponseEntity<>(listaTickets, HttpStatus.OK);
-            } catch (MiException e) {
-                    return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-            }
+		try {
+				List<DatosRespuestaTicketDTO> listaTickets = ticketsService.listar();
+
+				return new ResponseEntity<>(listaTickets, HttpStatus.OK);
+		} catch (MiException e) {
+				return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
     }
 
+	//Obtener los tickets asociados al prestador que esta autenticado
+	@Secured("PRESTADOR")
+	@GetMapping("/prestador")
+    public ResponseEntity<?> listarTicketsPrestador(@AuthenticationPrincipal UserDetails userDetails) {
+		String username = userDetails.getUsername();
+		try {
+				List<DatosRespuestaTicketDTO> listaTickets = ticketsService.listadoPorPrestador(username);
 
+				return new ResponseEntity<>(listaTickets, HttpStatus.OK);
+		} catch (MiException e) {
+				return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+    }
+
+	//Obtener los tickets asociados al cliente que esta autenticado
+	@Secured("CLIENTE")
+	@GetMapping("/cliente")
+    public ResponseEntity<?> listarTicketsCliente(@AuthenticationPrincipal UserDetails userDetails) {
+		String username = userDetails.getUsername();
+		try {
+				List<DatosRespuestaTicketDTO> listaTickets = ticketsService.listadorPorCliente(username);
+
+				return new ResponseEntity<>(listaTickets, HttpStatus.OK);
+		} catch (MiException e) {
+				return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+    }
 
 	// modificar tickets
 	@PutMapping("/{id}")
@@ -96,7 +123,6 @@ public class TicketsController {
 		}
 
 	}
-
 
 
 	// borrado logico de un ticket de la db

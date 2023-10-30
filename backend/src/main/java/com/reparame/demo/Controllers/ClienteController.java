@@ -29,22 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class ClienteController {
     private final ClienteService clienteServ;
-    
-    @PostMapping("")
-    public ResponseEntity<Cliente> nuevoCliente(@RequestBody Cliente cliente){
-        try {
-            Cliente clienteNuevo = clienteServ.nuevoCliente(cliente);
-            return new ResponseEntity<>(clienteNuevo, HttpStatus.OK);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        } 
-    }
-    
+     
     @GetMapping("")
     public List<Cliente> listarClientes(){
         return clienteServ.listarClientes();
     }
-    
     
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> buscarPorID(@PathVariable("id") Long id){
