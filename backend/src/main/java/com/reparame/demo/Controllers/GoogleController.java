@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.reparame.demo.JWT.JwtService;
 import com.reparame.demo.Repositories.ClienteRepository;
-import com.reparame.demo.dtos.request.TokenRequestDto;
+import com.reparame.demo.dtos.request.TokenGoogleRequestDto;
 import com.reparame.demo.dtos.response.GoogleResponseDto;
 import com.reparame.demo.dtos.response.TokenResponseDTO;
 import com.reparame.demo.entity.Cliente;
@@ -32,8 +32,9 @@ public class GoogleController {
     private final ClienteRepository  clienteRepository;
     private final JwtService jwtService;
 
+    
     @PostMapping("")
-    public ResponseEntity<?> validarToken(@RequestBody TokenRequestDto tokendto) {
+    public ResponseEntity<?> validarToken(@RequestBody TokenGoogleRequestDto tokendto) {
         // URL de la API de Google para obtener información del usuario
         String apiUrl = "https://www.googleapis.com/oauth2/v3/userinfo";
         
@@ -56,7 +57,7 @@ public class GoogleController {
             	ObjectMapper objectMapper = new ObjectMapper();
                 GoogleResponseDto googleResponseDto = objectMapper.readValue(responseEntity.getBody(),GoogleResponseDto.class);
                 
-               
+               // To-do -> preguntar si me el que se loguea con google es cliente o prestador 
                 // creo un cliente con los datos obtenido de google 
                 Cliente user = new Cliente (googleResponseDto);
                 clienteRepository.save(user);
