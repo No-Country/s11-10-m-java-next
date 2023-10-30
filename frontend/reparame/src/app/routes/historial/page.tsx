@@ -1,12 +1,15 @@
-import Ticket from '@/components/ticket/Ticket'
-import React from 'react'
+import Historial from "@/components/historial/Historial";
+import Ticket from "@/components/ticket/Ticket";
+import React from "react";
 
 const HistorialPage = () => {
   return (
     <section>
       <Ticket />
-    </section>
-  )
-}
 
-export default HistorialPage
+      <Historial />
+    </section>
+  );
+};
+
+export default HistorialPage;
