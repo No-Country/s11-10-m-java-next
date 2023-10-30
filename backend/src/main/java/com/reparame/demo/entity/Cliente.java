@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.reparame.demo.dtos.response.GoogleResponseDto;
+import com.reparame.demo.dtos.response.GoogleApiResponseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,7 +35,7 @@ public class Cliente extends Persona {
     @OneToMany(mappedBy = "cliente")
     private List<Soporte> soportes;
     
-    public Cliente(GoogleResponseDto g) {
+    public Cliente(GoogleApiResponseDto g) {
     	super();
     	  this.setNombreCompleto(g.name());
           this.setApellidoCompleto(g.family_name());

@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.reparame.demo.JWT.JwtService;
 import com.reparame.demo.Repositories.ClienteRepository;
 import com.reparame.demo.dtos.request.TokenGoogleRequestDto;
+import com.reparame.demo.dtos.response.GoogleApiResponseDto;
 import com.reparame.demo.dtos.response.GoogleResponseDto;
 import com.reparame.demo.dtos.response.TokenResponseDTO;
 import com.reparame.demo.entity.Cliente;
@@ -55,16 +56,20 @@ public class GoogleController {
             	
             	//mapeo
             	ObjectMapper objectMapper = new ObjectMapper();
-                GoogleResponseDto googleResponseDto = objectMapper.readValue(responseEntity.getBody(),GoogleResponseDto.class);
+                GoogleApiResponseDto googleApiResponseDto = objectMapper.readValue(responseEntity.getBody(),GoogleApiResponseDto.class);
                 
                // To-do -> preguntar si me el que se loguea con google es cliente o prestador 
                 // creo un cliente con los datos obtenido de google 
-                Cliente user = new Cliente (googleResponseDto);
+                Cliente user = new Cliente (googleApiResponseDto);
+
                 clienteRepository.save(user);
                 
                 String tokenResponse = jwtService.getToken(user);
                 
-            	return new ResponseEntity<TokenResponseDTO>(new TokenResponseDTO(tokenResponse), HttpStatus.OK);
+                GoogleResponseDto googleResponseDto = new GoogleResponseDto(googleApiResponseDto, user.getId(), tokenResponse);
+                
+              
+            	return new ResponseEntity<GoogleResponseDto>(googleResponseDto, HttpStatus.OK);
                 
             } else {
                 // Maneja el error de acuerdo a tus necesidades
