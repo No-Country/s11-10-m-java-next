@@ -8,13 +8,8 @@ const CardDistance = () => {
                 <small className="text-sm">Distancia maxima</small>
                 <span className="text-sm">{distance}{' '}km.</span>
             </div>
-            <input type="range" value={distance} onChange={(e) => { setDistance(e.target.value) }} style={{
-                appearance: 'none',
-                background: '#ff983f',
-                cursor: 'pointer',
-                width: 'auto',
-                height: '2px',
-            }} />
+            <input type="range" value={distance} onChange={(e) => { setDistance(e.target.value) }}
+                className='rounded-lg h-0.5 appearance-none cursor-pointer bg-light-orange' />
         </label>
     )
 }

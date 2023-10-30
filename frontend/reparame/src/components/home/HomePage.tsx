@@ -46,7 +46,7 @@ function HomePage() {
                             <profesion.icon className="" style={{
                                 width: "65.5px",
                                 height: "71.3px"
-                                
+
                             }}
                             />
                         </Link>
@@ -69,7 +69,7 @@ function HomePage() {
                             <div className="bg-white shadow-circle w-60 h-60 rounded-full flex items-center justify-center">
                                 <BiSearchAlt className="w-32 h-32 text-light-orange" />
                             </div>
-                                
+
                         </figure>
                         <p className="pl-5 text-3xl font-medium">Buscá el <br /> servicio</p>
                     </div>
@@ -80,20 +80,20 @@ function HomePage() {
                             <div className="bg-white shadow-circle w-60 h-60 rounded-full flex items-center justify-center">
                                 <PiChatCenteredDots className="w-32 h-32 text-light-orange" />
                             </div>
-                                
+
                         </figure>
                         <p className="pl-5 text-3xl font-medium">Contactá al <br /> profesional</p>
                     </div>
 
                     <div className="text-center flex flex-col gap-4">
-                    <figure className="flex items-center">
-                        <span className="bg-light-orange shadow-spanCircle px-3 py-1 rounded-full relative left-6 text-white text-4xl font-extrabold">3</span>
-                        <div className="bg-white shadow-circle w-60 h-60 rounded-full flex items-center justify-center">
-                            <GiShakingHands className="w-32 h-32 text-light-orange" />
-                        </div>
-                            
-                    </figure>
-                    <p className="pl-5 text-3xl font-medium">Contratalo</p>
+                        <figure className="flex items-center">
+                            <span className="bg-light-orange shadow-spanCircle px-3 py-1 rounded-full relative left-6 text-white text-4xl font-extrabold">3</span>
+                            <div className="bg-white shadow-circle w-60 h-60 rounded-full flex items-center justify-center">
+                                <GiShakingHands className="w-32 h-32 text-light-orange" />
+                            </div>
+
+                        </figure>
+                        <p className="pl-5 text-3xl font-medium">Contratalo</p>
                     </div>
 
 

@@ -11,14 +11,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "mega-light-orange": "#fac79a",
-        "light-orange": "#ff983f",
-        "dark-orange": "#ff6600",
-        red: "#fca5a5",
-        red2: "#ef4444",
-        orange: "#fdba74",
-        grayUi: "#f5f5f5",
-        'grayText': '#9ca3af'
+        'mega-light-orange': '#fac79a',
+        'light-orange': '#ff983f',
+        'dark-orange': '#ff6600',
+        'red': '#fca5a5',
+        'red2': '#ef4444',
+        'orange': '#fdba74',
+        'grayUi': '#f5f5f5',
+        'grayText': '#9ca3af',
+        'grayDark': '#929292'
       },
       width: {
         'inputPerfil': '600px'
@@ -28,15 +29,17 @@ const config: Config = {
         "max-textArea": "778px",
       },
       minWidth: {
-        avatarHeader: "2.5rem",
-        searchBar: "180px",
+        'avatarHeader': "2.5rem",
+        'searchBar': "180px",
       },
       boxShadow: {
         'cardsPerfil': '2px 3px 3px 0px rgb(0 0 0 / 0.1)',
+        'cardsProfesionesActive': '0px 0px 8px 0px #ff983f',
+        'cardsProfesionesDesactive': '0px 0px 8px 0px #929292',
         'cardsProfesiones': '0px 0px 8px 0px #ff983f',
-        cardProfesionHome: "2px 3px 12px 0px #959393",
-        circle:"0px 4px 0px 0px #b0b0b0",
-        spanCircle:"0px 4px 5px 0px #b0b0b0"
+        'cardProfesionHome': "2px 3px 12px 0px #959393",
+        'circle': "0px 4px 0px 0px #b0b0b0",
+        'spanCircle': "0px 4px 5px 0px #b0b0b0"
       }
     },
   },
