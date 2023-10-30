@@ -9,6 +9,9 @@ import com.reparame.demo.Repositories.ClienteRepository;
 import com.reparame.demo.Repositories.PrestadorRepository;
 import com.reparame.demo.dtos.request.LoginRequestDTO;
 import com.reparame.demo.dtos.request.RegisterRequestDTO;
+import com.reparame.demo.dtos.response.DetalleClienteDTO;
+import com.reparame.demo.dtos.response.DetallePrestadorDTO;
+import com.reparame.demo.dtos.response.ServicioListadoDTO;
 import com.reparame.demo.dtos.response.TokenResponseDTO;
 import com.reparame.demo.entity.Cliente;
 import com.reparame.demo.entity.Persona;
@@ -18,6 +21,9 @@ import com.reparame.demo.exception.MiException;
 import java.time.LocalDate;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,6 +48,9 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ModelMapper modelMapper;
     
     public ResponseEntity<?> registro(RegisterRequestDTO registerRequest) throws MiException{
         Prestador prestador = new Prestador();
@@ -132,12 +141,16 @@ public class UserService {
         
     }
 
-    public Prestador getPrestadorByUsername(String username){
-        return prestadorService.getByUsername(username);
+    public DetallePrestadorDTO getPrestadorByUsername(String username){
+        Prestador prestador = prestadorRepository.findByUsername(username).get();
+        DetallePrestadorDTO detallePrestadorDTO= new DetallePrestadorDTO(prestador);
+        return detallePrestadorDTO;
     }
 
-    public Cliente getlienteByUsername(String username){
-        return clienteService.getByUsername(username);
+    public DetalleClienteDTO getClienteByUsername(String username){
+        Cliente cliente = clienteRepository.findByUsername(username).get();
+        DetalleClienteDTO detalleClienteDTO= modelMapper.map(cliente, DetalleClienteDTO.class);
+        return detalleClienteDTO;
     }
 
   

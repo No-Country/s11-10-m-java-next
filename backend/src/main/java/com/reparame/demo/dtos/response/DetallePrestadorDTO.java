@@ -5,6 +5,11 @@
 package com.reparame.demo.dtos.response;
 
 import com.reparame.demo.entity.Prestador;
+import com.reparame.demo.enumeradores.Roles;
+
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+
 import java.time.LocalDate;
 import lombok.Data;
 
@@ -29,6 +34,9 @@ public class DetallePrestadorDTO {
     private Double calificacion;
     private String zona;
 
+    @Enumerated(EnumType.STRING)
+    private Roles rol;
+
     public DetallePrestadorDTO(Prestador prestador) {
         this.id = prestador.getId();
         this.nombreCompleto = prestador.getNombreCompleto();
@@ -42,6 +50,7 @@ public class DetallePrestadorDTO {
         this.fechaNacimiento = prestador.getFechaNacimiento();
         this.calificacion= prestador.getCalificacion();
         this.zona = prestador.getZona();
+        this.rol = prestador.getRol();
     }
 
     
