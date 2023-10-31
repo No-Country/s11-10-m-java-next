@@ -1,5 +1,9 @@
 package com.reparame.demo.dtos.response;
 
+import java.util.Optional;
+
+import com.reparame.demo.entity.Cliente;
+
 public record GoogleResponseDto(
 		Long id,
 	    String nombre,
@@ -16,6 +20,7 @@ public record GoogleResponseDto(
             googleApiResponseDto.family_name(), googleApiResponseDto.picture(), googleApiResponseDto.email(),
             googleApiResponseDto.sub(), token);
     }
+	
 	
 	
 }
