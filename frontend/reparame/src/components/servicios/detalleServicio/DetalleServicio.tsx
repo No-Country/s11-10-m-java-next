@@ -1,3 +1,5 @@
+"use client";
+
 import { useAppDispatch } from "@/utils/globalStates/hooks";
 import Image from "next/image";
 import { BsStarFill } from "react-icons/bs";
@@ -7,6 +9,7 @@ import { verServicios } from "@/utils/globalStates/features/serviciosSlice";
 import { profesiones } from "@/utils/profesiones";
 import { CertificadoCargado } from "./cardCertificado/Certificado";
 import Ticket from "@/components/ticket/Ticket";
+import { getServicios } from "@/utils/requestServicios/getServicios";
 
 // const DetalleServicio = (servicio: any) => {
 //     const dispatch = useAppDispatch()
@@ -39,6 +42,7 @@ const DetalleServicio = () => {
   ];
 
   const dispatch = useAppDispatch();
+
   return (
     <section className="max-w-max-view w-full gap-2">
       <button
@@ -46,6 +50,7 @@ const DetalleServicio = () => {
           dispatch(verServicios(""));
         }}
       >{`<- volver`}</button>
+
       <div className="flex flex-col">
         <div className="w-full h-[250px]">
           <Image
@@ -70,7 +75,6 @@ const DetalleServicio = () => {
               <BsStarFill />
               <BsStarFill />
               <BsStar />
-              {/* {item.calificacion} */}
             </span>
 
             {DetalleServicioData.map((item, index) => (
@@ -82,7 +86,7 @@ const DetalleServicio = () => {
                   {item.rubro}
                   <Image
                     alt="icono_electricista"
-                    src={item.rubroIcon}
+                    src="/images/iconamoon_lightning-2-fill.png"
                     width={30}
                     height={30}
                   ></Image>
@@ -92,7 +96,7 @@ const DetalleServicio = () => {
           </div>
 
           <div className="font-semibold text-lg m-5">
-            <button className="bg-lime-500 text-white py-2 px-3 rounded-md hover:bg-lime-600">
+            <button className="bg-green-600 text-white py-2 px-3 rounded-md hover:bg-green-700">
               Contratar
               {/* <Ticket /> */}
             </button>
@@ -112,7 +116,7 @@ const DetalleServicio = () => {
                 <div className="float-left w-fit">
                   <Image
                     alt="icono_electricista"
-                    src={item.rubroIcon}
+                    src="/images/iconamoon_lightning-2-fill.png"
                     width={200}
                     height={250}
                   />

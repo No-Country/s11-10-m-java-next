@@ -1,133 +1,52 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Ticket from "../ticket/Ticket";
 import HeaderManager from "../headerManager/HeaderManager";
-import Image from "next/image";
-import { FaBolt } from "react-icons/fa";
+import { getTickets } from "@/utils/requestTickets/getTickets";
+import CardDone from "./cardDone/cardDone";
+import CardCancelled from "./cardCancelled/cardCancelled";
+import CardinProgress from "./cardInProgress/cardInProgress";
 
-// card trabajo tomado y terminado
-const CardDone = () => {
-  return (
-    <figure className="max-w-lg border-3 border-light-orange rounded-lg p-6 shadow-md">
-      <figcaption className="flex flex-row items-center gap-2">
-        <Image
-          alt="usuario_profile"
-          src="/images/image-60.png"
-          width={50}
-          height={50}
-        />
-
-        <div className="flex justify-between gap-10">
-          <p className="font-bold text-lg">
-            Juan Perez - <span className="text-dark-orange">Córdoba</span>
-          </p>
-          <p className="text-dark-orange font-bold text-lg">18/10/2023</p>
-        </div>
-      </figcaption>
-
-      <blockquote className="mt-6 text-gray-800 flex flex-col gap-3 text-lg">
-        <p>
-          <span className="font-bold">Tarea: </span>Reparación de tablero
-        </p>
-        <div className="flex justify-between">
-          <p className="text-dark-orange">
-            <span className="font-bold text-gray-800">Estado:</span> En proceso
-          </p>
-          <span className="text-light-orange p-1 border-2 border-light-orange rounded-md">
-            <FaBolt />
-          </span>
-        </div>
-      </blockquote>
-    </figure>
-  );
-};
-
-// card trabajo tomado en progreso
-const CardinProgress = () => {
-  return (
-    <figure className="max-w-lg border-3 border-green-600 rounded-lg p-6 shadow-md">
-      <figcaption className="flex flex-row items-center gap-2">
-        <Image
-          alt="usuario_profile"
-          src="/images/image-60.png"
-          width={50}
-          height={50}
-        />
-
-        <div className="flex justify-between gap-10">
-          <p className="font-bold text-lg">
-            Lucas Gomez - <span className="text-dark-orange">Córdoba</span>
-          </p>
-          <p className="text-dark-orange font-bold text-lg">26/10/2023</p>
-        </div>
-      </figcaption>
-
-      <blockquote className="mt-6 text-gray-800 flex flex-col gap-3 text-lg">
-        <p>
-          <span className="font-bold">Tarea:</span> Cambio de cables
-        </p>
-        <div className="flex justify-between">
-          <p>
-            <span className="font-bold text-gray-800">Estado:</span> Trabajo
-            finalizado
-          </p>
-          <span className="text-light-orange p-1 border-2 border-light-orange rounded-md">
-            <FaBolt />
-          </span>
-        </div>
-      </blockquote>
-    </figure>
-  );
-};
-
-// card trabajo cancelado
-const CardCancelled = () => {
-  return (
-    <figure className="max-w-lg border-3 border-gray-700 rounded-lg p-6 shadow-md ">
-      <figcaption className="flex flex-row items-center gap-2">
-        <Image
-          alt="usuario_profile"
-          src="/images/image-60.png"
-          width={50}
-          height={50}
-        />
-
-        <div className="flex justify-between gap-10">
-          <p className="font-bold text-lg">
-            Juan Perez - <span className="text-dark-orange">Córdoba</span>
-          </p>
-          <p className="text-dark-orange font-bold text-lg">26/10/2023</p>
-        </div>
-      </figcaption>
-
-      <blockquote className="mt-6 text-gray-800 flex flex-col gap-3 text-lg">
-        <p>
-          <span className="font-bold">Tarea:</span> Inspección eléctrica
-        </p>
-        <div className="flex justify-between">
-          <p className="text-dark-orange">
-            <span className="font-bold text-gray-800">Estado:</span> Cancelado
-          </p>
-          <span className="text-slate-600 p-1 border-2 border-slate-600 rounded-md">
-            <FaBolt />
-          </span>
-        </div>
-      </blockquote>
-    </figure>
-  );
+export type Ticket = {
+  id: number;
+  estado: boolean;
+  descripcion: string;
+  fechaInicio: string;
+  fechaRequerida: string;
+  progreso: string;
+  nombrePrestador: string;
+  zona: string;
+  rubro: string;
 };
 
 const Historial = () => {
+  const [tickets, setTickets] = useState<Ticket[]>([]);
+
+  useEffect(() => {
+    getTickets((data: Ticket[]) => {
+      setTickets(data);
+    });
+  }, []);
+
   return (
     <section className="max-w-max-view w-full">
       <HeaderManager page="historial" />
       {/* <Ticket /> */}
       <h1 className="text-3xl font-bold text-gray-700 p-4">Historial</h1>
       <div className="flex flex-col justify-center content-center gap-5 p-3">
-        <CardDone />
-        <CardinProgress />
-        <CardCancelled />
+        {tickets.map((ticket) => {
+          if (ticket.estado === true) {
+            return <CardDone key={ticket.id} ticket={ticket} />;
+          } else if (ticket.estado === false) {
+            return <CardCancelled key={ticket.id} ticket={ticket} />;
+          } else {
+            return <CardinProgress key={ticket.id} ticket={ticket} />;
+          }
+        })}
       </div>
     </section>
   );
 };
+
 export default Historial;
