@@ -27,7 +27,7 @@ export const CardServicio = (servicios: any) => {
                     <button
                         className="mt-3 border-b-2 border-dark-orange text-dark-orange max-h-max"
                         onClick={() => {
-                            dispatch(verServicios(servicios.servicio.id_Servicio));
+                            dispatch(verServicios(servicios.servicio.id));
                         }}>ver perfil</button>
                 </div>
             </div>

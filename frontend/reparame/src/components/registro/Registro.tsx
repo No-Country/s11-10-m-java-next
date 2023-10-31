@@ -2,17 +2,48 @@
 import React from "react";
 import HeaderManager from "../headerManager/HeaderManager"
 import { Button, Input } from "@nextui-org/react";
-import { useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { Select, SelectItem } from "@nextui-org/react";
 
 import { FaLock, FaMap, FaMapMarker, FaPhoneAlt, FaRegEnvelope, FaUserAlt } from "react-icons/fa";
 import { postUser } from "@/utils/requestUser/postUser";
 const roles = [{ label: "Prestador", value: "Prestador" }, { label: "Cliente", value: "Cliente" }]
 
-const Registro = () => {
-    const { register, handleSubmit } = useForm()
+type Inputs = {
+    nombreCompleto: string,
+    apellidoCompleto: string,
+    username: string,
+    password: string,
+    direccion: string,
+    numeroTelefonico: string,
+    provincia: string,
+    localidad: string,
+    fechaNacimiento: string,
+    zona: string,
+    dni: string,
+    rol: string
 
-    const onSubmit = (data) => {
+}
+
+const Registro = () => {
+    const { register, formState: { errors }, handleSubmit } = useForm<Inputs>({
+        defaultValues:{
+            nombreCompleto: '',
+            apellidoCompleto: '',
+            username: '',
+            password: '',
+            direccion: '',
+            numeroTelefonico: '',
+            provincia: '',
+            localidad: '',
+            fechaNacimiento: '',
+            zona: '',
+            dni: '',
+            rol: ''
+        }
+    })
+
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
         postUser(data)
             .then(res => console.log(res))
             .catch(error => console.log(error))
