@@ -27,9 +27,9 @@ import lombok.RequiredArgsConstructor;
 
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/validarToken")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class GoogleController {
 	
     private final ClienteRepository  clienteRepository;

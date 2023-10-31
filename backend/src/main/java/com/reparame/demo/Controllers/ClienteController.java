@@ -25,10 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Admin
  */
 @RestController
-@CrossOrigin("*")
 @RequiredArgsConstructor
 @RequestMapping("/clientes")
-
+@CrossOrigin(origins = "*")
 public class ClienteController {
     private final ClienteService clienteServ;
      
