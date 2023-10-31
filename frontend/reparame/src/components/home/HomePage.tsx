@@ -42,7 +42,7 @@ function HomePage() {
 
                         className="w-40 h-36 shadow-cardProfesionHome flex flex-col place-content-center place-items-center bg-white rounded-xl hover:bg-light-orange text-light-orange hover:text-white"
                     >
-                        <Link href="/routes/servicios">
+                        <Link href={`/routes/servicios?categoria=${profesion.label}`}>
                             <profesion.icon className="" style={{
                                 width: "65.5px",
                                 height: "71.3px"
