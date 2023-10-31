@@ -4,10 +4,21 @@ import Image from 'next/image';
 import { useRef } from 'react';
 import StarsUser from '../icons/StarsUser';
 import { Button } from '@nextui-org/react';
+import { postTicket } from '@/utils/requestTicket/postTicket';
+import { useState } from 'react';
 // import { setInterval } from 'timers/promises';
 
 
-const Ticket: React.FC = () => {
+const Ticket: React.FC = (servicio) => {
+    let f = new Date()
+    let dia = f.getDate()
+    let mes = f.getMonth()
+    let anio = f.getFullYear()
+    const [ticketData, setTicketData] = useState({
+        descripcion: 'a ver si anda(?',
+        fechaInicio: `${dia} - ${mes}-${anio}`,
+        fechaRequerida: `${dia + 5} - ${mes}-${anio}`
+    })
     const ticketRef = useRef<HTMLDialogElement>(null)
     const alertRef = useRef<HTMLDialogElement>(null)
     const openTicket = () => {
@@ -18,7 +29,7 @@ const Ticket: React.FC = () => {
         ticketRef.current != null ? ticketRef.current.close() : {}
     }
     const openAlert = () => {
-        alertRef.current != null ? (alertRef.current.showModal(), setTimeout(() => {
+        alertRef.current != null ? (postTicket(servicio.id, ticketData), alertRef.current.showModal(), setTimeout(() => {
             // Swal.fire({
             //     position: 'center',
             //     icon: 'success',
@@ -33,12 +44,6 @@ const Ticket: React.FC = () => {
         alertRef.current != null ? alertRef.current.close() : {}
 
     }
-
-    let f = new Date()
-    let dia = f.getDate()
-    let mes = f.getMonth()
-    let anio = f.getFullYear()
-
     return (
         <div>
             <dialog ref={ticketRef}>
