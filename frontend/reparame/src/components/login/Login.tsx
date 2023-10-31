@@ -1,13 +1,23 @@
+"use client"
+
 import React from "react";
 import Image from "next/image";
 import Input from "./input/Input";
 import HeaderManager from "../headerManager/HeaderManager";
+import { signIn } from 'next-auth/react'
+import { postLogin } from "@/utils/requestLogin/postLogin";
+
+
 const Login = () => {
   return (
-    <section className="w-full flex items-center h-screen justify-center ">
+    <section className="w-full flex items-center mt-10 justify-center ">
       <HeaderManager page='login' />
       <div className=" max-w-4xl w-full">
-        <form className="flex flex-col gap-7 items-center w-full">
+        <form className="flex flex-col gap-7 items-center w-full"
+          onSubmit={(e) => {
+            e.preventDefault(),
+            postLogin()
+          }}>
           <h1 className="text-dark-orange font-semibold mb-2 text-5xl">
             Iniciar Sesión
           </h1>
@@ -39,7 +49,7 @@ const Login = () => {
           width={20}
           height={20}
         />
-        <button className="flex gap-3 rounded-lg m-auto text-2xl w-[658px] h-[75px] items-center bg-[#F1F0EA] justify-center"><Image src='/google-icon.svg' alt="google-icon" width={24} height={24} />Iniciar sesión con Google</button>
+        <button onClick={() => signIn('google', { callbackUrl: '/', redirect: true })} className="flex gap-3 rounded-lg m-auto text-2xl w-[658px] h-[75px] items-center bg-[#F1F0EA] justify-center"><Image src='/google-icon.svg' alt="google-icon" width={24} height={24} />Iniciar sesión con Google</button>
         <div className="flex w-full gap-2 justify-center items-center mt-10">
           <span className=" text-2xl">¿No tienes cuenta?</span>
           <span className="text-light-orange text-2xl">Registrate aqui</span>

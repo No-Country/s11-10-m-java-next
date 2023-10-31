@@ -2,7 +2,6 @@ import { useAppDispatch } from "@/utils/globalStates/hooks";
 import Ticket from "@/components/ticket/Ticket";
 import { verServicios } from "@/utils/globalStates/features/serviciosSlice";
 import { BsFillStarFill } from "react-icons/bs";
-import Link from "next/link";
 import Image from "next/image";
 
 export const CardServicio = (servicios: any) => {
@@ -10,9 +9,6 @@ export const CardServicio = (servicios: any) => {
 
     return (
         <div className="rounded-xl border-2 p-4 max-w-5xl m-auto border-gray-300">
-            <button onClick={() => {
-                dispatch(verServicios(servicios.servicios.id));
-            }}>ver perfil</button>
             <div className="flex justify-between">
                 <div className="flex gap-4">
                     <Image src="/images/Ellipse 48.png"
@@ -23,16 +19,16 @@ export const CardServicio = (servicios: any) => {
                     <div className="flex flex-col justify-center gap-3">
                         <div className="flex gap-3 text-dark-orange">
                             <BsFillStarFill className="text-2xl" />
-                            <BsFillStarFill className="text-2xl" />
-                            <BsFillStarFill className="text-2xl" />
-                            <BsFillStarFill className="text-2xl" />
-                            <BsFillStarFill className="text-2xl" />
                         </div>
-                        <h2>Juan Perez</h2>
+                        <h2>{servicios.servicio.rubro}</h2>
                     </div>
                 </div>
                 <div>
-                    <Link href='/routes/detallePerfil' className="mt-3 border-b-2 border-dark-orange text-dark-orange max-h-max">Ver Perfil</Link>
+                    <button
+                        className="mt-3 border-b-2 border-dark-orange text-dark-orange max-h-max"
+                        onClick={() => {
+                            dispatch(verServicios(servicios.servicio.id));
+                        }}>ver perfil</button>
                 </div>
             </div>
             <p>
@@ -46,7 +42,7 @@ export const CardServicio = (servicios: any) => {
             </p>
             <div className="flex w-full justify-between items-center mt-2">
                 <p>lorego</p>
-                <Ticket />
+                <Ticket servicios={servicios.servicio} />
             </div>
         </div>
     );

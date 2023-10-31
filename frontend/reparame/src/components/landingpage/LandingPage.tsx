@@ -1,15 +1,9 @@
-
-import React from 'react'
+"use client"
+import React from "react";
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import Link from "next/link";
 import click from "../../../public/click.svg";
-import plomeria from "../../../public/plomeria.svg";
-import electricidad from "../../../public/electricidad.svg";
-import cerrajeria from "../../../public/cerrajeria.svg";
-import gasista from "../../../public/gasista.svg";
-import tecnicoaire from "../../../public/tecnicoaire.svg";
-import serviciosvarios from "../../../public/serviciosvarios.svg";
 import sobrereparame from "../../../public/images/sobrereparame.svg";
 import mapaarg from "../../../public/images/mapaargentina.svg";
 import fotoperfil from "../../../public/fotoperfilreseña.svg";
@@ -19,13 +13,13 @@ import tablet from "../../../public/images/tablet.svg";
 import facebook from "../../../public/facebook.svg";
 import twitter from "../../../public/twitter.svg";
 import instagram from "../../../public/instagram.svg";
-import HeaderManager from '../headerManager/HeaderManager';
+import HeaderManager from "../headerManager/HeaderManager";
+import { profesiones } from "@/utils/profesiones";
 
-const HomePage = () => {
-
+const LandingPage = () => {
     return (
-        <section className='max-w-max-view w-full'>
-            <HeaderManager page='home' />
+        <section className="max-w-max-view w-full">
+            <HeaderManager page="home" />
             <section
                 style={{
                     backgroundImage:
@@ -40,82 +34,32 @@ const HomePage = () => {
             </section>
 
             <section className="py-20 flex gap-5 place-content-center">
-                <div
-                    style={{
-                        borderRadius: "15px",
-                        border: "2px solid var(--2, #FF983F)",
-                        background: "var(--6, #FFF)",
-                        boxShadow: "0px 0px 3px 1px #FF983F",
-                    }}
-                    className="w-40 h-36 flex flex-col place-content-center place-items-center"
-                ><Link href={'/routes/servicios'}><Image src={plomeria} alt="" width={65.5} height={71.3} /></Link>
+                {profesiones.map((profesion, index) => (
+                    <div
+                        key={index}
+                        style={{
+                            borderRadius: "15px",
+                            border: "2px solid var(--2, #FF983F)",
+                            background: "var(--6, #FFF)",
+                            boxShadow: "0px 0px 3px 1px #FF983F",
+                        }}
+                        className="w-40 h-36 flex flex-col place-content-center place-items-center"
+                    >
+                        <Link href="/routes/servicios">
+                            <profesion.icon   style={{
+                                    width: "65.5px",
+                                    height: "71.3px",
+                                    color:"#FF983F"
+                                }}
+                            />
+                        </Link>
+                        <p className="text-[#FF983F] text-2xl font-light">
+                            {profesion.label}
+                        </p>
+                    </div>
+                ))}
 
-                    <p className="text-[#FF983F] text-2xl font-light">Plomería</p>
-                </div>
-                <div
-                    style={{
-                        borderRadius: "15px",
-                        border: "2px solid var(--2, #FF983F)",
-                        background: "var(--6, #FFF)",
-                        boxShadow: "0px 0px 3px 1px #FF983F",
-                    }}
-                    className="w-40 h-36 flex flex-col place-content-center place-items-center"
-                >
-                    <Image src={electricidad} alt="" width={65.5} height={71.3} />
-                    <p className="text-[#FF983F] text-2xl font-light">Electricidad</p>
-                </div>
-                <div
-                    style={{
-                        borderRadius: "15px",
-                        border: "2px solid var(--2, #FF983F)",
-                        background: "var(--6, #FFF)",
-                        boxShadow: "0px 0px 3px 1px #FF983F",
-                    }}
-                    className="w-40 h-36 flex flex-col place-content-center place-items-center"
-                >
-                    <Image src={cerrajeria} alt="" width={65.5} height={71.3} />
-                    <p className="text-[#FF983F] text-2xl font-light">Cerrajería</p>
-                </div>
-                <div
-                    style={{
-                        borderRadius: "15px",
-                        border: "2px solid var(--2, #FF983F)",
-                        background: "var(--6, #FFF)",
-                        boxShadow: "0px 0px 3px 1px #FF983F",
-                    }}
-                    className="w-40 h-36 flex flex-col place-content-center place-items-center"
-                >
-                    <Image src={gasista} alt="" width={65.5} height={71.3} />
-                    <p className="text-[#FF983F] text-2xl font-light">Gasista</p>
-                </div>
-                <div
-                    style={{
-                        borderRadius: "15px",
-                        border: "2px solid var(--2, #FF983F)",
-                        background: "var(--6, #FFF)",
-                        boxShadow: "0px 0px 3px 1px #FF983F",
-                    }}
-                    className="w-40 h-36 flex flex-col place-content-center place-items-center"
-                >
-                    <Image src={tecnicoaire} alt="" width={65.5} height={71.3} />
-                    <p className="text-[#FF983F] text-center text-2xl font-light">
-                        Técnico de aire
-                    </p>
-                </div>
-                <div
-                    style={{
-                        borderRadius: "15px",
-                        border: "2px solid var(--2, #FF983F)",
-                        background: "var(--6, #FFF)",
-                        boxShadow: "0px 0px 3px 1px #FF983F",
-                    }}
-                    className="w-40 h-36 flex flex-col place-content-center place-items-center"
-                >
-                    <Image src={serviciosvarios} alt="" width={65.5} height={71.3} />
-                    <p className="text-[#FF983F] text-2xl font-light text-center">
-                        Servicios varios
-                    </p>
-                </div>
+                
             </section>
 
             <section className="w-full flex my-10">
@@ -278,4 +222,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default LandingPage;
