@@ -11,7 +11,6 @@ import com.reparame.demo.enumeradores.ProgresoTicket;
 import com.reparame.demo.enumeradores.Rubros;
 
 public record DatosRespuestaTicketDTO( Long id , Boolean estado, String descripcion, LocalDate fechaInicio,  LocalDate fechaRequerida, ProgresoTicket progreso, Rubros rubro, String zona, String nombrecompleto) {
-
 	
 	public DatosRespuestaTicketDTO(Ticket ticket) {
         this(ticket.getId_Tiket(), ticket.getEstado(), ticket.getDescripcion(), 
