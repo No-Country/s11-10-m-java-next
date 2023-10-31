@@ -68,11 +68,11 @@ const Perfil = () => {
           <CardExp />
         </div>
         <div className="flex flex-wrap flex-row w-full justify-between items-center gap-5 ">
-          <InputsTextPerfil data={userLog.username} label={"Email"} setPostData={setPostData} postData={postData} />
-          <InputsTextPerfil data={userLog.numeroTelefonico} label={"+54"} setPostData={setPostData} postData={postData} />
+          <InputsTextPerfil data={userLog.username} label={"Email"} />
+          <InputsTextPerfil data={userLog.numeroTelefonico} label={"+54"} />
           <InputsTextPerfil data={userLog.direccion} label={"Dirección"} />
           <InputsTextPerfil data={userLog.rol} label={"CP"} />
-          <InputsTextPerfil data={userLog.cuil} label={"CUIL"} />
+          <InputsTextPerfil data={`2-${userLog.dni}-6`} label={"CUIL"} />
           <InputsTextPerfil data={userLog.dni} label={"DNI"} />
         </div>
       </article>
