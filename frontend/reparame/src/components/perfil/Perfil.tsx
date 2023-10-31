@@ -13,9 +13,9 @@ import InputsTextPerfil from "./inputsTextPerfil/InputsTextPerfil";
 import Link from "next/link";
 import { putUser } from "@/utils/requestUser/putUser";
 const Perfil = () => {
-  const [postData, setPostData] = useState({})
+  const [postData, setPostData] = useState({});
   const [userLog, setUserLog] = useState({
-    id: '',
+    id: "",
     nombreCompleto: "",
     apellidoCompleto: "",
     username: "",
@@ -40,17 +40,20 @@ const Perfil = () => {
     getUser(setUserLog);
   }, []);
   return (
-    <section
-      className="flex flex-col gap-10 max-w-max-textArea w-full px-10 pt-10 pb-10 text-light-orange bg-grayUi">
+    <section className="flex flex-col gap-10 max-w-max-textArea w-full px-10 pt-10 pb-10 text-light-orange bg-grayUi">
       <HeaderManager page="perfil" />
       <h1 className="text-2xl text-black">Configuración de perfil</h1>
       <figure className="flex flex-row items-center gap-6 flex-wrap">
         <div className="flex flex-row items-end">
-          <Image src={'/images/Ellipse 48.png'} alt="avatar User" width={200} height={200}
+          <Image
+            src={"/images/Ellipse 48.png"}
+            alt="avatar User"
+            width={200}
+            height={200}
             className="border-3 border-dark-orange rounded-full h-28 w-28"
           />
           <button className="bg-dark-orange rounded-full relative right-7 bottom-2">
-            <MdModeEdit className='w-6 h-6 text-white p-1' />
+            <MdModeEdit className="w-6 h-6 text-white p-1" />
           </button>
         </div>
         <figcaption className="text-2xl text-dark-orange">
@@ -68,8 +71,8 @@ const Perfil = () => {
           <CardExp />
         </div>
         <div className="flex flex-wrap flex-row w-full justify-between items-center gap-5 ">
-          <InputsTextPerfil data={userLog.username} label={"Email"} setPostData={setPostData} postData={postData} />
-          <InputsTextPerfil data={userLog.numeroTelefonico} label={"+54"} setPostData={setPostData} postData={postData} />
+          <InputsTextPerfil data={userLog.username} label={"Email"} />
+          <InputsTextPerfil data={userLog.numeroTelefonico} label={"+54"} />
           <InputsTextPerfil data={userLog.direccion} label={"Dirección"} />
           <InputsTextPerfil data={userLog.rol} label={"CP"} />
           <InputsTextPerfil data={userLog.cuil} label={"CUIL"} />
@@ -106,20 +109,25 @@ const Perfil = () => {
       <section className="flex flex-col gap-5">
         <h3 className="text-dark-orange ">Certificados</h3>
         <div className="flex justify-evenly gap-5 flex-wrap">
-          <CardCertificados /><CardCertificados /><CardCertificados /><CardCertificados />
+          <CardCertificados />
+          <CardCertificados />
+          <CardCertificados />
+          <CardCertificados />
         </div>
       </section>
 
       <div className="border border-light-orange rounded-md p-5">
         <Link href={"/routes/historial"}>Acceder al historial</Link>
       </div>
-      <button onClick={() => {
-        putUser(userLog.id, userLog.rol.toLowerCase(), postData)
-      }}>guardar</button>
+      <button
+        onClick={() => {
+          putUser(userLog.id, userLog.rol.toLowerCase(), postData);
+        }}
+      >
+        guardar
+      </button>
       <BtnsActualizar />
-    </section >
+    </section>
   );
 };
 export default Perfil;
-
-
