@@ -16,9 +16,13 @@ import com.reparame.demo.dtos.response.TokenResponseDTO;
 import com.reparame.demo.entity.Cliente;
 import com.reparame.demo.entity.Persona;
 import com.reparame.demo.entity.Prestador;
+import com.reparame.demo.entity.Servicio;
 import com.reparame.demo.enumeradores.Roles;
+import com.reparame.demo.enumeradores.Rubros;
 import com.reparame.demo.exception.MiException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
@@ -144,6 +148,13 @@ public class UserService {
     public DetallePrestadorDTO getPrestadorByUsername(String username){
         Prestador prestador = prestadorRepository.findByUsername(username).get();
         DetallePrestadorDTO detallePrestadorDTO= new DetallePrestadorDTO(prestador);
+        List<Rubros> rubros = new ArrayList<Rubros>();
+        List<Servicio> serviciosPrestador = prestador.getServicios();
+        for(Servicio servicio :serviciosPrestador){
+            rubros.add(servicio.getRubro());
+        }
+        detallePrestadorDTO.setRubros(rubros);
+        
         return detallePrestadorDTO;
     }
 
