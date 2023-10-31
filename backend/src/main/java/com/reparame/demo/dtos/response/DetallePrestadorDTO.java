@@ -6,11 +6,14 @@ package com.reparame.demo.dtos.response;
 
 import com.reparame.demo.entity.Prestador;
 import com.reparame.demo.enumeradores.Roles;
+import com.reparame.demo.enumeradores.Rubros;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -33,6 +36,7 @@ public class DetallePrestadorDTO {
     private LocalDate fechaNacimiento;
     private Double calificacion;
     private String zona;
+    private List<Rubros> rubros;
 
     @Enumerated(EnumType.STRING)
     private Roles rol;

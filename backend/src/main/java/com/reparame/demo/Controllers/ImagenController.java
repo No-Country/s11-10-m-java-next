@@ -26,8 +26,8 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("*")
 @RequestMapping("/imagen")
+@CrossOrigin(origins = "*")
 public class ImagenController {
 
 	

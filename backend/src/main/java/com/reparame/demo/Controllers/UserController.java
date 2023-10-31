@@ -36,11 +36,10 @@ import com.reparame.demo.dtos.response.DetallePrestadorDTO;
  *
  * @author Admin
  */
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
-@CrossOrigin("*")
-
 public class UserController {
 
     private final UserService userService;

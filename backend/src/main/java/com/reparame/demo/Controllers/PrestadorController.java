@@ -30,9 +30,9 @@ import lombok.RequiredArgsConstructor;
 
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/prestadores")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class PrestadorController {
 	
     private final PrestadorService prestadorService;

@@ -34,8 +34,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 @RequestMapping("/tickets")
 @RequiredArgsConstructor
-@CrossOrigin("*")
-
+@CrossOrigin(origins = "*")
 public class TicketsController {
 
 
