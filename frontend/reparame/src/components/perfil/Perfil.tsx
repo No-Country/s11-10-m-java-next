@@ -11,25 +11,28 @@ import { getUser } from "@/utils/requestUser/getUser";
 import BtnsActualizar from "./btnsActualizar/BtnsActualizar";
 import InputsTextPerfil from "./inputsTextPerfil/InputsTextPerfil";
 import Link from "next/link";
+import { putUser } from "@/utils/requestUser/putUser";
 const Perfil = () => {
+  const [postData, setPostData] = useState({})
   const [userLog, setUserLog] = useState({
-    nombreCompleto: "ignacio",
-    apellidoCompleto: "varela",
-    email: "varelaig@gmail.com",
-    password: "123",
-    direccion: "Calle Falsa 123",
-    numeroTelefonico: "155-96273549",
-    provincia: "Santa Fe",
-    cp: "500",
-    localidad: "Rosario",
-    fechaNacimiento: "2000-10-15",
-    zona: "Centro",
-    dni: "30156856",
-    rol: "prestador",
-    rubro: "GASISTA",
-    cuil: "2-3446672-9",
+    id: '',
+    nombreCompleto: "",
+    apellidoCompleto: "",
+    username: "",
+    password: "",
+    direccion: "",
+    numeroTelefonico: "",
+    provincia: "",
+    cp: "",
+    localidad: "",
+    fechaNacimiento: "",
+    zona: "",
+    dni: "",
+    rol: "",
+    rubro: "",
+    cuil: "",
   });
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({});
   useEffect(() => {
     setFormData(formData);
   }, [formData]);
@@ -37,7 +40,8 @@ const Perfil = () => {
     getUser(setUserLog);
   }, []);
   return (
-    <section className="flex flex-col gap-10 max-w-max-textArea w-full px-10 pt-10 pb-10 text-light-orange bg-grayUi">
+    <section
+      className="flex flex-col gap-10 max-w-max-textArea w-full px-10 pt-10 pb-10 text-light-orange bg-grayUi">
       <HeaderManager page="perfil" />
       <h1 className="text-2xl text-black">Configuración de perfil</h1>
       <figure className="flex flex-row items-center gap-6 flex-wrap">
@@ -64,10 +68,10 @@ const Perfil = () => {
           <CardExp />
         </div>
         <div className="flex flex-wrap flex-row w-full justify-between items-center gap-5 ">
-          <InputsTextPerfil data={userLog.email} label={"Email"} />
-          <InputsTextPerfil data={userLog.numeroTelefonico} label={"+54"} />
+          <InputsTextPerfil data={userLog.username} label={"Email"} setPostData={setPostData} postData={postData} />
+          <InputsTextPerfil data={userLog.numeroTelefonico} label={"+54"} setPostData={setPostData} postData={postData} />
           <InputsTextPerfil data={userLog.direccion} label={"Dirección"} />
-          <InputsTextPerfil data={userLog.cp} label={"CP"} />
+          <InputsTextPerfil data={userLog.rol} label={"CP"} />
           <InputsTextPerfil data={userLog.cuil} label={"CUIL"} />
           <InputsTextPerfil data={userLog.dni} label={"DNI"} />
         </div>
@@ -109,9 +113,11 @@ const Perfil = () => {
       <div className="border border-light-orange rounded-md p-5">
         <Link href={"/routes/historial"}>Acceder al historial</Link>
       </div>
-
+      <button onClick={() => {
+        putUser(userLog.id, userLog.rol.toLowerCase(), postData)
+      }}>guardar</button>
       <BtnsActualizar />
-    </section>
+    </section >
   );
 };
 export default Perfil;
