@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.reparame.demo.dtos.response.GoogleApiResponseDto;
+import com.reparame.demo.enumeradores.Roles;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,7 +41,7 @@ public class Cliente extends Persona {
     	  this.setNombreCompleto(g.name());
           this.setApellidoCompleto(g.family_name());
           this.setUsername(g.email());
-          this.setPassword(g.sub());
+          this.setRol(Roles.CLIENTE);
     	
     }
     
