@@ -14,7 +14,7 @@ const config: Config = {
         "mega-light-orange": "#fac79a",
         "light-orange": "#ff983f",
         "dark-orange": "#ff6600",
-        red: "#fca5a5",
+        "red": "#fca5a5",
         red2: "#ef4444",
         orange: "#fdba74",
         grayUi: "#f5f5f5",
