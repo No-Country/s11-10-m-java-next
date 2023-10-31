@@ -15,7 +15,12 @@ import { getServicios } from "@/utils/requestServicios/getServicios";
 //     const dispatch = useAppDispatch()
 //     const icon = profesiones.find(profesion => profesion.label == servicio.servicio.rubro);
 
-const DetalleServicio = () => {
+const DetalleServicio = (servicio: any) => {
+  const dispatch = useAppDispatch();
+  const icon = profesiones.find(
+    (profesion) => profesion.label == servicio.servicio.rubro
+  );
+
   const DetalleServicioData = [
     {
       id: 1,
@@ -40,8 +45,6 @@ const DetalleServicio = () => {
       ],
     },
   ];
-
-  const dispatch = useAppDispatch();
 
   return (
     <section className="max-w-max-view w-full gap-2">

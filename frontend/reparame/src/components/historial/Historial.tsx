@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Ticket from "../ticket/Ticket";
 import HeaderManager from "../headerManager/HeaderManager";
-import { getTickets } from "@/utils/requestTickets/getTickets";
+import { getTickets } from "@/utils/requestTicket/getTickets";
 import CardDone from "./cardDone/cardDone";
 import CardCancelled from "./cardCancelled/cardCancelled";
 import CardinProgress from "./cardInProgress/cardInProgress";
