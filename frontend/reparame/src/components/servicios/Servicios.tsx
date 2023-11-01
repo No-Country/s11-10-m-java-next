@@ -1,21 +1,21 @@
-"use client";
-import React from "react";
-import { CardServicio } from "./cardServicio/CardServicio";
-import { useEffect, useState } from "react";
-import { getServicios } from "@/utils/requestServicios/getServicios";
-import DetalleServicio from "./detalleServicio/DetalleServicio";
-import { useAppSelector } from "@/utils/globalStates/hooks";
-import Skeleton from "../loadingSpinner/Skeleton";
-import HeaderManager from "../headerManager/HeaderManager";
-import { useSession } from "next-auth/react";
+'use client'
+import React from 'react'
+import { CardServicio } from './cardServicio/CardServicio'
+import { useEffect, useState } from 'react'
+import { getServicios } from '@/utils/requestServicios/getServicios'
+import DetalleServicio from './detalleServicio/DetalleServicio'
+import { useAppSelector } from '@/utils/globalStates/hooks'
+import HeaderManager from '../headerManager/HeaderManager'
+import { useSession } from 'next-auth/react'
+import Skeleton from '../loadingSpinner/Skeleton'
 
 const Servicios = () => {
-  const { data } = useSession();
-  const [servicios, setServicios] = useState([]);
-  const id = useAppSelector((state) => state.servicios.value);
+  const { data: session } = useSession()
+  const [servicios, setServicios] = useState([])
+  const id = useAppSelector(state => state.servicios.value)
   useEffect(() => {
-    getServicios(setServicios, id, data?.user.accessToken);
-  }, [id, data?.user.accessToken]);
+    getServicios(setServicios, id, session?.user.accessToken)
+  }, [id, session])
   return (
     <section className="flex flex-col max-w-max-view w-full gap-12">
       <HeaderManager page="servicios" />
@@ -28,7 +28,7 @@ const Servicios = () => {
             ))}
           </article>
         ) : (
-          <DetalleServicio data={servicios} />
+          <DetalleServicio data={servicios[0]} />
         )
       ) : (
         <>
@@ -39,6 +39,5 @@ const Servicios = () => {
       )}
     </section>
   );
-};
-
-export default Servicios;
+}
+export default Servicios

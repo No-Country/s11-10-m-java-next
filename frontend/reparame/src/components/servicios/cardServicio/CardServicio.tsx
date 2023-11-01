@@ -1,8 +1,12 @@
+"use client"
+
 import { useAppDispatch } from "@/utils/globalStates/hooks";
 import Ticket from "@/components/ticket/Ticket";
 import { verServicios } from "@/utils/globalStates/features/serviciosSlice";
 import { BsFillStarFill } from "react-icons/bs";
 import Image from "next/image";
+import { useRouter } from 'next/navigation'
+
 
 interface InputContainerProps {
   data?: {
