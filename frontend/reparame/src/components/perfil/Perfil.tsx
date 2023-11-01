@@ -71,12 +71,66 @@ const Perfil = () => {
           <CardExp />
         </div>
         <div className="flex flex-wrap flex-row w-full justify-between items-center gap-5 ">
-          <InputsTextPerfil data={userLog.username} label={"Email"} />
-          <InputsTextPerfil data={userLog.numeroTelefonico} label={"+54"} />
-          <InputsTextPerfil data={userLog.direccion} label={"Dirección"} />
-          <InputsTextPerfil data={userLog.rol} label={"CP"} />
-          <InputsTextPerfil data={`2-${userLog.dni}-6`} label={"CUIL"} />
-          <InputsTextPerfil data={userLog.dni} label={"DNI"} />
+          <InputsTextPerfil
+            label="Email"
+            placeholder={userLog.username}
+            type="email"
+            defaultValue={userLog.username}
+            onChange={(e) => {
+              setPostData({
+                ...postData,
+                email: e.target.value
+              })
+            }} />
+          <InputsTextPerfil
+            label="+54"
+            placeholder={userLog.numeroTelefonico}
+            type="number"
+            defaultValue={userLog.numeroTelefonico}
+            onChange={(e) => {
+              setPostData({
+                ...postData,
+                numeroTelefonico: e.target.value
+              })
+            }} />
+          <InputsTextPerfil
+            label="Dirección"
+            placeholder={userLog.direccion}
+            type="number"
+            defaultValue={userLog.direccion}
+            onChange={(e) => {
+              setPostData({
+                ...postData,
+                direccion: e.target.value
+              })
+            }} />
+          <InputsTextPerfil
+            label="CP"
+            placeholder={'5000'}
+            type="text"
+            defaultValue={'5000'}
+            onChange={(e: any) => {
+              setPostData({
+                ...postData,
+                cp: e.target.value
+              })
+            }} />
+          <InputsTextPerfil
+            label="CUIL"
+            placeholder={`2-${userLog.dni}-6`}
+            type="number"
+            defaultValue={userLog.dni} />
+          <InputsTextPerfil
+            label="DNI"
+            placeholder={userLog.dni}
+            type="number"
+            defaultValue={userLog.dni}
+            onChange={(e: any) => {
+              setPostData({
+                ...postData,
+                dni: e.target.value
+              })
+            }} />
         </div>
       </article>
       <section>

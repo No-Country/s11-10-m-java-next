@@ -24,7 +24,7 @@ const Header = () => {
                                 <Image src={'/images/Ellipse 48.png'} alt="avatar User" width={200} height={200}
                                     className='rounded-full  bg-white text-black text-xs items-center w-10 h-10' />
                             </Link>
-                            <Link href={'/routes/login'} className='text-white p-2 border-2 border-white rounded-lg'>Log out</Link>
+                            <Link href={'/routes/login'} className='text-white p-2 border-2 border-white rounded-lg' onClick={() => { localStorage.setItem('tKeyId', '') }}>Log out</Link>
                         </span>
                     </>
                 }

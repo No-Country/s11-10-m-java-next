@@ -22,7 +22,7 @@ const Login = () => {
           onSubmit={(e) => {
             e.preventDefault(),
               postLogin(userData)
-            localStorage.getItem('tKeyId') ? router.push('/') : {}
+            setTimeout(() => { localStorage.getItem('tKeyId') ? router.push('/') : {} }, 1000)
           }}>
           <h1 className="text-dark-orange font-semibold mb-2 text-5xl">
             Iniciar Sesión

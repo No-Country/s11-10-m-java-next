@@ -100,8 +100,7 @@ const DetalleServicio = (servicio: any) => {
 
           <div className="font-semibold text-lg m-5">
             <button className="bg-green-600 text-white py-2 px-3 rounded-md hover:bg-green-700">
-              Contratar
-              {/* <Ticket /> */}
+              <Ticket />
             </button>
           </div>
         </section>
