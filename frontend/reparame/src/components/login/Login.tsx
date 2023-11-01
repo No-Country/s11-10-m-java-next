@@ -26,7 +26,7 @@ const Login = () => {
         redirect: true,
         callbackUrl: '/'
       })
-      .then(res => {console.log(res.body.token), console.log('no envio el token')})
+      .then((res: any) => {console.log(res.body.token), console.log('no envio el token')})
       .catch(err => console.log(err))
     } else {
       setError('Credenciales incorrectas')
