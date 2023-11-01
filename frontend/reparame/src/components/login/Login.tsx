@@ -6,9 +6,14 @@ import Input from "./input/Input";
 import HeaderManager from "../headerManager/HeaderManager";
 import { signIn } from 'next-auth/react'
 import { postLogin } from "@/utils/requestLogin/postLogin";
-
-
+import { useState, useEffect } from 'react'
+import { useRouter } from "next/navigation";
 const Login = () => {
+  const [userData, setUserData] = useState({})
+  const router = useRouter()
+  useEffect(() => {
+    setUserData(userData);
+  }, [userData]);
   return (
     <section className="w-full flex items-center mt-10 justify-center ">
       <HeaderManager page='login' />
@@ -16,7 +21,8 @@ const Login = () => {
         <form className="flex flex-col gap-7 items-center w-full"
           onSubmit={(e) => {
             e.preventDefault(),
-            postLogin()
+              postLogin(userData)
+            localStorage.getItem('tKeyId') ? router.push('/') : {}
           }}>
           <h1 className="text-dark-orange font-semibold mb-2 text-5xl">
             Iniciar Sesión
@@ -27,6 +33,12 @@ const Login = () => {
             placeholder="Email"
             type="email"
             valueContainerName="2"
+            onChange={(e) => {
+              setUserData({
+                ...userData,
+                username: e.target.value
+              })
+            }}
           />
           <Input
             iconOrReactElement="auth-icon.svg"
@@ -34,6 +46,12 @@ const Login = () => {
             placeholder="Contraseña"
             type="password"
             valueContainerName="2"
+            onChange={(e) => {
+              setUserData({
+                ...userData,
+                password: e.target.value
+              })
+            }}
           />
           <button
             className="bg-light-orange mt-7 w-60 h-[60px] text-2xl text-white rounded-xl shadow-md shadow-gray-400"
