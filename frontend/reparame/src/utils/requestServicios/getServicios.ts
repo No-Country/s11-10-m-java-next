@@ -14,12 +14,13 @@ export const getServicios = async (setPrestadores: Function, servicioId: any, to
     }
     )
         .then(function (response) {
-            setPrestadores(response.data)
+            console.log(token)
             console.log(response.data)
-            console.log('la data entro')
+            setPrestadores(response.data)
         })
         .catch(function (err) {
-            console.log('ocurrio un error')
+            console.log('error')
             console.log(err);
         })
+
 };
