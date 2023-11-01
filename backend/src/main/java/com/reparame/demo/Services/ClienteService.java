@@ -66,8 +66,8 @@ public class ClienteService {
 		
 	clienteModificado.setNombreCompleto(cliente.getNombreCompleto());
 	clienteModificado.setApellidoCompleto(cliente.getApellidoCompleto());
-	clienteModificado.setUsername(cliente.getUsername());
-	clienteModificado.setPassword(cliente.getPassword());
+//	clienteModificado.setUsername(cliente.getUsername());
+//	clienteModificado.setPassword(cliente.getPassword());
 	clienteModificado.setDNI(cliente.getDNI());
 	clienteModificado.setDireccion(cliente.getDireccion());
 	clienteModificado.setNumeroTelefonico(cliente.getNumeroTelefonico());

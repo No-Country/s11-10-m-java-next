@@ -85,8 +85,8 @@ public class PrestadorService {
 		
 		prestadorModificado.setNombreCompleto(prestador.getNombreCompleto());
 		prestadorModificado.setApellidoCompleto(prestador.getApellidoCompleto());
-		prestadorModificado.setUsername(prestador.getUsername());
-		prestadorModificado.setPassword(prestador.getPassword());
+//		prestadorModificado.setUsername(prestador.getUsername());
+//		prestadorModificado.setPassword(prestador.getPassword());
 		prestadorModificado.setDNI(prestador.getDNI());
 		prestadorModificado.setDireccion(prestador.getDireccion());
 		prestadorModificado.setNumeroTelefonico(prestador.getNumeroTelefonico());
