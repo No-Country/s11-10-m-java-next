@@ -14,4 +14,5 @@ declare module 'next-auth' {
         data: any
     }
 
+
 }
