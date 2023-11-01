@@ -8,6 +8,7 @@ export const getTickets = async (setTickets: Function) => {
         Authorization: `Bearer ${tokenKey}`,
       },
     })
+
     .then(function (response) {
       console.log(response);
       setTickets(response.data);

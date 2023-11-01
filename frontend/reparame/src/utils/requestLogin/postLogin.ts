@@ -1,17 +1,12 @@
 import axios from "axios"
-
-export const postLogin = async () => {
+// "username": "joqa@gmail.com",
+//         "password": "Ae12345+"
+export const postLogin = async (userData: any) => {
     await axios.post(
-        `https://reparame-api.onrender.com/user/login`, {
-        "username": "joqa@gmail.com",
-        "password": "Ae12345+"
-    }
+        `https://reparame-api.onrender.com/user/login`, userData
     )
         .then(function (response: any) {
-            console.log(response.data.body.token);
-
             localStorage.setItem('tKeyId', response.data.body.token);
-
         })
         .catch(function (err) {
             console.log(err);
