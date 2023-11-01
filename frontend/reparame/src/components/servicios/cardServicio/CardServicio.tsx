@@ -1,14 +1,19 @@
+"use client"
+
 import { useAppDispatch } from "@/utils/globalStates/hooks";
 import Ticket from "@/components/ticket/Ticket";
 import { verServicios } from "@/utils/globalStates/features/serviciosSlice";
 import { BsFillStarFill } from "react-icons/bs";
 import Image from "next/image";
+import {useRouter} from 'next/navigation'
+
 
 export const CardServicio = (servicios: any) => {
-  const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
+    const router = useRouter()
 
-  return (
-    <div className="rounded-xl border-2 p-4 max-w-5xl m-auto border-gray-300">
+    return (
+         <div className="rounded-xl border-2 p-4 max-w-5xl m-auto border-gray-300">
       <div className="flex justify-between">
         <div className="flex gap-4">
           <Image
@@ -22,7 +27,7 @@ export const CardServicio = (servicios: any) => {
             <div className="flex gap-3 text-dark-orange">
               <BsFillStarFill className="text-2xl" />
             </div>
-            <h2>{servicios.servicio.rubro}</h2>
+            {/* <h2>{servicios.servicio.rubro}</h2> */}
           </div>
         </div>
         <div>

@@ -5,6 +5,14 @@ declare module 'next-auth' {
         user: {
             id: string,
             accessToken: any
-        } & DefaultSession['user']
+            photo: string
+            sub: any
+        } & DefaultSession['user'],
     }
+
+    interface User {
+        data: any
+    }
+
+
 }
