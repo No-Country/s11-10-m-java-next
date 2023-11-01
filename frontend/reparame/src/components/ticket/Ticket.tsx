@@ -7,14 +7,35 @@ import { Button } from "@nextui-org/react";
 import { postTicket } from "@/utils/requestTicket/postTicket";
 import { useState } from "react";
 // import { setInterval } from 'timers/promises';
-
-const Ticket: React.FC = () => {
+interface InputContainerProps {
+  data?: {
+    añosSector: any
+    descripcion: any
+    id: any
+    precio: any
+    prestador
+    : {
+      apellidoCompleto: any
+      calificacion: any
+      descripcion: any
+      direccion: any
+      id: any
+      nombreCompleto: any
+      numeroTelefonico: any
+      username: any
+      zona: any
+    }
+    rubro: any
+  }
+}
+const Ticket: React.FC<InputContainerProps> = ({
+  data
+}) => {
   let f = new Date();
   let dia = f.getDate();
   let mes = f.getMonth();
   let anio = f.getFullYear();
   const [ticketData, setTicketData] = useState({
-    descripcion: "a ver si anda(?",
     fechaInicio: `${dia} - ${mes}-${anio}`,
     fechaRequerida: `${dia + 5} - ${mes}-${anio}`,
   });
@@ -32,13 +53,6 @@ const Ticket: React.FC = () => {
       ? (postTicket("servicio.id", ticketData),
         alertRef.current.showModal(),
         setTimeout(() => {
-          // Swal.fire({
-          //     position: 'center',
-          //     icon: 'success',
-          //     title: 'Gracias por contratar',
-          //     showConfirmButton: false,
-          //     timer: 2000
-          //   })
           alertRef.current != null ? alertRef.current.close() : {};
         }, 2000))
       : {};
@@ -93,10 +107,10 @@ const Ticket: React.FC = () => {
                 </div>
                 <div className="flex">
                   <p className="text-xl">
-                    <b>Jorge -</b>
+                    <b>{data ? data.prestador.nombreCompleto : {}}</b>
                   </p>
                   <p className="text-light-orange text-xl">
-                    <b>Cordoba</b>
+                    <b>{data ? data.prestador.apellidoCompleto : {}}</b>
                   </p>
                 </div>
                 <span className="text-lg text-light-orange">
@@ -107,11 +121,7 @@ const Ticket: React.FC = () => {
                 </span>
               </figure>
               <p className="py-6">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta
-                culpa nam quia explicabo iure, asperiores minima dolore
-                consequuntur saepe maiores est et modi? Magnam, beatae hic
-                dolore nesciunt dolorem quasi? Itaque rerum distinctio, suscipit
-                temporibus, facere tempora omnis delectus ipsa.
+                {data ? data.descripcion : {}}
               </p>
               <menu className="flex flex-row gap-10 self-center">
                 <Button

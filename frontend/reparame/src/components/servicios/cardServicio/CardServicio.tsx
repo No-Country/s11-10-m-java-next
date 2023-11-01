@@ -5,15 +5,37 @@ import Ticket from "@/components/ticket/Ticket";
 import { verServicios } from "@/utils/globalStates/features/serviciosSlice";
 import { BsFillStarFill } from "react-icons/bs";
 import Image from "next/image";
-import {useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 
-export const CardServicio = (servicios: any) => {
-    const dispatch = useAppDispatch();
-    const router = useRouter()
+interface InputContainerProps {
+  data?: {
+    añosSector: any
+    descripcion: any
+    id: any
+    precio: any
+    prestador
+    : {
+      apellidoCompleto: any
+      calificacion: any
+      descripcion: any
+      direccion: any
+      id: any
+      nombreCompleto: any
+      numeroTelefonico: any
+      username: any
+      zona: any
+    }
+    rubro: any
+  }
+}
+export const CardServicio: React.FC<InputContainerProps> = ({
+  data
+}) => {
+  const dispatch = useAppDispatch();
 
-    return (
-         <div className="rounded-xl border-2 p-4 max-w-5xl m-auto border-gray-300">
+  return (
+    <div className="rounded-xl border-2 p-4 max-w-5xl m-auto border-gray-300">
       <div className="flex justify-between">
         <div className="flex gap-4">
           <Image
@@ -27,14 +49,14 @@ export const CardServicio = (servicios: any) => {
             <div className="flex gap-3 text-dark-orange">
               <BsFillStarFill className="text-2xl" />
             </div>
-            {/* <h2>{servicios.servicio.rubro}</h2> */}
+            <h2>{data ? data.rubro : {}}</h2>
           </div>
         </div>
         <div>
           <button
             className="mt-3 border-b-2 border-dark-orange text-dark-orange max-h-max"
             onClick={() => {
-              dispatch(verServicios(servicios.servicio.id));
+              dispatch(verServicios(data ? data.id : {}));
             }}
           >
             ver perfil
@@ -42,16 +64,10 @@ export const CardServicio = (servicios: any) => {
         </div>
       </div>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, at ipsa
-        necessitatibus praesentium recusandae quis non sequi blanditiis velit
-        sint labore vel placeat officiis quisquam maxime distinctio reiciendis
-        ipsum repellat? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Vitae porro aliquam recusandae asperiores quibusdam debitis ullam
-        accusantium facilis veritatis laborum doloribus perspiciatis, delectus
-        corporis. Quo reprehenderit vel eveniet! Recusandae, maiores.
+        {data ? data.descripcion : {}}
       </p>
       <div className="flex w-full justify-between items-center mt-2">
-        <p>lorego</p>
+        <p>{data ? data.prestador.direccion : {}}</p>
 
         <Ticket />
         {/* <Ticket servicios={servicios.servicio} /> */}
