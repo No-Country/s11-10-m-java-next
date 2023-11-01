@@ -27,7 +27,7 @@ export const CardServicio = (servicios: any) => {
             <div className="flex gap-3 text-dark-orange">
               <BsFillStarFill className="text-2xl" />
             </div>
-            <h2>{servicios.servicio.rubro}</h2>
+            {/* <h2>{servicios.servicio.rubro}</h2> */}
           </div>
         </div>
         <div>

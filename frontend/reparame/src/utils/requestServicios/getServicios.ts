@@ -7,11 +7,7 @@ export const getServicios = async (setPrestadores: Function, servicioId: any, to
     };
 
     await axios.get(
-        `https://reparame-api.onrender.com/servicios${servicioId ? '/' + servicioId : ''}`, {
-        headers: {
-            Authorization: `Bearer ${tokenKey}`
-        }
-    }
+        `https://reparame-api.onrender.com/servicios${servicioId ? '/' + servicioId : ''}`,config
     )
         .then(function (response) {
             console.log(token)
