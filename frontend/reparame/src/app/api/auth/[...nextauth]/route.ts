@@ -64,7 +64,7 @@ const handler = NextAuth({
 
         if(token.provider === "credentials") {
             session.user = token.user as any
-            session.user.accessToken = token.user.body.token as string
+            session.user.accessToken = (token.user as any).body.token as string
         }
         if (token.provider === "google") {
             if (session.user) {
