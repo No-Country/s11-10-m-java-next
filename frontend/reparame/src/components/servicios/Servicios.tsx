@@ -36,7 +36,7 @@ const Servicios = () => {
                 }}>
                 <option >Filtrar</option>
                 <option value={''} >TODOS</option>
-                {profesiones.map(res => (<option value={res.label} key={res.label}>{res.label}</option>))}
+                {profesiones.map(res => (<option value={res.label === "TECNICO DE AIRE" ? 'AIRES' : res.label} key={res.label}>{res.label}</option>))}
               </select>
             </label>
             {servicios.map((res: any) => (

@@ -12,13 +12,6 @@ const CardinProgress: React.FC<CardProps> = ({ ticket }) => {
   return (
     <figure className="max-w-lg border-3 border-green-600 rounded-lg p-6 shadow-md">
       <figcaption className="flex flex-row items-center gap-2">
-        <Image
-          alt="usuario_profile"
-          src="/images/image-60.png" // si me lo mandan de la api {ticket.profileImage}
-          width={50}
-          height={50}
-        />
-
         <div className="flex justify-between gap-10">
           <p className="font-bold text-lg">
             Lucas Gomez - <span className="text-dark-orange">Córdoba</span>
