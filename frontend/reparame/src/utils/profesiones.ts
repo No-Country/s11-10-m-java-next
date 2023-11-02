@@ -22,7 +22,7 @@ export const profesiones = [
         icon: GiTap,
     },
     {
-        label: "SERVICIOS VARIOS",
+        label: "VARIOS",
         icon: BsBriefcase,
     },
     {

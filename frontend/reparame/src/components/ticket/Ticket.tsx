@@ -154,9 +154,15 @@ const Ticket: React.FC<InputContainerProps> = ({
       <dialog
         onClick={closeAlert}
         ref={alertRef}
-        className="bg-green-400 p-10 rounded-xl"
+        className="bg-green-400 p-10 rounded-xl text-center justify-center items-center"
       >
-        <span>Contratado con éxito!</span>
+        <div className="flex items-center justify-center mb-2">
+          {" "}
+          <Image src="/images/Capa_1.png" alt="logo" width={150} height={150} />
+        </div>
+
+        <span>¡Ticket enviado!</span>
+        <p>El prestador se comunicará contigo a la brevedad</p>
       </dialog>
     </div>
   );
