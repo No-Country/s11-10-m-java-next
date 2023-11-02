@@ -67,14 +67,14 @@ public class ClienteService {
 	clienteModificado.setNombreCompleto(cliente.getNombreCompleto());
 	clienteModificado.setApellidoCompleto(cliente.getApellidoCompleto());
 	clienteModificado.setUsername(cliente.getUsername());
-	clienteModificado.setPassword(cliente.getPassword());
+//	clienteModificado.setPassword(cliente.getPassword());
 	clienteModificado.setDNI(cliente.getDNI());
 	clienteModificado.setDireccion(cliente.getDireccion());
 	clienteModificado.setNumeroTelefonico(cliente.getNumeroTelefonico());
-	clienteModificado.setProvincia(cliente.getProvincia());
-	clienteModificado.setLocalidad(cliente.getLocalidad());	
-	clienteModificado.setFechaNacimiento(cliente.getFechaNacimiento());
-	clienteModificado.setZona(cliente.getZona());
+//	clienteModificado.setProvincia(cliente.getProvincia());
+//	clienteModificado.setLocalidad(cliente.getLocalidad());	
+//	clienteModificado.setFechaNacimiento(cliente.getFechaNacimiento());
+//	clienteModificado.setZona(cliente.getZona());
 		
 	return clienteRepo.save(clienteModificado);	
     }

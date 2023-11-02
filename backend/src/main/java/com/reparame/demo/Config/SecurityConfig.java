@@ -51,10 +51,11 @@ public class SecurityConfig {
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         // Agrega tu configuración CORS personalizada
-        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+        http.cors();
 
         return http.build();
     }
+    
     
     
 

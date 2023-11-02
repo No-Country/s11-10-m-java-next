@@ -61,6 +61,7 @@ public class ClienteController {
     	clienteServ.eliminarCliente(id);
     } 
     
+    @CrossOrigin(origins = "*")
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> modificar(@PathVariable("id") Long id, @RequestBody Cliente cliente){
         try {

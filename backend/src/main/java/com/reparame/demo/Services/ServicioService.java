@@ -94,11 +94,11 @@ public class ServicioService {
         return datosRespuestaList;
     }
 
-    public DatosRespuestaServicioDTO buscarPorId(Long id) throws MiException {
+    public ServicioListadoDTO buscarPorId(Long id) throws MiException {
         try {
             Servicio servicio = servicioRep.findById(id).get();
-            DatosRespuestaServicioDTO respuestaServicio = new DatosRespuestaServicioDTO(servicio);
-            return respuestaServicio;
+            ServicioListadoDTO servicioListadoDTO = modelMapper.map(servicio, ServicioListadoDTO.class);
+            return servicioListadoDTO;
 
         } catch (Exception e) {
             throw new MiException(e.getMessage());
