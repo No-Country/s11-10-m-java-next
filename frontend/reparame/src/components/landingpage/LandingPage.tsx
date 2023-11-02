@@ -15,8 +15,12 @@ import twitter from "../../../public/twitter.svg";
 import instagram from "../../../public/instagram.svg";
 import HeaderManager from "../headerManager/HeaderManager";
 import { profesiones } from "@/utils/profesiones";
+import { getServicios } from "@/utils/requestServicios/getServicios";
+import { useAppDispatch } from "@/utils/globalStates/hooks";
+import { setCategory } from "@/utils/globalStates/features/categorySlice";
 
 const LandingPage = () => {
+    const dispatch = useAppDispatch();
     return (
         <section className="max-w-max-view w-full">
             <HeaderManager page="home" />
@@ -45,7 +49,7 @@ const LandingPage = () => {
                         }}
                         className="w-40 h-36 flex flex-col place-content-center place-items-center"
                     >
-                        <Link href="/routes/servicios">
+                        <Link onClick={() => { dispatch(setCategory(profesion.label)); }} href="/routes/servicios">
                             <profesion.icon style={{
                                 width: "65.5px",
                                 height: "71.3px",

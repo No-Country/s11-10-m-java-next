@@ -13,6 +13,7 @@ interface InputContainerProps {
     descripcion: any
     id: any
     precio: any
+    nombrePrestador: any,
     prestador
     : {
       apellidoCompleto: any
@@ -65,7 +66,7 @@ const Ticket: React.FC<InputContainerProps> = ({
       <dialog ref={ticketRef}>
         <form
           method="dialog"
-          className="flex flex-col gap-5 p-10"
+          className="flex flex-col gap-5 p-10 "
           onSubmit={openAlert}
         >
           <section className="flex gap-5 w-full">
@@ -94,7 +95,7 @@ const Ticket: React.FC<InputContainerProps> = ({
                 />
               </div>
             </div>
-            <div className="w-96">
+            <div className="flex flex-col w-96 h-full justify-between">
               <figure className="flex flex-row  justify-between items-center">
                 <div className="flex gap-4 items-center">
                   <Image
@@ -104,14 +105,15 @@ const Ticket: React.FC<InputContainerProps> = ({
                     alt="imagen prueba"
                     className="rounded-full"
                   />
+                  <figcaption>{data?.nombrePrestador || data?.prestador.nombreCompleto && data?.prestador.apellidoCompleto}</figcaption>
                 </div>
                 <div className="flex">
-                  <p className="text-xl">
+                  {/* <p className="text-xl">
                     <b>{data ? data.nombreCompleto : {}}</b>
                   </p>
                   <p className="text-light-orange text-xl">
                     <b>{data ? data.apellidoCompleto : {}}</b>
-                  </p>
+                  </p> */}
                 </div>
                 <span className="text-lg text-light-orange">
                   <b>
@@ -120,9 +122,12 @@ const Ticket: React.FC<InputContainerProps> = ({
                   </b>
                 </span>
               </figure>
-              <p className="py-6">
-                {data ? data.descripcion : {}}
-              </p>
+              <span className="py-6">
+                {data?.descripcion}
+              </span>
+              <span className="py-6">
+                $ {data?.precio}
+              </span>
               <menu className="flex flex-row gap-10 self-center">
                 <Button
                   className="w-36 text-white hover:bg-red2 bg-red"

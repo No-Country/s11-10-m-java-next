@@ -13,23 +13,25 @@ import { getServicios } from "@/utils/requestServicios/getServicios";
 
 interface InputContainerProps {
   data?: {
-    añosSector: any;
-    descripcion: any;
-    id: any;
-    precio: any;
-    prestador: {
-      apellidoCompleto: any;
-      calificacion: any;
-      descripcion: any;
-      direccion: any;
-      id: any;
-      nombreCompleto: any;
-      numeroTelefonico: any;
-      username: any;
-      zona: any;
-    };
-    rubro: any;
-  };
+    añosSector: any,
+    descripcion: any,
+    id: any,
+    precio: any,
+    nombrePrestador: any,
+    prestador
+    : {
+      apellidoCompleto: any
+      calificacion: any
+      descripcion: any
+      direccion: any
+      id: any
+      nombreCompleto: any
+      numeroTelefonico: any
+      username: any
+      zona: any
+    },
+    rubro: any
+  }
 }
 export const DetalleServicio: React.FC<InputContainerProps> = ({ data }) => {
   const dispatch = useAppDispatch();
@@ -42,7 +44,7 @@ export const DetalleServicio: React.FC<InputContainerProps> = ({ data }) => {
     <section className="max-w-max-view w-full gap-2">
       <button
         onClick={() => {
-          dispatch(verServicios(""));
+          dispatch(verServicios(''));
         }}
       >{`<- volver`}</button>
 
@@ -71,8 +73,8 @@ export const DetalleServicio: React.FC<InputContainerProps> = ({ data }) => {
               <BsStarFill />
               <BsStar />
             </span>
-            <div>
-              <h1 className="font-bold text-3xl">{data?.nombreCompleto}</h1>
+            <div >
+              <h1 className="font-bold text-3xl">{data?.nombrePrestador}</h1>
               <p className="flex gap-3 p-1 mt-2 text-light-orange text-lg font-semibold">
                 {data?.rubro}
                 {icono ? <icono.icon className="h-8 w-8" /> : <></>}
@@ -81,9 +83,9 @@ export const DetalleServicio: React.FC<InputContainerProps> = ({ data }) => {
           </div>
 
           <div className="font-semibold text-lg m-5">
-            <button className="bg-green-600 text-white py-2 px-3 rounded-md hover:bg-green-700">
+            <div className="bg-green-600 text-white py-2 px-3 rounded-md hover:bg-green-700">
               <Ticket data={data} />
-            </button>
+            </div>
           </div>
         </section>
 
