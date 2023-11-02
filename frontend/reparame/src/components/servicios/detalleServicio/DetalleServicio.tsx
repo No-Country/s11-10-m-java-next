@@ -11,40 +11,34 @@ import { CertificadoCargado } from "./cardCertificado/Certificado";
 import Ticket from "@/components/ticket/Ticket";
 import { getServicios } from "@/utils/requestServicios/getServicios";
 
-
-
-
-
 interface InputContainerProps {
   data?: {
-    añosSector: any,
-    descripcion: any,
-    id: any,
-    precio: any,
-    prestador
-    : {
-      apellidoCompleto: any
-      calificacion: any
-      descripcion: any
-      direccion: any
-      id: any
-      nombreCompleto: any
-      numeroTelefonico: any
-      username: any
-      zona: any
-    },
-    rubro: any
-  }
+    añosSector: any;
+    descripcion: any;
+    id: any;
+    precio: any;
+    prestador: {
+      apellidoCompleto: any;
+      calificacion: any;
+      descripcion: any;
+      direccion: any;
+      id: any;
+      nombreCompleto: any;
+      numeroTelefonico: any;
+      username: any;
+      zona: any;
+    };
+    rubro: any;
+  };
 }
-export const DetalleServicio: React.FC<InputContainerProps> = (
-  { data }
-) => {
+export const DetalleServicio: React.FC<InputContainerProps> = ({ data }) => {
   const dispatch = useAppDispatch();
-  const icono = profesiones.find(profesion => profesion.label === data?.rubro);
+  const icono = profesiones.find(
+    (profesion) => profesion.label === data?.rubro
+  );
   console.log(data);
 
   return (
-
     <section className="max-w-max-view w-full gap-2">
       <button
         onClick={() => {
@@ -77,11 +71,11 @@ export const DetalleServicio: React.FC<InputContainerProps> = (
               <BsStarFill />
               <BsStar />
             </span>
-            <div >
+            <div>
               <h1 className="font-bold text-3xl">{data?.nombreCompleto}</h1>
               <p className="flex gap-3 p-1 mt-2 text-light-orange text-lg font-semibold">
                 {data?.rubro}
-                {icono ? <icono.icon className='h-8 w-8' /> : <></>}
+                {icono ? <icono.icon className="h-8 w-8" /> : <></>}
               </p>
             </div>
           </div>
@@ -94,7 +88,6 @@ export const DetalleServicio: React.FC<InputContainerProps> = (
         </section>
 
         <div className="flex flex-col w-11/12 mt-6 ml-20 gap-2 text-lg text-trueGray-700">
-
           <div>
             <p className=""> {data?.descripcion}</p>
           </div>
@@ -102,6 +95,7 @@ export const DetalleServicio: React.FC<InputContainerProps> = (
           <div className="flex gap-6 mt-8 align-middle">
             <>
               <div className="float-left w-fit">
+                {/* {icon ? <icon.icon className="w-[200px] h-[250px]" /> : <></>} */}
                 <Image
                   alt="icono_electricista"
                   src="/images/iconamoon_lightning-2-fill.png"
@@ -115,7 +109,7 @@ export const DetalleServicio: React.FC<InputContainerProps> = (
                   {data?.añosSector}
                 </h1>
                 <div className="flex flex-col gap-2 mt-4">
-                  <p >{data?.descripcion}</p>
+                  <p>{data?.descripcion}</p>
                 </div>
               </div>
             </>
