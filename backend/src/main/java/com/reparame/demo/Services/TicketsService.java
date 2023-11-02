@@ -208,4 +208,24 @@ public class TicketsService {
 			throw new MiException("No se encontro el cliente");
 		}
 	}
+
+
+	/* public List<TicketClienteDTO> listadorPorCliente(String username) throws MiException{
+		try{
+			Cliente cliente = clienteService.getByUsername(username);
+			List<Ticket> tickets = ticketRepository.findByCliente(cliente);
+
+			List<TicketClienteDTO> ticketsDTO = tickets.stream().map(ticket -> {
+				Prestador prestador = ticket.getServicio().getPrestador();
+                TicketClienteDTO ticketDTO = modelMapper.map(ticket, TicketClienteDTO.class);
+                ticketDTO.setPrestador(modelMapper.map(prestador, PrestadorServicioListadoDTO.class));
+                return ticketDTO;
+            }).collect(Collectors.toList());
+			// Mapear la lista de Ticket a una lista de DatosRespuestaTicket
+			return ticketsDTO;
+
+		} catch (Exception e) {
+			throw new MiException("No se encontro el cliente");
+		}
+	} */
 }
