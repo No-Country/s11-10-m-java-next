@@ -4,7 +4,7 @@ import React, { FormEvent, useState } from "react";
 import Image from "next/image";
 import Input from "./input/Input";
 import HeaderManager from "../headerManager/HeaderManager";
-import {signIn} from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { validateEmail, validatePassword } from "@/utils/helpers/validateLogin";
 import Link from "next/link";
 
@@ -26,8 +26,8 @@ const Login = () => {
         redirect: true,
         callbackUrl: '/'
       })
-      .then((res: any) => {console.log(res.body.token), console.log('no envio el token')})
-      .catch(err => console.log(err))
+        .then((res: any) => { console.log(res.body.token), console.log('no envio el token') })
+        .catch(err => console.log(err))
     } else {
       setError('Credenciales incorrectas')
       console.log(validatePassword(password), validateEmail(email))

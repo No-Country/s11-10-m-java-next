@@ -4,31 +4,29 @@ import { GiTap } from "react-icons/gi";
 import { FaFireBurner, FaPlugCircleBolt } from "react-icons/fa6";
 import { LuAirVent } from "react-icons/lu";
 
-
-
 export const profesiones = [
     {
-        label: "Electricidad",
+        label: "ELECTRICISTA",
         icon: FaPlugCircleBolt,
     },
     {
-        label: "Cerrajeria",
+        label: "CERRAJERO",
         icon: FaKey,
     },
     {
-        label: "Gasista",
+        label: "GASISTA",
         icon: FaFireBurner,
     },
     {
-        label: "Plomeria",
+        label: "PLOMERO",
         icon: GiTap,
     },
     {
-        label: "Servicios varios",
+        label: "SERVICIOS VARIOS",
         icon: BsBriefcase,
     },
     {
-        label: "Técnico de aire",
+        label: "TECNICO DE AIRE",
         icon: LuAirVent,
     },
 ];

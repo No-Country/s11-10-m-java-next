@@ -12,8 +12,9 @@ import BtnsActualizar from "./btnsActualizar/BtnsActualizar";
 import InputsTextPerfil from "./inputsTextPerfil/InputsTextPerfil";
 import Link from "next/link";
 import { putUser } from "@/utils/requestUser/putUser";
+import { useSession } from "next-auth/react";
 const Perfil = () => {
-  const [postData, setPostData] = useState({});
+  const { data: session } = useSession()
   const [userLog, setUserLog] = useState({
     id: "",
     nombreCompleto: "",
@@ -32,13 +33,24 @@ const Perfil = () => {
     rubro: "",
     cuil: "",
   });
+  const [postData, setPostData] = useState(
+    {
+      nombreCompleto: '',
+      apellidoCompleto: '',
+      username: '',
+      direccion: '',
+      numeroTelefonico: '',
+      rubros: [userLog.rubro],
+      dni: ''
+    }
+  );
   const [formData, setFormData] = useState({});
   useEffect(() => {
     setFormData(formData);
   }, [formData]);
   useEffect(() => {
-    getUser(setUserLog);
-  }, []);
+    getUser(setUserLog, session?.user.accessToken);
+  }, [session]);
   return (
     <section className="flex flex-col gap-10 max-w-max-textArea w-full px-10 pt-10 pb-10 text-light-orange bg-grayUi">
       <HeaderManager page="perfil" />
@@ -71,12 +83,60 @@ const Perfil = () => {
           <CardExp />
         </div>
         <div className="flex flex-wrap flex-row w-full justify-between items-center gap-5 ">
-          <InputsTextPerfil data={userLog.username} label={"Email"} />
-          <InputsTextPerfil data={userLog.numeroTelefonico} label={"+54"} />
-          <InputsTextPerfil data={userLog.direccion} label={"Dirección"} />
-          <InputsTextPerfil data={userLog.rol} label={"CP"} />
-          <InputsTextPerfil data={userLog.cuil} label={"CUIL"} />
-          <InputsTextPerfil data={userLog.dni} label={"DNI"} />
+          <InputsTextPerfil
+            label="Email"
+            placeholder={userLog.username}
+            type="email"
+            defaultValue={userLog.username}
+            onChange={(e) => {
+              setPostData({
+                ...postData,
+                username: e.target.value
+              })
+            }} />
+          <InputsTextPerfil
+            label="+54"
+            placeholder={userLog.numeroTelefonico}
+            type="number"
+            defaultValue={userLog.numeroTelefonico}
+            onChange={(e) => {
+              setPostData({
+                ...postData,
+                numeroTelefonico: e.target.value
+              })
+            }} />
+          <InputsTextPerfil
+            label="Dirección"
+            placeholder={userLog.direccion}
+            type="number"
+            defaultValue={userLog.direccion}
+            onChange={(e) => {
+              setPostData({
+                ...postData,
+                direccion: e.target.value
+              })
+            }} />
+          <InputsTextPerfil
+            label="CP"
+            placeholder={'5000'}
+            type="text"
+            defaultValue={'5000'} />
+          <InputsTextPerfil
+            label="CUIL"
+            placeholder={`2-${userLog.dni}-6`}
+            type="number"
+            defaultValue={userLog.dni} />
+          <InputsTextPerfil
+            label="DNI"
+            placeholder={userLog.dni}
+            type="number"
+            defaultValue={userLog.dni}
+            onChange={(e: any) => {
+              setPostData({
+                ...postData,
+                dni: e.target.value
+              })
+            }} />
         </div>
       </article>
       <section>
@@ -116,17 +176,24 @@ const Perfil = () => {
         </div>
       </section>
 
-      <div className="border border-light-orange rounded-md p-5">
+      <div className="border border-light-orange rounded-md p-5 w-44">
         <Link href={"/routes/historial"}>Acceder al historial</Link>
       </div>
       <button
         onClick={() => {
-          putUser(userLog.id, userLog.rol.toLowerCase(), postData);
+          postData.username &&
+            postData.apellidoCompleto &&
+            postData.direccion &&
+            postData.dni &&
+            postData.rubros &&
+            postData.nombreCompleto &&
+            postData.numeroTelefonico
+            ? putUser(userLog.id, userLog.rol.toLowerCase(), postData, session?.user.accessToken) : {};
         }}
       >
         guardar
       </button>
-      <BtnsActualizar />
+      {/* <BtnsActualizar /> */}
     </section>
   );
 };

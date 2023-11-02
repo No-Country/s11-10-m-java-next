@@ -1,22 +1,23 @@
-import axios from "axios"
+import axios from "axios";
 
-export const getServicios = async (setPrestadores: Function, servicioId: any, token: string) => {
-    const tokenKey = localStorage.getItem('tKeyId')
+export const getServicios = async (setPrestadores: Function, servicioId: any, token: string, category: any) => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
 
     await axios.get(
-        `https://reparame-api.onrender.com/servicios${servicioId ? '/' + servicioId : ''}`,config
+        `https://reparame-api.onrender.com/servicios${servicioId ? '/' + servicioId : `?categoria=${category}`}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    }
     )
         .then(function (response) {
-            console.log(token)
-            console.log(response.data)
-            setPrestadores(response.data)
+            console.log(token);
+
+            setPrestadores(response.data);
         })
         .catch(function (err) {
-            console.log('error')
+            localStorage.setItem("key", token);
+            console.log("error");
             console.log(err);
-        })
-
+        });
 };

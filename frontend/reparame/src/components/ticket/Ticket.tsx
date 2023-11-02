@@ -7,14 +7,36 @@ import { Button } from "@nextui-org/react";
 import { postTicket } from "@/utils/requestTicket/postTicket";
 import { useState } from "react";
 // import { setInterval } from 'timers/promises';
-
-const Ticket: React.FC = () => {
+interface InputContainerProps {
+  data?: {
+    añosSector: any
+    descripcion: any
+    id: any
+    precio: any
+    nombrePrestador: any,
+    prestador
+    : {
+      apellidoCompleto: any
+      calificacion: any
+      descripcion: any
+      direccion: any
+      id: any
+      nombreCompleto: any
+      numeroTelefonico: any
+      username: any
+      zona: any
+    }
+    rubro: any
+  }
+}
+const Ticket: React.FC<InputContainerProps> = ({
+  data
+}) => {
   let f = new Date();
   let dia = f.getDate();
   let mes = f.getMonth();
   let anio = f.getFullYear();
   const [ticketData, setTicketData] = useState({
-    descripcion: "a ver si anda(?",
     fechaInicio: `${dia} - ${mes}-${anio}`,
     fechaRequerida: `${dia + 5} - ${mes}-${anio}`,
   });
@@ -32,13 +54,6 @@ const Ticket: React.FC = () => {
       ? (postTicket("servicio.id", ticketData),
         alertRef.current.showModal(),
         setTimeout(() => {
-          // Swal.fire({
-          //     position: 'center',
-          //     icon: 'success',
-          //     title: 'Gracias por contratar',
-          //     showConfirmButton: false,
-          //     timer: 2000
-          //   })
           alertRef.current != null ? alertRef.current.close() : {};
         }, 2000))
       : {};
@@ -51,7 +66,7 @@ const Ticket: React.FC = () => {
       <dialog ref={ticketRef}>
         <form
           method="dialog"
-          className="flex flex-col gap-5 p-10"
+          className="flex flex-col gap-5 p-10 "
           onSubmit={openAlert}
         >
           <section className="flex gap-5 w-full">
@@ -80,7 +95,7 @@ const Ticket: React.FC = () => {
                 />
               </div>
             </div>
-            <div className="w-96">
+            <div className="flex flex-col w-96 h-full justify-between">
               <figure className="flex flex-row  justify-between items-center">
                 <div className="flex gap-4 items-center">
                   <Image
@@ -90,14 +105,15 @@ const Ticket: React.FC = () => {
                     alt="imagen prueba"
                     className="rounded-full"
                   />
+                  <figcaption>{data?.nombrePrestador || data?.prestador.nombreCompleto && data?.prestador.apellidoCompleto}</figcaption>
                 </div>
                 <div className="flex">
-                  <p className="text-xl">
-                    <b>Jorge -</b>
+                  {/* <p className="text-xl">
+                    <b>{data ? data.nombreCompleto : {}}</b>
                   </p>
                   <p className="text-light-orange text-xl">
-                    <b>Cordoba</b>
-                  </p>
+                    <b>{data ? data.apellidoCompleto : {}}</b>
+                  </p> */}
                 </div>
                 <span className="text-lg text-light-orange">
                   <b>
@@ -106,13 +122,12 @@ const Ticket: React.FC = () => {
                   </b>
                 </span>
               </figure>
-              <p className="py-6">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta
-                culpa nam quia explicabo iure, asperiores minima dolore
-                consequuntur saepe maiores est et modi? Magnam, beatae hic
-                dolore nesciunt dolorem quasi? Itaque rerum distinctio, suscipit
-                temporibus, facere tempora omnis delectus ipsa.
-              </p>
+              <span className="py-6">
+                {data?.descripcion}
+              </span>
+              <span className="py-6">
+                $ {data?.precio}
+              </span>
               <menu className="flex flex-row gap-10 self-center">
                 <Button
                   className="w-36 text-white hover:bg-red2 bg-red"

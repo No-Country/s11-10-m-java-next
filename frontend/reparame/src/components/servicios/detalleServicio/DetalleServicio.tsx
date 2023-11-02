@@ -11,46 +11,40 @@ import { CertificadoCargado } from "./cardCertificado/Certificado";
 import Ticket from "@/components/ticket/Ticket";
 import { getServicios } from "@/utils/requestServicios/getServicios";
 
-// const DetalleServicio = (servicio: any) => {
-//     const dispatch = useAppDispatch()
-//     const icon = profesiones.find(profesion => profesion.label == servicio.servicio.rubro);
-
-const DetalleServicio = (servicio: any) => {
-  const dispatch = useAppDispatch();
-  const icon = profesiones.find(
-    (profesion) => profesion.label == servicio.servicio.rubro
-  );
-
-  const DetalleServicioData = [
-    {
-      id: 1,
-      nombrePrestador: "Juan Perez",
-      rubro: "Electricista",
-      rubroIcon: "/images/iconamoon_lightning-2-fill.png",
-      calificacion: "4/5",
-      experiencia: "30 años",
-      descripcionServicio:
-        "Electricista técnico con casi 10 años de experiencia en la gestión e instalación de diferentes sistemas eléctricos, paneles, placas y todo tipo de circuitos. Mis conocimientos y experiencia han hecho siempre que destaque la profesionalidad por encima de cualquier cosa.",
-      descripcionPersonal: [
-        {
-          subdescription:
-            "• Mantenimiento, gestión y reporte de los distintos trabajos realizados por la empresas.",
-        },
-        {
-          subdescription:
-            "• Instalación y reparación de cableado en todo tipo de viviendas.",
-        },
-        { subdescription: "• Soporte 24 horas durante fines de semana." },
-        { subdescription: "• Transporte de materiales." },
-      ],
+interface InputContainerProps {
+  data?: {
+    añosSector: any,
+    descripcion: any,
+    id: any,
+    precio: any,
+    nombrePrestador: any,
+    prestador
+    : {
+      apellidoCompleto: any
+      calificacion: any
+      descripcion: any
+      direccion: any
+      id: any
+      nombreCompleto: any
+      numeroTelefonico: any
+      username: any
+      zona: any
     },
-  ];
+    rubro: any
+  }
+}
+export const DetalleServicio: React.FC<InputContainerProps> = ({ data }) => {
+  const dispatch = useAppDispatch();
+  const icono = profesiones.find(
+    (profesion) => profesion.label === data?.rubro
+  );
+  console.log(data);
 
   return (
     <section className="max-w-max-view w-full gap-2">
       <button
         onClick={() => {
-          dispatch(verServicios(""));
+          dispatch(verServicios(''));
         }}
       >{`<- volver`}</button>
 
@@ -79,64 +73,48 @@ const DetalleServicio = (servicio: any) => {
               <BsStarFill />
               <BsStar />
             </span>
-
-            {DetalleServicioData.map((item, index) => (
-              <div key={index}>
-                <h1 className="font-bold text-3xl">{item.nombrePrestador}</h1>
-                <p className="flex gap-3 p-1 mt-2 text-light-orange text-lg font-semibold">
-                  {/* {servicio.servicio.rubro}
-                        {icon ? <icon.icon className='h-8 w-8' /> : <></>} */}
-                  {item.rubro}
-                  <Image
-                    alt="icono_electricista"
-                    src="/images/iconamoon_lightning-2-fill.png"
-                    width={30}
-                    height={30}
-                  ></Image>
-                </p>
-              </div>
-            ))}
+            <div >
+              <h1 className="font-bold text-3xl">{data?.nombrePrestador}</h1>
+              <p className="flex gap-3 p-1 mt-2 text-light-orange text-lg font-semibold">
+                {data?.rubro}
+                {icono ? <icono.icon className="h-8 w-8" /> : <></>}
+              </p>
+            </div>
           </div>
 
           <div className="font-semibold text-lg m-5">
-            <button className="bg-green-600 text-white py-2 px-3 rounded-md hover:bg-green-700">
-              Contratar
-              {/* <Ticket /> */}
-            </button>
+            <div className="bg-green-600 text-white py-2 px-3 rounded-md hover:bg-green-700">
+              <Ticket data={data} />
+            </div>
           </div>
         </section>
 
         <div className="flex flex-col w-11/12 mt-6 ml-20 gap-2 text-lg text-trueGray-700">
-          {DetalleServicioData.map((item, index) => (
-            <div key={index}>
-              <p className=""> {item.descripcionServicio}</p>
-            </div>
-          ))}
+          <div>
+            <p className=""> {data?.descripcion}</p>
+          </div>
 
           <div className="flex gap-6 mt-8 align-middle">
-            {DetalleServicioData.map((item, index) => (
-              <>
-                <div className="float-left w-fit">
-                  <Image
-                    alt="icono_electricista"
-                    src="/images/iconamoon_lightning-2-fill.png"
-                    width={200}
-                    height={250}
-                  />
-                </div>
+            <>
+              <div className="float-left w-fit">
+                {/* {icon ? <icon.icon className="w-[200px] h-[250px]" /> : <></>} */}
+                <Image
+                  alt="icono_electricista"
+                  src="/images/iconamoon_lightning-2-fill.png"
+                  width={200}
+                  height={250}
+                />
+              </div>
 
-                <div className="flex flex-col gap-2">
-                  <h1 className="font-bold text-3xl text-light-orange">
-                    {item.experiencia}
-                  </h1>
-                  <div className="flex flex-col gap-2 mt-4">
-                    {item.descripcionPersonal.map((subitem, subindex) => (
-                      <p key={subindex}>{subitem.subdescription}</p>
-                    ))}
-                  </div>
+              <div className="flex flex-col gap-2">
+                <h1 className="font-bold text-3xl text-light-orange">
+                  {data?.añosSector}
+                </h1>
+                <div className="flex flex-col gap-2 mt-4">
+                  <p>{data?.descripcion}</p>
                 </div>
-              </>
-            ))}
+              </div>
+            </>
           </div>
         </div>
 
