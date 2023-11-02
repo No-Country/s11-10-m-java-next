@@ -95,13 +95,13 @@ export const DetalleServicio: React.FC<InputContainerProps> = ({ data }) => {
           <div className="flex gap-6 mt-8 align-middle">
             <>
               <div className="float-left w-fit">
-                {icon ? <icon.icon className="w-[200px] h-[250px]" /> : <></>}
-                {/* <Image
+                {/* {icon ? <icon.icon className="w-[200px] h-[250px]" /> : <></>} */}
+                <Image
                   alt="icono_electricista"
                   src="/images/iconamoon_lightning-2-fill.png"
                   width={200}
                   height={250}
-                /> */}
+                />
               </div>
 
               <div className="flex flex-col gap-2">
