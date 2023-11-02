@@ -4,15 +4,14 @@
  */
 package com.reparame.demo.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,25 +24,25 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="tikets")
-public class Tiket {
+@Table(name="calificaciones")
+public class Calificacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_Tiket;
-    private Boolean estado;
+    private Long id_Calificacion;
+    private Integer puntuacion;
     private String descripcion;
-    private LocalDate fechaInicio;
-    private LocalDate fechaRequerida;
-    
-    @ManyToOne
-    @JoinColumn(name="id_servicio")
-    private Servicio servicio;
     
     @OneToOne
-    @JoinColumn(name="id_clasificacion")
-    private Clasificacion clasificacion;
+    @JoinColumn(name="id_Tiket")
+    private Ticket ticket;
     
-    @ManyToOne
-    @JoinColumn(name="id_cliente")
-    private Cliente cliente;
+    public Integer getPuntuacion(){
+        return puntuacion;
+    }
+    
+    public String getDescripcion(){
+        return descripcion;
+    }
+    
+    
 }
