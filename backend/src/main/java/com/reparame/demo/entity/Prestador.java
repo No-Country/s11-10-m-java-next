@@ -28,8 +28,6 @@ public class Prestador extends Persona{
     private String zona;
     private Double calificacion;
     
-    @Lob 
-    @Column(name="descripcion", length=1000)
     private String descripcion;
     
     @OneToMany(mappedBy = "prestador")
