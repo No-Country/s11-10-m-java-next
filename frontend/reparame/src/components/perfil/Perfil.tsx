@@ -176,7 +176,7 @@ const Perfil = () => {
         </div>
       </section>
 
-      <div className="border border-light-orange rounded-md p-5">
+      <div className="border border-light-orange rounded-md p-5 w-44">
         <Link href={"/routes/historial"}>Acceder al historial</Link>
       </div>
       <button
@@ -193,7 +193,7 @@ const Perfil = () => {
       >
         guardar
       </button>
-      <BtnsActualizar />
+      {/* <BtnsActualizar /> */}
     </section>
   );
 };

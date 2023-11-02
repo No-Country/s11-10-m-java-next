@@ -33,7 +33,6 @@ export const CardServicio: React.FC<InputContainerProps> = ({
   data
 }) => {
   const dispatch = useAppDispatch();
-
   return (
     <div className="rounded-xl border-2 p-4 max-w-5xl m-auto border-gray-300">
       <div className="flex justify-between">
