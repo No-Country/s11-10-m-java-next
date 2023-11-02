@@ -82,7 +82,7 @@ public class ServicioController {
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorID(@PathVariable("id") Long id) {
         try {
-            DatosRespuestaServicioDTO servicioDTO = servicioServ.buscarPorId(id);
+        	ServicioListadoDTO servicioDTO = servicioServ.buscarPorId(id);
             return new ResponseEntity<>(servicioDTO, HttpStatus.OK);
         } catch (MiException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
