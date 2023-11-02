@@ -85,15 +85,15 @@ public class PrestadorService {
 		
 		prestadorModificado.setNombreCompleto(prestador.getNombreCompleto());
 		prestadorModificado.setApellidoCompleto(prestador.getApellidoCompleto());
-//		prestadorModificado.setUsername(prestador.getUsername());
+		prestadorModificado.setUsername(prestador.getUsername());
 //		prestadorModificado.setPassword(prestador.getPassword());
 		prestadorModificado.setDNI(prestador.getDNI());
 		prestadorModificado.setDireccion(prestador.getDireccion());
 		prestadorModificado.setNumeroTelefonico(prestador.getNumeroTelefonico());
-		prestadorModificado.setProvincia(prestador.getProvincia());
-		prestadorModificado.setLocalidad(prestador.getLocalidad());	
-		prestadorModificado.setFechaNacimiento(prestador.getFechaNacimiento());
-		prestadorModificado.setZona(prestador.getZona());
+//		prestadorModificado.setProvincia(prestador.getProvincia());
+//		prestadorModificado.setLocalidad(prestador.getLocalidad());	
+//		prestadorModificado.setFechaNacimiento(prestador.getFechaNacimiento());
+//		prestadorModificado.setZona(prestador.getZona());
 		
 	    return prestadorRepo.save(prestadorModificado);	
 	}
