@@ -51,6 +51,5 @@ const Historial = () => {
       </div>
     </section>
   );
-};
-
+}
 export default Historial;

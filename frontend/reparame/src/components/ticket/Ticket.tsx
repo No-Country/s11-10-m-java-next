@@ -107,10 +107,10 @@ const Ticket: React.FC<InputContainerProps> = ({
                 </div>
                 <div className="flex">
                   <p className="text-xl">
-                    <b>{data ? data.prestador.nombreCompleto : {}}</b>
+                    <b>{data ? data.nombreCompleto : {}}</b>
                   </p>
                   <p className="text-light-orange text-xl">
-                    <b>{data ? data.prestador.apellidoCompleto : {}}</b>
+                    <b>{data ? data.apellidoCompleto : {}}</b>
                   </p>
                 </div>
                 <span className="text-lg text-light-orange">

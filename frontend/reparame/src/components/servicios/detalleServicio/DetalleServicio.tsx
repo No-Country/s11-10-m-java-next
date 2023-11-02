@@ -33,7 +33,10 @@ interface InputContainerProps {
 }
 export const DetalleServicio: React.FC<InputContainerProps> = ({ data }) => {
   const dispatch = useAppDispatch();
-  const icon = profesiones.find((profesion) => profesion.label == data?.rubro);
+  const icono = profesiones.find(
+    (profesion) => profesion.label === data?.rubro
+  );
+  console.log(data);
 
   return (
     <section className="max-w-max-view w-full gap-2">
@@ -69,18 +72,10 @@ export const DetalleServicio: React.FC<InputContainerProps> = ({ data }) => {
               <BsStar />
             </span>
             <div>
-              <h1 className="font-bold text-3xl">
-                {data?.prestador.nombreCompleto}
-              </h1>
+              <h1 className="font-bold text-3xl">{data?.nombreCompleto}</h1>
               <p className="flex gap-3 p-1 mt-2 text-light-orange text-lg font-semibold">
                 {data?.rubro}
-                {/* {icon ? <icon.icon className="h-8 w-8" /> : <></>} */}
-                {/* <Image
-                  alt="icono_electricista"
-                  src="/images/iconamoon_lightning-2-fill.png"
-                  width={30}
-                  height={30}
-                /> */}
+                {icono ? <icono.icon className="h-8 w-8" /> : <></>}
               </p>
             </div>
           </div>
@@ -114,7 +109,7 @@ export const DetalleServicio: React.FC<InputContainerProps> = ({ data }) => {
                   {data?.añosSector}
                 </h1>
                 <div className="flex flex-col gap-2 mt-4">
-                  <p>{data?.prestador.descripcion}</p>
+                  <p>{data?.descripcion}</p>
                 </div>
               </div>
             </>

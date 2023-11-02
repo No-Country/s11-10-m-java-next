@@ -28,7 +28,7 @@ const Servicios = () => {
             ))}
           </article>
         ) : (
-          <DetalleServicio data={servicios[0]} />
+          <DetalleServicio data={servicios} />
         )
       ) : (
         <>
