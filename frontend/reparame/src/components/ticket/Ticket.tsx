@@ -6,6 +6,7 @@ import StarsUser from "../icons/StarsUser";
 import { Button } from "@nextui-org/react";
 import { postTicket } from "@/utils/requestTicket/postTicket";
 import { useState } from "react";
+import { useSession } from 'next-auth/react'
 // import { setInterval } from 'timers/promises';
 interface InputContainerProps {
   data?: {
@@ -36,6 +37,7 @@ const Ticket: React.FC<InputContainerProps> = ({
   let dia = f.getDate();
   let mes = f.getMonth();
   let anio = f.getFullYear();
+  const { data: session } = useSession()
   const [ticketData, setTicketData] = useState({
     descripcion: "Ticket de contratacion",
     fechaInicio: `${dia} - ${mes}-${anio}`,
@@ -52,7 +54,7 @@ const Ticket: React.FC<InputContainerProps> = ({
   };
   const openAlert = () => {
     alertRef.current != null
-      ? (postTicket(data?.id, ticketData),
+      ? (postTicket(data?.id, ticketData, session?.user.accessToken),
         alertRef.current.showModal(),
         setTimeout(() => {
           alertRef.current != null ? alertRef.current.close() : {};
