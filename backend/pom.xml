@@ -109,7 +109,11 @@
             <artifactId>modelmapper</artifactId>
             <version>2.3.5</version>
         </dependency>
-
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version> <!-- Reemplaza con la versión más reciente -->
+        </dependency>
     </dependencies>
     <profiles>
         <profile>

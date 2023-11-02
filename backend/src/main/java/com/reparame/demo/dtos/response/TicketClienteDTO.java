@@ -1,3 +1,5 @@
+package com.reparame.demo.dtos.response;
+
 import java.time.LocalDate;
 
 import com.reparame.demo.enumeradores.ProgresoTicket;
