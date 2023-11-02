@@ -4,6 +4,7 @@ import NextAuth from "next-auth/next";
 import axios from "axios";
 
 const handler = NextAuth({
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/routes/login",
   },
@@ -89,7 +90,6 @@ const handler = NextAuth({
             })
             
             if(response.status === 200) {
-              console.log(response.data)
               user.data = response.data
             } else {
                 return false
