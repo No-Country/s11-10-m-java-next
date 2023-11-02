@@ -10,10 +10,11 @@ import { useRouter } from 'next/navigation'
 
 interface InputContainerProps {
   data?: {
-    añosSector: any
-    descripcion: any
-    id: any
-    precio: any
+    añosSector: any,
+    descripcion: any,
+    id: any,
+    precio: any,
+    nombrePrestador: any,
     prestador
     : {
       apellidoCompleto: any
@@ -25,7 +26,7 @@ interface InputContainerProps {
       numeroTelefonico: any
       username: any
       zona: any
-    }
+    },
     rubro: any
   }
 }
