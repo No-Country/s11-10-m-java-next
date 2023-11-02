@@ -7,6 +7,7 @@ import { getTickets } from "@/utils/requestTicket/getTickets";
 import CardDone from "./cardDone/cardDone";
 import CardCancelled from "./cardCancelled/cardCancelled";
 import CardinProgress from "./cardInProgress/cardInProgress";
+import { useSession } from "next-auth/react";
 
 export type Ticket = {
   id: number;
@@ -21,13 +22,14 @@ export type Ticket = {
 };
 
 const Historial = () => {
+  const { data: session } = useSession()
   const [tickets, setTickets] = useState<Ticket[]>([]);
 
   useEffect(() => {
     getTickets((data: Ticket[]) => {
       setTickets(data);
-    });
-  }, []);
+    }, session?.user.accessToken);
+  }, [session]);
 
   return (
     <section className="max-w-max-view w-full">

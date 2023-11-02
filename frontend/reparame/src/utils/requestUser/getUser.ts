@@ -1,17 +1,15 @@
 import axios from "axios"
 
-export const getUser = async (setUserLog: Function) => {
-    const tokenKey = localStorage.getItem('tKeyId')
+export const getUser = async (setUserLog: Function, token: any) => {
     await axios.get(
         `https://reparame-api.onrender.com/user/me`, {
         headers: {
-            Authorization: `Bearer ${tokenKey}`
+            Authorization: `Bearer ${token}`
 
         }
     }
     )
         .then(function (response) {
-            console.log(response)
             setUserLog(response.data)
         })
         .catch(function (err) {

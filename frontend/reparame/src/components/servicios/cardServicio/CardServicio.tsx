@@ -69,7 +69,7 @@ export const CardServicio: React.FC<InputContainerProps> = ({
       <div className="flex w-full justify-between items-center mt-2">
         <p>{data ? data.prestador.direccion : {}}</p>
 
-        <Ticket />
+        <Ticket data={data} />
         {/* <Ticket servicios={servicios.servicio} /> */}
       </div>
     </div>
