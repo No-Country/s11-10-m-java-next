@@ -2,34 +2,38 @@ import Image from "next/image";
 import { useState } from "react";
 import { BsStarFill } from "react-icons/bs";
 import { BsStar } from "react-icons/bs";
+import reseñas from "@/utils/data/reseñas.json";
 
-const ReseñaCard = () => {
+export type ReseñaProps = {
+  description: string;
+  user_name: string;
+  calification: number;
+};
+
+const ReseñaCard = ({ description, user_name, calification }: ReseñaProps) => {
   return (
     <figure className="relative flex flex-col-reverse border-4 border-light-orange rounded-lg p-6 shadow-md">
       <blockquote className="mt-6 text-gray-700">
-        <p>
-          {" "}
-          Lo que más me impresionó fue la calidad del resultado final. El
-          servicio cumplió con precisión todas mis necesidades y expectativas.
-          ¡Muchas gracias!
-        </p>
+        <p>{description}</p>
       </blockquote>
       <figcaption className="flex flex-row items-center space-x-4">
         <div className="text-base text-gray-900 font-bold flex text-center items-center gap-1">
           <Image
             className="flex-none w-12 h-12 rounded-full object-cover"
-            src="/images/image-60.png"
-            alt="usuario_profile"
+            src="/images/3d-user.png"
+            alt={user_name}
             width={100}
             height={100}
           />
-          <span>Nombre</span>
+          <span>{user_name}</span>
           <div className="flex gap-1 ml-2 text-light-orange py-2">
-            <BsStarFill />
-            <BsStarFill />
-            <BsStarFill />
-            <BsStar />
-            <BsStar />
+            {[...Array(Math.floor(calification))].map((_, index) => (
+              <BsStarFill key={index} />
+            ))}
+
+            {[...Array(5 - Math.floor(calification))].map((_, index) => (
+              <BsStar key={index} />
+            ))}
           </div>
         </div>
       </figcaption>
@@ -54,9 +58,13 @@ const ReseñaPrestador = () => {
     <section className="relative max-w-max-view w-full mx-auto">
       <div className="flex-1 max-w-full mx-auto p-10">
         <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-5">
-          {[...Array(ReseñasToShow)].map((_, index) => (
+          {reseñas.slice(0, ReseñasToShow).map((reseña, index) => (
             <li key={index}>
-              <ReseñaCard />
+              <ReseñaCard
+                description={reseña.description}
+                user_name={reseña.user_name}
+                calification={reseña.calification}
+              />
             </li>
           ))}
         </ul>

@@ -4,8 +4,6 @@ import { GiTap } from "react-icons/gi";
 import { FaFireBurner, FaPlugCircleBolt } from "react-icons/fa6";
 import { LuAirVent } from "react-icons/lu";
 
-
-
 export const profesiones = [
     {
         label: "ELECTRICISTA",

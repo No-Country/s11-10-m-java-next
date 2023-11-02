@@ -1,0 +1,32 @@
+[
+  {
+    "description": "Muy contento con el trabajo realizado! Sin duda un gran profesional para recomendar.",
+    "user_name": "Matias",
+    "calification": 4.0
+  },
+  {
+    "description": "Solucionó mi problema muy rápido! Lo volvería a llamar por cualquier otro problema en el futuro.",
+    "user_name": "Pedro",
+    "calification": 3.5
+  },
+  {
+    "description": "Muy buen profesional, eficiente y excelente, realizo las instalaciones con mucha prolijidad.",
+    "user_name": "Carla",
+    "calification": 4.5
+  },
+  {
+    "description": "Es muy profesional, puntual y resolvió el problema justo a tiempo. Excelente servicio y el arancel es lo que exige el mercado. Recomiendo!",
+    "user_name": "Laura",
+    "calification": 5.0
+  },
+  {
+    "description": "Excelente trabajador, detallista, muy bueno. Hizo cuarto, cocina completa, pisos. Todo Perfecto. Siempre a disposición.",
+    "user_name": "María",
+    "calification": 3.0
+  },
+  {
+    "description": "Lo que más me impresionó fue la calidad del resultado. El servicio cumplió con todas mis necesidades. Muchas gracias!",
+    "user_name": "Hernan",
+    "calification": 4.0
+  }
+]

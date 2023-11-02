@@ -55,5 +55,5 @@ const Servicios = () => {
       )}
     </section>
   );
-}
-export default Servicios
+};
+export default Servicios;
