@@ -74,7 +74,7 @@ export const DetalleServicio: React.FC<InputContainerProps> = ({ data }) => {
               </h1>
               <p className="flex gap-3 p-1 mt-2 text-light-orange text-lg font-semibold">
                 {data?.rubro}
-                {icon ? <icon.icon className="h-8 w-8" /> : <></>}
+                {/* {icon ? <icon.icon className="h-8 w-8" /> : <></>} */}
                 {/* <Image
                   alt="icono_electricista"
                   src="/images/iconamoon_lightning-2-fill.png"
