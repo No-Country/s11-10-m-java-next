@@ -8,11 +8,11 @@ import { LuAirVent } from "react-icons/lu";
 
 export const profesiones = [
     {
-        label: "ELECTRICIDAD",
+        label: "ELECTRICISTA",
         icon: FaPlugCircleBolt,
     },
     {
-        label: "CERRAGERIA",
+        label: "CERRAJERO",
         icon: FaKey,
     },
     {
@@ -20,7 +20,7 @@ export const profesiones = [
         icon: FaFireBurner,
     },
     {
-        label: "PLOMERIA",
+        label: "PLOMERO",
         icon: GiTap,
     },
     {
