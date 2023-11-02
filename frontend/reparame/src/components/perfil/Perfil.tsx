@@ -12,8 +12,9 @@ import BtnsActualizar from "./btnsActualizar/BtnsActualizar";
 import InputsTextPerfil from "./inputsTextPerfil/InputsTextPerfil";
 import Link from "next/link";
 import { putUser } from "@/utils/requestUser/putUser";
+import { useSession } from "next-auth/react";
 const Perfil = () => {
-  const [postData, setPostData] = useState({});
+  const { data: session } = useSession()
   const [userLog, setUserLog] = useState({
     id: "",
     nombreCompleto: "",
@@ -32,13 +33,24 @@ const Perfil = () => {
     rubro: "",
     cuil: "",
   });
+  const [postData, setPostData] = useState(
+    {
+      nombreCompleto: '',
+      apellidoCompleto: '',
+      username: '',
+      direccion: '',
+      numeroTelefonico: '',
+      rubros: [userLog.rubro],
+      dni: ''
+    }
+  );
   const [formData, setFormData] = useState({});
   useEffect(() => {
     setFormData(formData);
   }, [formData]);
   useEffect(() => {
-    getUser(setUserLog);
-  }, []);
+    getUser(setUserLog, session?.user.accessToken);
+  }, [session]);
   return (
     <section className="flex flex-col gap-10 max-w-max-textArea w-full px-10 pt-10 pb-10 text-light-orange bg-grayUi">
       <HeaderManager page="perfil" />
@@ -79,7 +91,7 @@ const Perfil = () => {
             onChange={(e) => {
               setPostData({
                 ...postData,
-                email: e.target.value
+                username: e.target.value
               })
             }} />
           <InputsTextPerfil
@@ -108,13 +120,7 @@ const Perfil = () => {
             label="CP"
             placeholder={'5000'}
             type="text"
-            defaultValue={'5000'}
-            onChange={(e: any) => {
-              setPostData({
-                ...postData,
-                cp: e.target.value
-              })
-            }} />
+            defaultValue={'5000'} />
           <InputsTextPerfil
             label="CUIL"
             placeholder={`2-${userLog.dni}-6`}
@@ -175,7 +181,14 @@ const Perfil = () => {
       </div>
       <button
         onClick={() => {
-          putUser(userLog.id, userLog.rol.toLowerCase(), postData);
+          postData.username &&
+            postData.apellidoCompleto &&
+            postData.direccion &&
+            postData.dni &&
+            postData.rubros &&
+            postData.nombreCompleto &&
+            postData.numeroTelefonico
+            ? putUser(userLog.id, userLog.rol.toLowerCase(), postData, session?.user.accessToken) : {};
         }}
       >
         guardar

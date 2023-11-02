@@ -46,20 +46,20 @@ const LandingPage = () => {
                         className="w-40 h-36 flex flex-col place-content-center place-items-center"
                     >
                         <Link href="/routes/servicios">
-                            <profesion.icon   style={{
-                                    width: "65.5px",
-                                    height: "71.3px",
-                                    color:"#FF983F"
-                                }}
+                            <profesion.icon style={{
+                                width: "65.5px",
+                                height: "71.3px",
+                                color: "#FF983F"
+                            }}
                             />
                         </Link>
-                        <p className="text-[#FF983F] text-2xl font-light">
+                        <p className="text-[#FF983F] text-2xl font-light text-center">
                             {profesion.label}
                         </p>
                     </div>
                 ))}
 
-                
+
             </section>
 
             <section className="w-full flex my-10">

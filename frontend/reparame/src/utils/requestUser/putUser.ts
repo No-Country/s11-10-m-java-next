@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const putUser = async (id: any, rol: any, formData: any,) => {
+export const putUser = async (id: any, rol: any, formData: any, token: any) => {
     const tokenKey = localStorage.getItem('tKeyId')
 
     await axios.put(
@@ -8,7 +8,7 @@ export const putUser = async (id: any, rol: any, formData: any,) => {
         formData
     }, {
         headers: {
-            Authorization: `Bearer ${tokenKey}`
+            Authorization: `Bearer ${token}`
 
         }
     }
