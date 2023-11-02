@@ -4,7 +4,9 @@
  */
 package com.reparame.demo.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -25,6 +27,9 @@ import lombok.NoArgsConstructor;
 public class Prestador extends Persona{
     private String zona;
     private Double calificacion;
+    
+    @Lob 
+    @Column(name="descripcion", length=1000)
     private String descripcion;
     
     @OneToMany(mappedBy = "prestador")
