@@ -35,8 +35,6 @@ public class Servicio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_Servicio;
     
-    @Lob 
-    @Column(name="descripcion", length=1000)
     private String descripcion;
     private Integer añosSector;
     private Integer precio;
