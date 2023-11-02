@@ -5,8 +5,6 @@ import React from "react";
 const HistorialPage = () => {
   return (
     <section>
-      <Ticket />
-
       <Historial />
     </section>
   );

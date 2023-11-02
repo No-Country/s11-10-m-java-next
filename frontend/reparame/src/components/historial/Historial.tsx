@@ -34,21 +34,22 @@ const Historial = () => {
   return (
     <section className="max-w-max-view w-full">
       <HeaderManager page="historial" />
-      {/* <Ticket /> */}
       <h1 className="text-3xl font-bold text-gray-700 p-4">Historial</h1>
       <div className="flex flex-col justify-center content-center gap-5 p-3">
         {tickets.map((ticket) => {
-          if (ticket.estado === true) {
-            return <CardDone key={ticket.id} ticket={ticket} />;
-          } else if (ticket.estado === false) {
+          if (ticket.progreso === "CANCELADO") {
             return <CardCancelled key={ticket.id} ticket={ticket} />;
-          } else {
+          } else if (
+            ticket.progreso === "SOLICITADO" ||
+            ticket.progreso === "EN_PROGRESO"
+          ) {
             return <CardinProgress key={ticket.id} ticket={ticket} />;
+          } else if (ticket.progreso === "FINALIZADO") {
+            return <CardDone key={ticket.id} ticket={ticket} />;
           }
         })}
       </div>
     </section>
   );
-};
-
+}
 export default Historial;
