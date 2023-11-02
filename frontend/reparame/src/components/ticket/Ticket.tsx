@@ -37,6 +37,7 @@ const Ticket: React.FC<InputContainerProps> = ({
   let mes = f.getMonth();
   let anio = f.getFullYear();
   const [ticketData, setTicketData] = useState({
+    descripcion: "Ticket de contratacion",
     fechaInicio: `${dia} - ${mes}-${anio}`,
     fechaRequerida: `${dia + 5} - ${mes}-${anio}`,
   });
@@ -51,7 +52,7 @@ const Ticket: React.FC<InputContainerProps> = ({
   };
   const openAlert = () => {
     alertRef.current != null
-      ? (postTicket("servicio.id", ticketData),
+      ? (postTicket(data?.id, ticketData),
         alertRef.current.showModal(),
         setTimeout(() => {
           alertRef.current != null ? alertRef.current.close() : {};
