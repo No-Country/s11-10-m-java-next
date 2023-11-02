@@ -93,7 +93,7 @@ export const DetalleServicio: React.FC<InputContainerProps> = (
 
           <div className="font-semibold text-lg m-5">
             <button className="bg-green-600 text-white py-2 px-3 rounded-md hover:bg-green-700">
-              <Ticket />
+              <Ticket data={data} />
             </button>
           </div>
         </section>
